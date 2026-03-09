@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Search – ResolveAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+        }
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #0f172a;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            margin-left: 32px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+        .search-box {
+            background: white;
+            border-radius: 60px;
+            padding: 8px 8px 8px 24px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 8px 16px -8px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 32px;
+        }
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 16px 0;
+            font-size: 1.1rem;
+            outline: none;
+            background: transparent;
+        }
+        .search-box button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-box button:hover {
+            background: #1d4ed8;
+        }
+        .examples {
+            color: #64748b;
+            margin-bottom: 32px;
+            font-size: 0.9rem;
+        }
+        .examples span {
+            background: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 40px;
+            margin-right: 8px;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .examples span:hover {
+            background: #cbd5e1;
+        }
+        .result-card {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            transition: box-shadow 0.2s;
+        }
+        .result-card:hover {
+            box-shadow: 0 8px 16px -8px rgba(0,0,0,0.1);
+        }
+        .result-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+        .result-meta {
+            display: flex;
+            gap: 24px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .result-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #475569;
+            font-size: 0.95rem;
+        }
+        .result-meta-item a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .result-meta-item a:hover {
+            text-decoration: underline;
+        }
+        .complaint-format {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 0 8px;
+            font-size: 0.9rem;
+            border-left: 4px solid #2563eb;
+            color: #334155;
+        }
+        .predictor-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .predictor-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .predictor-item {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .predictor-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+        .predictor-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0f172a;
+        }
+        .next-steps {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 16px 0 8px;
+        }
+        .next-step-btn {
+            background: #0f172a;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .next-step-btn:hover {
+            background: #1e293b;
+        }
+        .btn-draft {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        .btn-draft:hover {
+            background: #1e293b;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">← Home</a>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Resolve<span>AI</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="about.html">About</a>
+                <a href="knowledge.html">Guide</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="e.g. airtel network issue, bank fraud, refund not received..." value="">
+            <button onclick="performSearch()">Search</button>
+        </div>
+
+        <div class="examples">
+            Try: 
+            <span onclick="setExample('airtel network issue')">📱 airtel network</span>
+            <span onclick="setExample('amazon refund not received')">🛒 amazon refund</span>
+            <span onclick="setExample('builder delay complaint')">🏗️ builder delay</span>
+            <span onclick="setExample('bank fraud')">💳 bank fraud</span>
+        </div>
+
+        <div id="resultsContainer"></div>
+
+        <div class="footer">
+            Results are based on keyword matching. Always verify with official sources.
+        </div>
+    </div>
+
+    <script>
+        // ----------------------------------------------------------------------
+        // Authority data with predictor info
+        // ----------------------------------------------------------------------
+        const authorityData = {
+            "banking": {
+                name: "RBI Ombudsman",
+                website: "https://cms.rbi.org.in",
+                phone: "1800 123 4000",
+                format: "Write to the RBI Ombudsman with your account details, transaction ID, and a clear description of the fraud or unauthorised transaction.",
+                probability: 85,
+                difficulty: "Medium",
+                time: "30–60 days",
+                authority: "RBI Ombudsman"
+            },
+            "airline": {
+                name: "DGCA / AirSewa",
+                website: "https://airsewa.gov.in",
+                phone: "011-24622495",
+                format: "File a complaint on AirSewa portal with your PNR, ticket number, and details of the flight disruption.",
+                probability: 70,
+                difficulty: "Medium",
+                time: "15–30 days",
+                authority: "DGCA / AirSewa"
+            },
+            "ecommerce": {
+                name: "National Consumer Helpline (NCH)",
+                website: "https://consumerhelpline.gov.in",
+                phone: "1915",
+                format: "Register on the NCH portal with order ID, screenshots, and a clear timeline of the issue.",
+                probability: 65,
+                difficulty: "Easy",
+                time: "7–15 days",
+                authority: "National Consumer Helpline"
+            },
+            "telecom": {
+                name: "TRAI / DoT",
+                website: "https://www.tccms.trai.gov.in",
+                phone: "1800 123 7373",
+                format: "Lodge a complaint on the TRAI portal with your mobile number, service provider, and details of the network issue/billing problem.",
+                probability: 75,
+                difficulty: "Medium",
+                time: "30 days",
+                authority: "TRAI"
+            },
+            "insurance": {
+                name: "IRDAI (Bima Bharosa)",
+                website: "https://bimabharosa.irdai.gov.in",
+                phone: "1800 425 4732",
+                format: "Register on Bima Bharosa with policy number, claim details, and all correspondence with the insurer.",
+                probability: 60,
+                difficulty: "Hard",
+                time: "60–90 days",
+                authority: "IRDAI"
+            },
+            "realestate": {
+                name: "RERA (State RERA)",
+                website: "https://rera.delhi.gov.in",
+                phone: "011-23370055",
+                format: "File a complaint with RERA mentioning project name, builder details, and the delay or defect.",
+                probability: 80,
+                difficulty: "Medium",
+                time: "60–120 days",
+                authority: "RERA"
+            },
+            "cybercrime": {
+                name: "Cyber Crime Portal",
+                website: "https://cybercrime.gov.in",
+                phone: "1930",
+                format: "Report online fraud immediately. Provide transaction ID, bank details, and any communication with the fraudster.",
+                probability: 50,
+                difficulty: "Hard",
+                time: "Variable",
+                authority: "Cyber Crime"
+            },
+            "consumerhelpline": {
+                name: "National Consumer Helpline",
+                website: "https://consumerhelpline.gov.in",
+                phone: "1915",
+                format: "Call 1915 or register online with your complaint details. They will provide a docket number for tracking.",
+                probability: 60,
+                difficulty: "Easy",
+                time: "7 days",
+                authority: "NCH"
+            }
+        };
+
+        // ----------------------------------------------------------------------
+        // Keyword mapping
+        // ----------------------------------------------------------------------
+        function getAuthoritiesForQuery(query) {
+            query = query.toLowerCase();
+            let results = [];
+
+            if (query.includes('bank') || query.includes('fraud') || query.includes('sbi') || query.includes('hdfc')) {
+                results.push('banking');
+                if (query.includes('fraud')) results.push('cybercrime');
+            }
+            if (query.includes('airtel') || query.includes('jio') || query.includes('vi') || query.includes('network') || query.includes('mobile') || query.includes('telecom')) {
+                results.push('telecom');
+            }
+            if (query.includes('amazon') || query.includes('flipkart') || query.includes('refund') || query.includes('order') || query.includes('delivery') || query.includes('ecommerce')) {
+                results.push('ecommerce');
+            }
+            if (query.includes('flight') || query.includes('airline') || query.includes('dgca') || query.includes('airsewa') || query.includes('cancellation') || query.includes('baggage')) {
+                results.push('airline');
+            }
+            if (query.includes('builder') || query.includes('rera') || query.includes('real estate') || query.includes('possession') || query.includes('delay')) {
+                results.push('realestate');
+            }
+            if (query.includes('insurance') || query.includes('claim') || query.includes('irdai') || query.includes('policy')) {
+                results.push('insurance');
+            }
+            if (results.length === 0) {
+                results.push('consumerhelpline');
+            } else {
+                if (!results.includes('consumerhelpline')) results.push('consumerhelpline');
+            }
+
+            return [...new Set(results)];
+        }
+
+        // ----------------------------------------------------------------------
+        // Render results with predictor
+        // ----------------------------------------------------------------------
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                alert('Please enter a search term.');
+                return;
+            }
+
+            const keys = getAuthoritiesForQuery(query);
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = '';
+
+            keys.forEach(key => {
+                const auth = authorityData[key];
+                if (!auth) return;
+
+                const card = document.createElement('div');
+                card.className = 'result-card';
+
+                // Determine next steps based on key
+                let nextSteps = '';
+                if (key === 'banking') {
+                    nextSteps = `
+                        <a href="complaint.html?sector=banking" class="next-step-btn">📝 File complaint</a>
+                        <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
+                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\n\nSend a formal notice to the bank citing RBI circular. Demand refund within 15 days.')">⚖️ Send legal notice</a>
+                    `;
+                } else if (key === 'cybercrime') {
+                    nextSteps = `
+                        <a href="https://cybercrime.gov.in" target="_blank" class="next-step-btn">🔗 File on portal</a>
+                        <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
+                    `;
+                } else if (key === 'airline') {
+                    nextSteps = `
+                        <a href="complaint.html?sector=airline" class="next-step-btn">📝 File complaint</a>
+                        <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
+                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\n\nDemand compensation under DGCA rules for flight delay/cancellation.')">⚖️ Send legal notice</a>
+                    `;
+                } else if (key === 'ecommerce') {
+                    nextSteps = `
+                        <a href="complaint.html?sector=ecommerce" class="next-step-btn">📝 File complaint</a>
+                        <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
+                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\n\nDemand refund under Consumer Protection Act.')">⚖️ Send legal notice</a>
+                    `;
+                } else if (key === 'telecom') {
+                    nextSteps = `
+                        <a href="complaint.html?sector=telecom" class="next-step-btn">📝 File complaint</a>
+                        <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
+                    `;
+                } else if (key === 'realestate') {
+                    nextSteps = `
+                        <a href="complaint.html?sector=realestate" class="next-step-btn">📝 File complaint</a>
+                        <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
+                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\n\nDemand possession or refund with interest under RERA.')">⚖️ Send legal notice</a>
+                    `;
+                } else {
+                    nextSteps = `
+                        <a href="complaint.html?sector=ecommerce" class="next-step-btn">📝 File complaint</a>
+                        <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="result-title">${auth.name}</div>
+                    <div class="result-meta">
+                        <div class="result-meta-item">🔗 <a href="${auth.website}" target="_blank">Official Portal</a></div>
+                        <div class="result-meta-item">📞 ${auth.phone}</div>
+                    </div>
+                    <div class="complaint-format">
+                        <strong>Complaint format:</strong> ${auth.format}
+                    </div>
+                    <div class="predictor-box">
+                        <strong>🔮 Complaint Success Predictor</strong>
+                        <div class="predictor-grid">
+                            <div class="predictor-item">
+                                <div class="predictor-label">Success Probability</div>
+                                <div class="predictor-value">${auth.probability}%</div>
+                            </div>
+                            <div class="predictor-item">
+                                <div class="predictor-label">Difficulty</div>
+                                <div class="predictor-value">${auth.difficulty}</div>
+                            </div>
+                            <div class="predictor-item">
+                                <div class="predictor-label">Expected Time</div>
+                                <div class="predictor-value">${auth.time}</div>
+                            </div>
+                            <div class="predictor-item">
+                                <div class="predictor-label">Best Authority</div>
+                                <div class="predictor-value">${auth.authority}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="next-steps">
+                        ${nextSteps}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+
+            if (keys.length === 0) {
+                container.innerHTML = '<div class="no-results">No matching authority found. Try a different term or visit our <a href="knowledge.html">Guide</a>.</div>';
+            }
+        }
+
+        function setExample(text) {
+            document.getElementById('searchInput').value = text;
+            performSearch();
+        }
+    </script>
+</body>
+</html>

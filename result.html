@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resolution Path – ResolveAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 9;
+            margin-bottom: 24px;
+        }
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #0f172a;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            margin-left: 32px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        .card h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+        .sector-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.8rem;
+            margin-bottom: 24px;
+        }
+
+        .steps-container {
+            margin-left: 8px;
+            border-left: 3px solid #e2e8f0;
+            padding-left: 24px;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 32px;
+            position: relative;
+        }
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: #2563eb;
+            color: white;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            left: -38px;
+            margin-right: -20px;
+            box-shadow: 0 0 0 4px white;
+        }
+        .step-content {
+            flex: 1;
+            padding-top: 8px;
+        }
+        .step-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .step-desc {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
+        .regulator-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 32px;
+        }
+        .regulator-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0369a1;
+        }
+        .regulator-desc {
+            color: #475569;
+            margin: 8px 0;
+        }
+        .regulator-link {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .wait-note {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 24px 0 0;
+            font-size: 0.9rem;
+            color: #854d0e;
+        }
+        .checklist-card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        .checklist-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #2563eb;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            display: block;
+            text-align: center;
+            padding: 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 24px;
+            color: #64748b;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">← Home</a>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Resolve<span>AI</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="about.html">About</a>
+                <a href="knowledge.html">Guide</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h2>Your escalation path</h2>
+            <div class="sector-badge" id="sectorDisplay"></div>
+            <div class="steps-container" id="stepsContainer"></div>
+            <div id="regulatorInfo"></div>
+            <div id="waitNote" class="wait-note"></div>
+        </div>
+
+        <div class="checklist-card">
+            <div class="checklist-title">📋 Evidence checklist</div>
+            <div id="checklistItems"></div>
+        </div>
+
+        <a href="draft.html" class="btn-primary">Generate Formal Draft</a>
+        <a href="complaint.html" class="back-link">← Edit your complaint</a>
+    </div>
+
+    <script>
+        const authorityMap = {
+            "banking": {
+                "regulator": "RBI Ombudsman",
+                "description": "Unauthorized charges, fraud, or harassment.",
+                "website": "https://cms.rbi.org.in",
+                "wait_days": 30,
+                "path": ["Customer Care", "Internal Nodal Officer", "Banking Ombudsman"]
+            },
+            "airline": {
+                "regulator": "DGCA / AirSewa",
+                "description": "Flight cancellation, refund delay, or baggage loss.",
+                "website": "https://airsewa.gov.in",
+                "wait_days": 15,
+                "path": ["Airline Helpdesk", "Nodal Officer", "AirSewa Portal", "DGCA"]
+            },
+            "ecommerce": {
+                "regulator": "National Consumer Helpline (NCH)",
+                "description": "Defective products, refund refusal, or fake items.",
+                "website": "https://consumerhelpline.gov.in",
+                "wait_days": 7,
+                "path": ["App Support", "Grievance Officer", "NCH Docket", "Consumer Court"]
+            },
+            "food": {
+                "regulator": "FSSAI (Food Safety)",
+                "description": "Adulteration, unhygienic food, or labeling issues.",
+                "website": "https://foscos.fssai.gov.in",
+                "wait_days": 0,
+                "path": ["Restaurant/Brand", "FSSAI Cloud", "Food Safety Officer"]
+            },
+            "realestate": {
+                "regulator": "RERA (Real Estate Regulatory Authority)",
+                "description": "Possession delay, building quality, or plan changes.",
+                "website": "https://rera.delhi.gov.in",
+                "wait_days": 60,
+                "path": ["Developer", "RERA Conciliation", "RERA Bench"]
+            },
+            "insurance": {
+                "regulator": "IRDAI (Bima Bharosa)",
+                "description": "Claim rejection, policy delay, or mis-selling.",
+                "website": "https://bimabharosa.irdai.gov.in",
+                "wait_days": 30,
+                "path": ["Insurance Agent", "Grievance Officer", "Insurance Ombudsman"]
+            },
+            "telecom": {
+                "regulator": "TRAI / JCP",
+                "description": "Wrong billing, network issues, or DND violations.",
+                "website": "https://www.tccms.trai.gov.in",
+                "wait_days": 30,
+                "path": ["Customer Care", "Appellate Authority", "TRAI / DoT"]
+            }
+        };
+
+        const sectorEvidence = {
+            "ecommerce": ["Invoice Copy", "Unboxing Video", "Support Chat History", "Product Photos"],
+            "fmcg": ["Batch Number Photo", "Purchase Receipt", "Product Packaging Photo", "Lab Report (if any)"],
+            "banking": ["Bank Statement", "Transaction SMS", "Branch Communication Log", "Identity Proof"],
+            "airline": ["Boarding Pass", "Ticket Invoice", "Baggage Tag Copy", "Property Irregularity Report"],
+            "insurance": ["Policy Document", "Premium Receipt", "Claim Rejection Letter", "Medical Records"],
+            "telecom": ["Latest Monthly Bill", "Service Request (SR) Number", "Call logs / Signal Screenshots"],
+            "realestate": ["Sale Agreement", "Payment Receipts", "Possession Letter", "Site Photos"]
+        };
+
+        window.onload = function() {
+            const sector = localStorage.getItem('userSector') || 'ecommerce';
+            document.getElementById('sectorDisplay').innerText = sector.charAt(0).toUpperCase() + sector.slice(1);
+
+            const auth = authorityMap[sector] || authorityMap['ecommerce'];
+
+            const stepsContainer = document.getElementById('stepsContainer');
+            stepsContainer.innerHTML = '';
+            auth.path.forEach((stepTitle, index) => {
+                let description = '';
+                if (index === 0) description = 'Start here. Keep records of all communication.';
+                else if (index === auth.path.length - 1) description = `Final authority: ${auth.regulator}.`;
+                else description = 'Escalate if not resolved in the given timeframe.';
+
+                stepsContainer.innerHTML += `
+                    <div class="step">
+                        <div class="step-icon">${index+1}</div>
+                        <div class="step-content">
+                            <div class="step-title">${stepTitle}</div>
+                            <div class="step-desc">${description}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('regulatorInfo').innerHTML = `
+                <div class="regulator-box">
+                    <div class="regulator-name">${auth.regulator}</div>
+                    <div class="regulator-desc">${auth.description}</div>
+                    <a href="${auth.website}" target="_blank" class="regulator-link">Visit official website</a>
+                </div>
+            `;
+
+            const waitDiv = document.getElementById('waitNote');
+            if (auth.wait_days > 0) {
+                waitDiv.innerHTML = `⏳ Wait at least <strong>${auth.wait_days} days</strong> after internal escalation before approaching the regulator.`;
+            } else {
+                waitDiv.innerHTML = `⚠️ You can approach the regulator immediately for this issue.`;
+            }
+
+            const items = sectorEvidence[sector] || sectorEvidence['ecommerce'];
+            const checklist = document.getElementById('checklistItems');
+            checklist.innerHTML = '';
+            items.forEach(item => {
+                checklist.innerHTML += `
+                    <div class="checklist-item">
+                        <input type="checkbox"> ${item}
+                    </div>
+                `;
+            });
+        };
+    </script>
+</body>
+</html>

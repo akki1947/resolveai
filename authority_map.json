@@ -1,0 +1,51 @@
+{
+  "banking": {
+    "regulator": "RBI Ombudsman",
+    "description": "Unauthorized charges, fraud, or harassment.",
+    "website": "https://cms.rbi.org.in",
+    "wait_days": 30,
+    "path": ["Customer Care", "Internal Nodal Officer", "Banking Ombudsman"]
+  },
+  "airline": {
+    "regulator": "DGCA / AirSewa",
+    "description": "Flight cancellation, refund delay, or baggage loss.",
+    "website": "https://airsewa.gov.in",
+    "wait_days": 15,
+    "path": ["Airline Helpdesk", "Nodal Officer", "AirSewa Portal", "DGCA"]
+  },
+  "ecommerce": {
+    "regulator": "National Consumer Helpline (NCH)",
+    "description": "Defective products, refund refusal, or fake items.",
+    "website": "https://consumerhelpline.gov.in",
+    "wait_days": 7,
+    "path": ["App Support", "Grievance Officer", "NCH Docket", "Consumer Court"]
+  },
+  "food": {
+    "regulator": "FSSAI (Food Safety)",
+    "description": "Adulteration, unhygienic food, or labeling issues.",
+    "website": "https://foscos.fssai.gov.in",
+    "wait_days": 0,
+    "path": ["Restaurant/Brand", "FSSAI Cloud", "Food Safety Officer"]
+  },
+  "realestate": {
+    "regulator": "RERA (Real Estate Regulatory Authority)",
+    "description": "Possession delay, building quality, or plan changes.",
+    "website": "https://rera.delhi.gov.in",
+    "wait_days": 60,
+    "path": ["Developer", "RERA Conciliation", "RERA Bench"]
+  },
+  "insurance": {
+    "regulator": "IRDAI (Bima Bharosa)",
+    "description": "Claim rejection, policy delay, or mis-selling.",
+    "website": "https://bimabharosa.irdai.gov.in",
+    "wait_days": 30,
+    "path": ["Insurance Agent", "Grievance Officer", "Insurance Ombudsman"]
+  },
+  "telecom": {
+    "regulator": "TRAI / JCP",
+    "description": "Wrong billing, network issues, or DND violations.",
+    "website": "https://www.tccms.trai.gov.in",
+    "wait_days": 30,
+    "path": ["Customer Care", "Appellate Authority", "TRAI / DoT"]
+  }
+}

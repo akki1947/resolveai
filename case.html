@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Case – ResolveAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            margin: 40px 0;
+        }
+        .case-header {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+        .case-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+        .case-meta {
+            display: flex;
+            gap: 16px;
+            color: #64748b;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+        .status-badge {
+            display: inline-block;
+            background: #fef9c3;
+            color: #854d0e;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .case-detail {
+            display: flex;
+            margin-bottom: 16px;
+        }
+        .case-detail-label {
+            width: 120px;
+            font-weight: 600;
+            color: #475569;
+        }
+        .case-detail-value {
+            color: #1e293b;
+            flex: 1;
+        }
+        .share-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .share-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .share-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #cbd5e1;
+            transition: background 0.2s;
+        }
+        .share-btn:hover {
+            background: #e2e8f0;
+        }
+        .error {
+            text-align: center;
+            color: #b91c1c;
+            padding: 40px;
+        }
+        .footer {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">← Home</a>
+    <div class="card" id="caseCard">
+        <!-- Content will be filled by JavaScript -->
+    </div>
+
+    <script>
+        async function loadCase() {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            if (!slug) {
+                document.getElementById('caseCard').innerHTML = '<div class="error">No case specified.</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/get-complaint?slug=${slug}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Case not found');
+                }
+
+                displayCase(data);
+            } catch (error) {
+                document.getElementById('caseCard').innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+
+        function displayCase(data) {
+            const card = document.getElementById('caseCard');
+            card.innerHTML = `
+                <div class="case-header">
+                    <div class="case-title">${data.title}</div>
+                    <div class="case-meta">
+                        <span>📅 Filed on: ${new Date(data.date_created).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                        <span class="status-badge">${data.status}</span>
+                    </div>
+                </div>
+                <div class="case-detail">
+                    <div class="case-detail-label">Authority</div>
+                    <div class="case-detail-value">${data.authority}</div>
+                </div>
+                <div class="case-detail">
+                    <div class="case-detail-label">Amount involved</div>
+                    <div class="case-detail-value">₹${data.amount}</div>
+                </div>
+                <div class="case-detail">
+                    <div class="case-detail-label">Sector</div>
+                    <div class="case-detail-value">${data.sector}</div>
+                </div>
+                <div class="case-detail">
+                    <div class="case-detail-label">Description</div>
+                    <div class="case-detail-value">${data.description}</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-title">📢 Share this case</div>
+                    <div class="share-grid">
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(data.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn">𝕏 Twitter</a>
+                        <a href="https://wa.me/?text=${encodeURIComponent(data.title + ' ' + window.location.href)}" target="_blank" class="share-btn">📱 WhatsApp</a>
+                        <a href="https://www.reddit.com/submit?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(data.title)}" target="_blank" class="share-btn">👽 Reddit</a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn">💼 LinkedIn</a>
+                    </div>
+                </div>
+            `;
+
+            // Update page title and meta tags for SEO
+            document.title = `${data.title} - ResolveAI`;
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', data.description.substring(0, 160));
+        }
+
+        window.onload = loadCase;
+    </script>
+    <div class="footer">
+        This is a public case page created by ResolveAI. Information is as provided by the user.
+    </div>
+</body>
+</html>
