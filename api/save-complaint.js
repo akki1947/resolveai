@@ -5,6 +5,13 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
+// Helper to generate a unique public ID (e.g., CR-483920)
+function generatePublicId() {
+  const randomNum = Math.floor(100000 + Math.random() * 900000); // 6-digit number
+  return `CR-${randomNum}`;
+}
+
+// Helper to generate a URL‑friendly slug (still used for SEO, but not in public URL)
 function generateSlug(title) {
   return title
     .toLowerCase()
@@ -16,29 +23,26 @@ function generateSlug(title) {
 }
 
 export default async function handler(req, res) {
-  console.log('Function invoked with method:', req.method);
-  
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const { title, description, sector, orderId, amount, authority, status } = req.body;
-  console.log('Received data:', { title, description, sector, orderId, amount, authority, status });
 
   if (!title || !description) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
   const slug = generateSlug(title);
-  console.log('Generated slug:', slug);
+  const publicId = generatePublicId();
 
   try {
-    console.log('Attempting Supabase insert...');
     const { data, error } = await supabase
       .from('complaints')
       .insert([
         {
           slug,
+          public_id: publicId,
           title,
           description,
           sector,
@@ -51,19 +55,18 @@ export default async function handler(req, res) {
       .select();
 
     if (error) {
-      console.error('Supabase insert error details:', error);
-      return res.status(500).json({ error: error.message, details: error });
+      console.error('Supabase insert error:', error);
+      return res.status(500).json({ error: error.message });
     }
-
-    console.log('Insert successful, data:', data);
 
     const baseUrl = process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
       : 'http://localhost:3000';
     
-    res.status(200).json({ url: `${baseUrl}/case?slug=${slug}` });
+    // Return the new URL with public_id
+    res.status(200).json({ url: `${baseUrl}/case?public_id=${publicId}` });
   } catch (err) {
-    console.error('Unexpected exception:', err);
-    res.status(500).json({ error: err.message, stack: err.stack });
+    console.error('Unexpected error:', err);
+    res.status(500).json({ error: err.message });
   }
 }

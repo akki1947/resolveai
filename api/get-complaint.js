@@ -6,25 +6,27 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  const { slug } = req.query;
+  const { public_id, slug } = req.query; // allow both for backward compatibility
   
-  if (!slug) {
-    return res.status(400).json({ error: 'Missing slug' });
+  if (!public_id && !slug) {
+    return res.status(400).json({ error: 'Missing public_id or slug' });
   }
 
   try {
-    // Fetch complaint by slug
-    const { data: complaint, error: fetchError } = await supabase
-      .from('complaints')
-      .select('*')
-      .eq('slug', slug)
-      .single();
+    let query = supabase.from('complaints').select('*');
+    if (public_id) {
+      query = query.eq('public_id', public_id);
+    } else {
+      query = query.eq('slug', slug);
+    }
+    
+    const { data: complaint, error: fetchError } = await query.single();
 
     if (fetchError || !complaint) {
       return res.status(404).json({ error: 'Case not found' });
     }
 
-    // Increment view count (optional)
+    // Increment view count
     await supabase
       .from('complaints')
       .update({ views: (complaint.views || 0) + 1 })
