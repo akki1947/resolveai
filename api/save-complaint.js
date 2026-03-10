@@ -5,13 +5,11 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
-// Helper to generate a unique public ID (e.g., CR-483920)
 function generatePublicId() {
-  const randomNum = Math.floor(100000 + Math.random() * 900000); // 6-digit number
+  const randomNum = Math.floor(100000 + Math.random() * 900000);
   return `CR-${randomNum}`;
 }
 
-// Helper to generate a URL‑friendly slug (still used for SEO, but not in public URL)
 function generateSlug(title) {
   return title
     .toLowerCase()
@@ -56,17 +54,24 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('Supabase insert error:', error);
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({ 
+        error: 'Database error', 
+        details: error.message,
+        code: error.code
+      });
     }
 
     const baseUrl = process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
       : 'http://localhost:3000';
     
-    // Return the new URL with public_id
     res.status(200).json({ url: `${baseUrl}/case?public_id=${publicId}` });
   } catch (err) {
-    console.error('Unexpected error:', err);
-    res.status(500).json({ error: err.message });
+    console.error('Unexpected exception:', err);
+    res.status(500).json({ 
+      error: 'Server error', 
+      details: err.message,
+      stack: err.stack
+    });
   }
 }
