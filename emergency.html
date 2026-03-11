@@ -397,6 +397,42 @@
                             "website": "https://pune.gov.in"
                         }
                     ]
+                },
+                {
+                    "state": "Tamil Nadu",
+                    "website": "https://tn.gov.in",
+                    "major_cities": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+                    "emergency_numbers": {
+                        "police": "100",
+                        "ambulance": "108",
+                        "fire": "101",
+                        "unified": "112",
+                        "state_disaster_control": "1070"
+                    },
+                    "districts": [
+                        {
+                            "district": "Chennai",
+                            "major_city": "Chennai",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://chennai.nic.in"
+                        },
+                        {
+                            "district": "Coimbatore",
+                            "major_city": "Coimbatore",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://coimbatore.nic.in"
+                        }
+                    ]
                 }
             ]
         };
@@ -442,19 +478,29 @@
             const contactsDiv = document.getElementById('districtContacts');
             
             districtSelect.innerHTML = '<option value="">-- Select District --</option>';
-            districtSelect.disabled = !stateName;
             contactsDiv.innerHTML = '';
 
-            if (!stateName) return;
+            if (!stateName) {
+                districtSelect.disabled = true;
+                return;
+            }
 
+            districtSelect.disabled = false;
             const state = emergencyData.states.find(s => s.state === stateName);
-            if (state && state.districts) {
+            
+            if (state && state.districts && state.districts.length > 0) {
                 state.districts.forEach(d => {
                     const option = document.createElement('option');
                     option.value = d.district;
                     option.textContent = `${d.district} (${d.major_city})`;
                     districtSelect.appendChild(option);
                 });
+            } else {
+                const option = document.createElement('option');
+                option.value = "";
+                option.textContent = "No districts available";
+                option.disabled = true;
+                districtSelect.appendChild(option);
             }
         }
 
