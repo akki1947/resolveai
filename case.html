@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -35,6 +36,39 @@
         }
         .home-link:hover {
             background: #f8fafc;
+        }
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #0f172a;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            margin-left: 32px;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
         }
         .card {
             background: white;
@@ -121,9 +155,58 @@
             gap: 8px;
             border: 1px solid #cbd5e1;
             transition: background 0.2s;
+            cursor: pointer;
         }
         .share-btn:hover {
             background: #e2e8f0;
+        }
+        .template-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .template-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .template-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .template-card h4 {
+            margin-bottom: 8px;
+            color: #2563eb;
+        }
+        .template-text {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            border: 1px solid #e2e8f0;
+            word-break: break-word;
+        }
+        .copy-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        .copy-btn:hover {
+            background: #1e293b;
         }
         .error {
             text-align: center;
@@ -140,6 +223,41 @@
 </head>
 <body>
     <a href="index.html" class="home-link">← Home</a>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Resolve<span>AI</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
+                <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
+
     <div class="card" id="caseCard">
         <!-- Content will be filled by JavaScript -->
     </div>
@@ -182,20 +300,49 @@
                 realestate: '@RERA_India',
                 insurance: '@IRDAI'
             };
-            // Try to match the sector key
             for (let key in handles) {
                 if (sectorLower.includes(key)) {
                     return handles[key];
                 }
             }
-            return '@ConsumerForum'; // default
+            return '@ConsumerForum';
+        }
+
+        function getHashtags(sector) {
+            const sectorLower = (sector || '').toLowerCase();
+            const tags = {
+                ecommerce: '#ConsumerRights #Ecommerce #Refund',
+                banking: '#Banking #FraudAlert #RBI',
+                telecom: '#Telecom #Airtel #Jio #NetworkIssue',
+                airline: '#Aviation #FlightDelay #DGCA',
+                realestate: '#RERA #BuilderDelay #Property',
+                insurance: '#Insurance #ClaimRejection #IRDAI'
+            };
+            for (let key in tags) {
+                if (sectorLower.includes(key)) {
+                    return tags[key];
+                }
+            }
+            return '#ConsumerRights';
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
         }
 
         function displayCase(data) {
             const card = document.getElementById('caseCard');
             const handle = getCompanyHandle(data.sector);
+            const hashtags = getHashtags(data.sector);
             const shareText = encodeURIComponent(`My complaint: ${data.title}. Please resolve ${handle} #ConsumerRights`);
             const shareUrl = encodeURIComponent(window.location.href);
+
+            const twitterTemplate = `${data.title} – Please resolve ${handle} ${hashtags} Case details: ${window.location.href}`;
+            const linkedinTemplate = `I have filed a complaint regarding ${data.title} with ${data.authority}. The issue: ${data.description}. I request ${handle} to look into this urgently. ${hashtags}`;
+            const facebookTemplate = `📢 Complaint Update: ${data.title}\n\nSector: ${data.sector}\nAuthority: ${data.authority}\nStatus: ${data.status}\n\nDetails: ${data.description}\n\nPlease help resolve @${handle}\n\nCase link: ${window.location.href}`;
+            const whatsappTemplate = `*Complaint Update*: ${data.title}\nSector: ${data.sector}\nAuthority: ${data.authority}\nStatus: ${data.status}\nDetails: ${data.description}\nPlease resolve ${handle}\nCase link: ${window.location.href}`;
 
             card.innerHTML = `
                 <div class="case-header">
@@ -222,8 +369,9 @@
                     <div class="case-detail-label">Description</div>
                     <div class="case-detail-value">${data.description}</div>
                 </div>
+                
                 <div class="share-section">
-                    <div class="share-title">📢 Share this case – tag the company</div>
+                    <div class="share-title">📢 Quick Share</div>
                     <div class="share-grid">
                         <a href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank" class="share-btn">𝕏 Twitter</a>
                         <a href="https://wa.me/?text=${shareText}%20${shareUrl}" target="_blank" class="share-btn">📱 WhatsApp</a>
@@ -231,9 +379,34 @@
                         <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}" target="_blank" class="share-btn">💼 LinkedIn</a>
                     </div>
                 </div>
+
+                <div class="template-section">
+                    <div class="template-title">📝 One-Click Copy Templates</div>
+                    <div class="template-grid">
+                        <div class="template-card">
+                            <h4>𝕏 Twitter</h4>
+                            <div class="template-text" id="twitter-text">${twitterTemplate}</div>
+                            <button class="copy-btn" onclick="copyToClipboard(document.getElementById('twitter-text').innerText)">Copy</button>
+                        </div>
+                        <div class="template-card">
+                            <h4>💼 LinkedIn</h4>
+                            <div class="template-text" id="linkedin-text">${linkedinTemplate}</div>
+                            <button class="copy-btn" onclick="copyToClipboard(document.getElementById('linkedin-text').innerText)">Copy</button>
+                        </div>
+                        <div class="template-card">
+                            <h4>📘 Facebook</h4>
+                            <div class="template-text" id="facebook-text">${facebookTemplate}</div>
+                            <button class="copy-btn" onclick="copyToClipboard(document.getElementById('facebook-text').innerText)">Copy</button>
+                        </div>
+                        <div class="template-card">
+                            <h4>📱 WhatsApp</h4>
+                            <div class="template-text" id="whatsapp-text">${whatsappTemplate}</div>
+                            <button class="copy-btn" onclick="copyToClipboard(document.getElementById('whatsapp-text').innerText)">Copy</button>
+                        </div>
+                    </div>
+                </div>
             `;
 
-            // Update page title and meta description for SEO
             document.title = `${data.title} - ResolveAI`;
             const metaDesc = document.querySelector('meta[name="description"]');
             if (metaDesc) metaDesc.setAttribute('content', data.description.substring(0, 160));

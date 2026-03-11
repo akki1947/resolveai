@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -16,13 +17,30 @@
             color: #1e293b;
             line-height: 1.6;
         }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
         header {
             background: white;
             border-bottom: 1px solid #e2e8f0;
             padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            margin-bottom: 24px;
         }
         .header-content {
             max-width: 1100px;
@@ -36,6 +54,7 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: #0f172a;
+            letter-spacing: -0.02em;
             text-decoration: none;
         }
         .logo span {
@@ -46,6 +65,7 @@
             text-decoration: none;
             margin-left: 32px;
             font-weight: 500;
+            font-size: 0.95rem;
         }
         .nav-links a:hover {
             color: #2563eb;
@@ -196,6 +216,7 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Home</a>
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
@@ -203,17 +224,40 @@
                 <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
             </div>
         </div>
     </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
 
     <div class="container">
         <h1>Builder Delay Complaint RERA India – Complete Guide 2026</h1>
         <div class="meta">Updated: March 2026 | Based on RERA Act 2016 and state RERA regulations</div>
 
         <div class="section">
-            <p>If your builder has delayed possession beyond the promised date, you have strong legal rights under RERA. This guide explains your options, the complaint process, and how to claim compensation. [citation:4][citation:8]</p>
+            <p>If your builder has delayed possession beyond the promised date, you have strong legal rights under RERA. This guide explains your options, the complaint process, and how to claim compensation. </p>
         </div>
 
         <div class="section">
@@ -224,14 +268,14 @@
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <div class="step-title">Continue with project and claim interest</div>
-                        <p>You can stay in the project and the builder must pay <strong>interest for every month of delay</strong> until possession. The interest rate is typically SBI MCLR + 2% (approx 10-11% currently). [citation:4][citation:6]</p>
+                        <p>You can stay in the project and the builder must pay <strong>interest for every month of delay</strong> until possession. The interest rate is typically SBI MCLR + 2% (approx 10-11% currently). </p>
                     </div>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <div class="step-title">Withdraw and get full refund with interest</div>
-                        <p>You can exit the project and claim a <strong>full refund of the entire amount paid, along with interest</strong>. The builder must refund within the statutory timeline. [citation:4]</p>
+                        <p>You can exit the project and claim a <strong>full refund of the entire amount paid, along with interest</strong>. The builder must refund within the statutory timeline. </p>
                     </div>
                 </div>
             </div>
@@ -242,14 +286,14 @@
             <p>Check two documents:</p>
             <ul style="margin-left: 20px; margin-bottom: 20px;">
                 <li>The <strong>Agreement for Sale</strong> – has the promised possession date.</li>
-                <li>The <strong>MahaRERA / UP RERA portal</strong> – the date declared by the builder during registration must match. [citation:4]</li>
+                <li>The <strong>MahaRERA / UP RERA portal</strong> – the date declared by the builder during registration must match. </li>
             </ul>
-            <p>If the builder has taken an <strong>extension</strong>, check if it was legitimately approved by RERA. Unjustified extensions can be challenged. [citation:4]</p>
+            <p>If the builder has taken an <strong>extension</strong>, check if it was legitimately approved by RERA. Unjustified extensions can be challenged. </p>
         </div>
 
         <div class="section">
             <h2>📄 Step 2: Send a Formal Notice to the Builder</h2>
-            <p>Before filing a complaint, send a legal notice under Section 35 of the Consumer Protection Act. This shows you attempted resolution. [citation:6]</p>
+            <p>Before filing a complaint, send a legal notice under Section 35 of the Consumer Protection Act. This shows you attempted resolution. </p>
             <div class="contact-card">
                 <h3>Notice Should Include:</h3>
                 <ul style="margin-left: 20px;">
@@ -264,7 +308,7 @@
 
         <div class="section">
             <h2>🏛️ Step 3: File Complaint with RERA</h2>
-            <p>RERA complaints are filed online with the state RERA authority. [citation:8][citation:10]</p>
+            <p>RERA complaints are filed online with the state RERA authority. </p>
             
             <table>
                 <tr>
@@ -275,17 +319,17 @@
                 <tr>
                     <td>Maharashtra (MahaRERA)</td>
                     <td><a href="https://maharera.mahaonline.gov.in" target="_blank">maharera.mahaonline.gov.in</a></td>
-                    <td>Most active; complaints resolved in 60 days typically [citation:4]</td>
+                    <td>Most active; complaints resolved in 60 days typically </td>
                 </tr>
                 <tr>
                     <td>Uttar Pradesh (UP RERA)</td>
                     <td><a href="https://up-rera.in" target="_blank">up-rera.in</a></td>
-                    <td>Covers Noida, Greater Noida, Lucknow [citation:8]</td>
+                    <td>Covers Noida, Greater Noida, Lucknow </td>
                 </tr>
                 <tr>
                     <td>Andhra Pradesh (AP RERA)</td>
                     <td><a href="https://www.rera.ap.gov.in" target="_blank">rera.ap.gov.in</a></td>
-                    <td>Detailed online filing system [citation:10]</td>
+                    <td>Detailed online filing system </td>
                 </tr>
             </table>
 
@@ -300,7 +344,7 @@
                 </ul>
             </div>
 
-            <p><strong>Filing fee:</strong> Varies by state – typically ₹5,000-₹10,000 for individual complaints. [citation:10]</p>
+            <p><strong>Filing fee:</strong> Varies by state – typically ₹5,000-₹10,000 for individual complaints. </p>
         </div>
 
         <div class="section">
@@ -316,21 +360,21 @@
                 <div class="step-number">2</div>
                 <div class="step-content">
                     <div class="step-title">Hearings</div>
-                    <p>Both sides present evidence. RERA aims to resolve within <strong>60 days</strong>. [citation:4]</p>
+                    <p>Both sides present evidence. RERA aims to resolve within <strong>60 days</strong>. </p>
                 </div>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
                     <div class="step-title">Order</div>
-                    <p>RERA can order interest payment, refund, or compensation. Orders are enforceable as arrears of land revenue. [citation:4]</p>
+                    <p>RERA can order interest payment, refund, or compensation. Orders are enforceable as arrears of land revenue. </p>
                 </div>
             </div>
         </div>
 
         <div class="section">
             <h2>⚖️ Alternative: Consumer Court (E-Daakhil)</h2>
-            <p>You can also file in consumer court, especially if seeking higher compensation. [citation:6]</p>
+            <p>You can also file in consumer court, especially if seeking higher compensation. </p>
             <div class="contact-card">
                 <p><strong>E-Daakhil Portal:</strong> <a href="https://edaakhil.nic.in" target="_blank">edaakhil.nic.in</a></p>
                 <p>No lawyer needed for claims up to ₹50 lakh.</p>

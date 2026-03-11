@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -37,7 +38,6 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: #0f172a;
-            letter-spacing: -0.02em;
             text-decoration: none;
         }
         .logo span {
@@ -238,17 +238,39 @@
 </head>
 <body>
     <header>
-        <div class="container header-content">
+        <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
-                <a href="about.html">About</a>
+                <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
             </div>
         </div>
     </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
 
     <section class="hero">
         <div class="container">
@@ -287,7 +309,6 @@
         </div>
     </section>
 
-    <!-- Popular Complaint Guides Section -->
     <section class="popular-guides">
         <div class="container">
             <h2 class="section-title">📚 Popular Complaint Guides</h2>

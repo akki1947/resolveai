@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complaint Search – ResolveAI</title>
+    <meta name="description" content="Search for any consumer issue and find the right authority, contact details, and complaint format instantly.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -52,7 +54,6 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: #0f172a;
-            letter-spacing: -0.02em;
             text-decoration: none;
         }
         .logo span {
@@ -254,11 +255,33 @@
                 <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
-                <a href="about.html">About</a>
+                <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
             </div>
         </div>
     </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
 
     <div class="container">
         <div class="search-box">
@@ -430,7 +453,7 @@
                     nextSteps = `
                         <a href="complaint.html?sector=banking" class="next-step-btn">📝 File complaint</a>
                         <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
-                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\n\nSend a formal notice to the bank citing RBI circular. Demand refund within 15 days.')">⚖️ Send legal notice</a>
+                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\\n\\nSend a formal notice to the bank citing RBI circular. Demand refund within 15 days.')">⚖️ Send legal notice</a>
                     `;
                 } else if (key === 'cybercrime') {
                     nextSteps = `
@@ -441,13 +464,13 @@
                     nextSteps = `
                         <a href="complaint.html?sector=airline" class="next-step-btn">📝 File complaint</a>
                         <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
-                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\n\nDemand compensation under DGCA rules for flight delay/cancellation.')">⚖️ Send legal notice</a>
+                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\\n\\nDemand compensation under DGCA rules for flight delay/cancellation.')">⚖️ Send legal notice</a>
                     `;
                 } else if (key === 'ecommerce') {
                     nextSteps = `
                         <a href="complaint.html?sector=ecommerce" class="next-step-btn">📝 File complaint</a>
                         <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
-                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\n\nDemand refund under Consumer Protection Act.')">⚖️ Send legal notice</a>
+                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\\n\\nDemand refund under Consumer Protection Act.')">⚖️ Send legal notice</a>
                     `;
                 } else if (key === 'telecom') {
                     nextSteps = `
@@ -458,7 +481,7 @@
                     nextSteps = `
                         <a href="complaint.html?sector=realestate" class="next-step-btn">📝 File complaint</a>
                         <a href="advisor.html" class="next-step-btn">🤖 Ask AI Advisor</a>
-                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\n\nDemand possession or refund with interest under RERA.')">⚖️ Send legal notice</a>
+                        <a href="#" class="next-step-btn" onclick="alert('Legal notice template:\\n\\nDemand possession or refund with interest under RERA.')">⚖️ Send legal notice</a>
                     `;
                 } else {
                     nextSteps = `

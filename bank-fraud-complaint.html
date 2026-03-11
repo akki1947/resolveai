@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -16,13 +17,30 @@
             color: #1e293b;
             line-height: 1.6;
         }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
         header {
             background: white;
             border-bottom: 1px solid #e2e8f0;
             padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            margin-bottom: 24px;
         }
         .header-content {
             max-width: 1100px;
@@ -36,6 +54,7 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: #0f172a;
+            letter-spacing: -0.02em;
             text-decoration: none;
         }
         .logo span {
@@ -46,6 +65,7 @@
             text-decoration: none;
             margin-left: 32px;
             font-weight: 500;
+            font-size: 0.95rem;
         }
         .nav-links a:hover {
             color: #2563eb;
@@ -194,6 +214,7 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Home</a>
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
@@ -201,26 +222,49 @@
                 <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
             </div>
         </div>
     </header>
 
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
+
     <div class="container">
         <h1>Bank Fraud Complaint India – Complete Guide 2026</h1>
-        <div class="meta">Updated: March 2026 | RBI Integrated Ombudsman Scheme 2026 effective from July 1 [citation:7][citation:9]</div>
+        <div class="meta">Updated: March 2026 | RBI Integrated Ombudsman Scheme 2026 effective from July 1</div>
 
         <div class="section">
             <p>If you've experienced unauthorised transactions, phishing fraud, or wrongful charges, act immediately. This guide covers every step from bank complaint to RBI Ombudsman and cyber crime reporting.</p>
             
             <div class="highlight-box">
-                <strong>🚨 First 3 Days are Critical:</strong> Under RBI rules, if you report fraud within 3 days, your liability is <strong>zero</strong>. After 3 days, limited liability applies. [citation:6]
+                <strong>🚨 First 3 Days are Critical:</strong> Under RBI rules, if you report fraud within 3 days, your liability is <strong>zero</strong>. After 3 days, limited liability applies.
             </div>
         </div>
 
         <div class="section">
             <h2>📞 Step 1: Immediate Action – Call 1930 (Cyber Crime Helpline)</h2>
-            <p>If money was fraudulently debited, call <strong>1930</strong> immediately. This is the national cyber crime helpline. [citation:6]</p>
+            <p>If money was fraudulently debited, call <strong>1930</strong> immediately. This is the national cyber crime helpline.</p>
             <div class="contact-card">
                 <div class="contact-item">
                     <span class="contact-label">📞 Helpline:</span>
@@ -236,7 +280,7 @@
 
         <div class="section">
             <h2>🏦 Step 2: Complain to Your Bank Immediately</h2>
-            <p>Even after calling 1930, you must formally complain to your bank. [citation:6]</p>
+            <p>Even after calling 1930, you must formally complain to your bank.</p>
             
             <div class="step">
                 <div class="step-number">1</div>
@@ -256,14 +300,14 @@
                 <div class="step-number">3</div>
                 <div class="step-content">
                     <div class="step-title">Wait 30 days (mandatory)</div>
-                    <p>You must give the bank 30 days to resolve. If unsatisfied or no response, you can escalate. [citation:9]</p>
+                    <p>You must give the bank 30 days to resolve. If unsatisfied or no response, you can escalate.</p>
                 </div>
             </div>
         </div>
 
         <div class="section">
             <h2>⚖️ Step 3: RBI Ombudsman (Effective July 1, 2026 – New Scheme)</h2>
-            <p>The Reserve Bank-Integrated Ombudsman Scheme (RB-IOS) 2026 launches on July 1, 2026. It simplifies filing and increases compensation limits. [citation:7][citation:9]</p>
+            <p>The Reserve Bank-Integrated Ombudsman Scheme (RB-IOS) 2026 launches on July 1, 2026. It simplifies filing and increases compensation limits.</p>
             
             <div class="compensation-box">
                 <h3>💰 New Compensation Limits (from July 2026)</h3>
@@ -275,7 +319,7 @@
                     <span class="contact-label">Mental harassment / expenses:</span>
                     <span class="contact-value"><strong>Up to ₹3 lakh</strong></span>
                 </div>
-                <p>No limit on the dispute amount – only the compensation is capped. [citation:9]</p>
+                <p>No limit on the dispute amount – only the compensation is capped.</p>
             </div>
 
             <div class="contact-card">
@@ -292,13 +336,13 @@
                     <span class="contact-label">📮 Postal:</span>
                     <span class="contact-value">Centralised Receipt and Processing Centre, RBI, Chandigarh</span>
                 </div>
-                <p><strong>Timeline:</strong> File within 90 days after bank's final reply or 30 days of no reply. [citation:9]</p>
+                <p><strong>Timeline:</strong> File within 90 days after bank's final reply or 30 days of no reply.</p>
             </div>
         </div>
 
         <div class="section">
             <h2>💳 Step 4: Chargeback (For Credit Card Frauds)</h2>
-            <p>Credit cards have a global dispute mechanism called chargeback. [citation:6]</p>
+            <p>Credit cards have a global dispute mechanism called chargeback.</p>
             <div class="contact-card">
                 <h3>How to Request Chargeback</h3>
                 <p>Email your bank with subject: <strong>"Chargeback Request – Reason Code [CODE]"</strong></p>

@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -16,13 +17,30 @@
             color: #1e293b;
             line-height: 1.6;
         }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
         header {
             background: white;
             border-bottom: 1px solid #e2e8f0;
             padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            margin-bottom: 24px;
         }
         .header-content {
             max-width: 1100px;
@@ -36,6 +54,7 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: #0f172a;
+            letter-spacing: -0.02em;
             text-decoration: none;
         }
         .logo span {
@@ -46,6 +65,7 @@
             text-decoration: none;
             margin-left: 32px;
             font-weight: 500;
+            font-size: 0.95rem;
         }
         .nav-links a:hover {
             color: #2563eb;
@@ -133,6 +153,15 @@
             font-size: 1.2rem;
             margin-bottom: 8px;
         }
+        .disclaimer {
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 0.9rem;
+            color: #854d0e;
+        }
         .generator-box {
             background: #f8fafc;
             border-radius: 20px;
@@ -169,9 +198,6 @@
             display: inline-block;
             margin: 8px 8px 0 0;
         }
-        .btn-secondary:hover {
-            background: #1e293b;
-        }
         .footer {
             text-align: center;
             color: #94a3b8;
@@ -180,18 +206,10 @@
             padding-top: 24px;
             border-top: 1px solid #e2e8f0;
         }
-        .disclaimer {
-            background: #fef9c3;
-            border: 1px solid #fde047;
-            border-radius: 12px;
-            padding: 16px;
-            margin: 24px 0;
-            font-size: 0.9rem;
-            color: #854d0e;
-        }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Home</a>
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
@@ -199,17 +217,40 @@
                 <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
             </div>
         </div>
     </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
 
     <div class="container">
         <h1>How to Complain Against Amazon India – Complete Guide 2026</h1>
         <div class="meta">Updated: March 2026 | Based on latest consumer protection laws and Amazon policies</div>
 
         <div class="section">
-            <p>If you've received a defective product, a refund delay, or poor service from Amazon India, you have multiple options to seek resolution. This guide covers every step from contacting Amazon customer care to filing a consumer court case. [citation:1]</p>
+            <p>If you've received a defective product, a refund delay, or poor service from Amazon India, you have multiple options to seek resolution. This guide covers every step from contacting Amazon customer care to filing a consumer court case. </p>
             
             <div class="disclaimer">
                 ⚖️ <strong>Legal Note:</strong> Under the Consumer Protection Act 2019, you have the right to seek redressal for defective products, refund delays, and unfair trade practices.
@@ -218,7 +259,7 @@
 
         <div class="section">
             <h2>📞 Option 1: Contact Amazon India Customer Support</h2>
-            <p>Always start here – most complaints are resolved at this level. [citation:1]</p>
+            <p>Always start here – most complaints are resolved at this level. </p>
             
             <div class="contact-card">
                 <h3>Amazon India Contact Details</h3>
@@ -236,16 +277,16 @@
                 </div>
                 <div class="contact-item">
                     <span class="contact-label">📮 Postal:</span>
-                    <span class="contact-value">26/1, Brigade World Trade Centre, 10th Floor, Dr. Raj Kumar Road, Malleshwaram (W), Bangalore – 560055 [citation:1]</span>
+                    <span class="contact-value">26/1, Brigade World Trade Centre, 10th Floor, Dr. Raj Kumar Road, Malleshwaram (W), Bangalore – 560055 </span>
                 </div>
             </div>
 
-            <p><strong>Pro Tip:</strong> Always ask for a <strong>Complaint Reference Number / Ticket ID</strong>. Without this, you cannot escalate. [citation:6]</p>
+            <p><strong>Pro Tip:</strong> Always ask for a <strong>Complaint Reference Number / Ticket ID</strong>. Without this, you cannot escalate. </p>
         </div>
 
         <div class="section">
             <h2>🐦 Option 2: Social Media Escalation</h2>
-            <p>Companies respond faster on public platforms. [citation:1]</p>
+            <p>Companies respond faster on public platforms. </p>
             <div class="step">
                 <div class="step-number">1</div>
                 <div class="step-content">
@@ -264,17 +305,17 @@
 
         <div class="section">
             <h2>⚖️ Option 3: Escalate to Grievance Officer</h2>
-            <p>If customer care doesn't resolve in 7 days, escalate to Amazon's Grievance Officer (mandated by law). [citation:5]</p>
+            <p>If customer care doesn't resolve in 7 days, escalate to Amazon's Grievance Officer (mandated by law). </p>
             <div class="contact-card">
                 <h3>Grievance Officer Contact</h3>
-                <p>Email: <strong> grievance-officer@amazon.in</strong></p>
+                <p>Email: <strong>grievance-officer@amazon.in</strong></p>
                 <p>Response time: Within 48 hours (legally required)</p>
             </div>
         </div>
 
         <div class="section">
             <h2>🏛️ Option 4: National Consumer Helpline (NCH)</h2>
-            <p>Free mediation service by the government. They contact Amazon on your behalf. [citation:5]</p>
+            <p>Free mediation service by the government. They contact Amazon on your behalf. </p>
             <div class="contact-card">
                 <div class="contact-item">
                     <span class="contact-label">📞 Helpline:</span>
@@ -289,7 +330,7 @@
 
         <div class="section">
             <h2>⚖️ Option 5: Consumer Court (E-Daakhil)</h2>
-            <p>If all else fails, file a case online without a lawyer. [citation:6]</p>
+            <p>If all else fails, file a case online without a lawyer. </p>
             <div class="contact-card">
                 <h3>E-Daakhil Portal</h3>
                 <p><strong>Website:</strong> <a href="https://edaakhil.nic.in" target="_blank">edaakhil.nic.in</a></p>

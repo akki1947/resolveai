@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -197,11 +198,33 @@
                 <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
-                <a href="about.html">About</a>
+                <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
             </div>
         </div>
     </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
 
     <div class="container">
         <div class="advisor-header">
@@ -251,14 +274,9 @@
             const question = input.value.trim();
             if (!question) return;
 
-            // Add user message
             addMessage('user', question);
-
-            // Generate AI response
             const answer = getAIResponse(question);
             addMessage('ai', answer);
-
-            // Clear input
             input.value = '';
         }
 
@@ -267,7 +285,6 @@
             const div = document.createElement('div');
             div.className = sender === 'user' ? 'user-message' : 'ai-message';
             if (sender === 'ai') {
-                // content might be HTML string
                 div.innerHTML = content;
             } else {
                 div.textContent = content;
@@ -279,7 +296,6 @@
         function getAIResponse(question) {
             const q = question.toLowerCase();
 
-            // Airline / flight
             if (q.includes('airline') || q.includes('flight') || q.includes('dgca') || q.includes('cancellation') || q.includes('delay')) {
                 return `
                     <p><strong>✈️ Flight Cancellation / Delay</strong></p>
@@ -294,7 +310,6 @@
                 `;
             }
 
-            // Bank / fraud
             if (q.includes('bank') || q.includes('fraud') || q.includes('sbi') || q.includes('hdfc') || q.includes('transaction')) {
                 return `
                     <p><strong>🏦 Banking / Fraud</strong></p>
@@ -304,7 +319,6 @@
                 `;
             }
 
-            // E-commerce / refund
             if (q.includes('amazon') || q.includes('flipkart') || q.includes('refund') || q.includes('order') || q.includes('delivery') || q.includes('return')) {
                 return `
                     <p><strong>🛒 E‑Commerce / Refund</strong></p>
@@ -314,7 +328,6 @@
                 `;
             }
 
-            // Real estate / builder
             if (q.includes('builder') || q.includes('rera') || q.includes('possession') || q.includes('flat') || q.includes('apartment')) {
                 return `
                     <p><strong>🏗️ Real Estate / Builder Delay</strong></p>
@@ -324,7 +337,6 @@
                 `;
             }
 
-            // Telecom
             if (q.includes('airtel') || q.includes('jio') || q.includes('vi') || q.includes('network') || q.includes('mobile') || q.includes('telecom')) {
                 return `
                     <p><strong>📱 Telecom / Network</strong></p>
@@ -334,7 +346,6 @@
                 `;
             }
 
-            // Default
             return `
                 <p><strong>🤖 I'm not sure about that specific issue.</strong></p>
                 <p>Try asking about:</p>

@@ -1,3 +1,4 @@
+// api/save-complaint.js
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -31,6 +32,17 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  // Get user ID from token if present
+  let userId = null;
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+    if (!error && user) {
+      userId = user.id;
+    }
+  }
+
   const slug = generateSlug(title);
   const publicId = generatePublicId();
 
@@ -41,6 +53,7 @@ export default async function handler(req, res) {
         {
           slug,
           public_id: publicId,
+          user_id: userId,
           title,
           description,
           sector,
@@ -54,11 +67,7 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('Supabase insert error:', error);
-      return res.status(500).json({ 
-        error: 'Database error', 
-        details: error.message,
-        code: error.code
-      });
+      return res.status(500).json({ error: error.message });
     }
 
     const baseUrl = process.env.VERCEL_URL 
@@ -67,11 +76,7 @@ export default async function handler(req, res) {
     
     res.status(200).json({ url: `${baseUrl}/case?public_id=${publicId}` });
   } catch (err) {
-    console.error('Unexpected exception:', err);
-    res.status(500).json({ 
-      error: 'Server error', 
-      details: err.message,
-      stack: err.stack
-    });
+    console.error('Unexpected error:', err);
+    res.status(500).json({ error: err.message });
   }
 }

@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -16,13 +17,30 @@
             color: #1e293b;
             line-height: 1.6;
         }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
         header {
             background: white;
             border-bottom: 1px solid #e2e8f0;
             padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            margin-bottom: 24px;
         }
         .header-content {
             max-width: 1100px;
@@ -36,6 +54,7 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: #0f172a;
+            letter-spacing: -0.02em;
             text-decoration: none;
         }
         .logo span {
@@ -46,6 +65,7 @@
             text-decoration: none;
             margin-left: 32px;
             font-weight: 500;
+            font-size: 0.95rem;
         }
         .nav-links a:hover {
             color: #2563eb;
@@ -175,6 +195,7 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Home</a>
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
@@ -182,22 +203,45 @@
                 <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
             </div>
         </div>
     </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
 
     <div class="container">
         <h1>How to Complain Against Airtel India – Broadband, Mobile & Billing</h1>
         <div class="meta">Updated: March 2026 | Based on TRAI regulations and real consumer experiences</div>
 
         <div class="section">
-            <p>Airtel broadband and mobile users often face issues with connectivity, billing, and slow service. This guide helps you navigate their customer support system and escalate effectively. [citation:2]</p>
+            <p>Airtel broadband and mobile users often face issues with connectivity, billing, and slow service. This guide helps you navigate their customer support system and escalate effectively. </p>
         </div>
 
         <div class="section">
             <h2>📞 Tier 1: Airtel Customer Care</h2>
-            <p>Start here – but be prepared for long wait times. [citation:2]</p>
+            <p>Start here – but be prepared for long wait times. </p>
             
             <div class="contact-card">
                 <h3>Airtel Contact Details</h3>
@@ -215,18 +259,18 @@
                 </div>
                 <div class="contact-item">
                     <span class="contact-label">📮 Postal:</span>
-                    <span class="contact-value">Bharti Crescent, 1, Nelson Mandela Road, Vasant Kunj, Phase II, New Delhi – 110070 [citation:2]</span>
+                    <span class="contact-value">Bharti Crescent, 1, Nelson Mandela Road, Vasant Kunj, Phase II, New Delhi – 110070 </span>
                 </div>
             </div>
 
             <div class="tip-box">
-                <strong>⚠️ Critical Tip:</strong> Always ask for a <strong>Ticket / Complaint Number</strong>. If they don't provide one, note the date, time, and agent name. [citation:2]
+                <strong>⚠️ Critical Tip:</strong> Always ask for a <strong>Ticket / Complaint Number</strong>. If they don't provide one, note the date, time, and agent name. 
             </div>
         </div>
 
         <div class="section">
             <h2>🔄 The Airtel Complaint Loop – And How to Escape It</h2>
-            <p>Many users report a frustrating cycle: complaint lodged → technical team calls but never visits → complaint auto-closed. [citation:2]</p>
+            <p>Many users report a frustrating cycle: complaint lodged → technical team calls but never visits → complaint auto-closed. </p>
             
             <div class="step">
                 <div class="step-number">1</div>
@@ -253,17 +297,17 @@
 
         <div class="section">
             <h2>⚖️ Tier 2: Appellate Authority (TRAI Mandated)</h2>
-            <p>Under Telecom Rules, you have the right to appeal if your complaint is unsatisfactorily closed. [citation:6]</p>
+            <p>Under Telecom Rules, you have the right to appeal if your complaint is unsatisfactorily closed. </p>
             <div class="contact-card">
                 <h3>Appeal Format</h3>
                 <p>Send an email to the Appellate Authority with subject: <strong>"Appeal against closure of Complaint Docket No: [YOUR NUMBER]"</strong></p>
-                <p>Request a <strong>Personal Hearing</strong> (video or in-person). This is your legal right under the Telecom Consumers Complaint Redressal Regulations, 2012. [citation:6]</p>
+                <p>Request a <strong>Personal Hearing</strong> (video or in-person). This is your legal right under the Telecom Consumers Complaint Redressal Regulations, 2012. </p>
             </div>
         </div>
 
         <div class="section">
             <h2>🏛️ Tier 3: Department of Telecommunications (DoT) / CPGRAMS</h2>
-            <p>If Airtel's internal process fails, approach the government. [citation:6]</p>
+            <p>If Airtel's internal process fails, approach the government. </p>
             <div class="contact-card">
                 <div class="contact-item">
                     <span class="contact-label">🌐 Portal:</span>
@@ -273,7 +317,7 @@
                     <span class="contact-label">📞 Helpline:</span>
                     <span class="contact-value">1800-111-222 (DoT)</span>
                 </div>
-                <p><strong>Strategy:</strong> File on CPGRAMS under "Dept of Telecommunications". They have 21 days to resolve. [citation:6]</p>
+                <p><strong>Strategy:</strong> File on CPGRAMS under "Dept of Telecommunications". They have 21 days to resolve. </p>
             </div>
         </div>
 

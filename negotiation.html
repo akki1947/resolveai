@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Negotiation Assistant – ResolveAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            width: 100%;
+            margin-bottom: 24px;
+        }
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #0f172a;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            margin-left: 32px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        .container {
+            max-width: 700px;
+            width: 100%;
+        }
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+        .subhead {
+            color: #64748b;
+            margin-bottom: 32px;
+        }
+        .chat-area {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 24px;
+            min-height: 300px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        .user-message {
+            background: #2563eb;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 20px 20px 4px 20px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-bottom: 16px;
+        }
+        .ai-message {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 16px 20px;
+            border-radius: 20px 20px 20px 4px;
+            max-width: 90%;
+            margin-bottom: 16px;
+            border-left: 4px solid #2563eb;
+        }
+        .ai-message p {
+            margin-bottom: 8px;
+        }
+        .ai-message ul {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+        .input-area {
+            display: flex;
+            gap: 12px;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 40px;
+            font-size: 1rem;
+            outline: none;
+        }
+        .input-area input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        .input-area button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .input-area button:hover {
+            background: #1d4ed8;
+        }
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .examples span {
+            background: #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .examples span:hover {
+            background: #cbd5e1;
+        }
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">← Home</a>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Resolve<span>AI</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
+                <a href="knowledge.html">Guide</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+        });
+    </script>
+
+    <div class="container">
+        <div class="card">
+            <h1>AI Negotiation Assistant</h1>
+            <div class="subhead">Tell us about your issue, and we'll suggest what compensation you can ask for.</div>
+
+            <div class="chat-area" id="chatArea">
+                <div class="ai-message">
+                    <p>👋 Hi! I can help you negotiate with companies. Describe your problem, for example:</p>
+                    <ul>
+                        <li>"Flight delayed 6 hours – what can I claim?"</li>
+                        <li>"Bank deducted wrong amount"</li>
+                        <li>"Amazon not refunding ₹5000"</li>
+                        <li>"Builder possession delayed 2 years"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Type your issue..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()">Ask</button>
+            </div>
+
+            <div class="examples">
+                <span onclick="setExample('Flight delayed 6 hours, airline offered nothing')">✈️ Flight delay</span>
+                <span onclick="setExample('Bank fraud transaction of ₹10,000')">🏦 Bank fraud</span>
+                <span onclick="setExample('Amazon refund not received for 30 days')">🛒 Amazon refund</span>
+                <span onclick="setExample('Builder possession delayed 2 years')">🏗️ Builder delay</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            This is an AI advisory tool. Responses are for guidance only.
+        </div>
+    </div>
+
+    <script>
+        function addMessage(sender, text) {
+            const chat = document.getElementById('chatArea');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = sender === 'user' ? 'user-message' : 'ai-message';
+            if (sender === 'ai') {
+                msgDiv.innerHTML = text;
+            } else {
+                msgDiv.textContent = text;
+            }
+            chat.appendChild(msgDiv);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const query = input.value.trim();
+            if (!query) return;
+
+            addMessage('user', query);
+            input.value = '';
+
+            addMessage('ai', '🤔 Thinking...');
+
+            try {
+                const response = await fetch('/api/negotiate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
+                });
+                const data = await response.json();
+
+                const chat = document.getElementById('chatArea');
+                chat.removeChild(chat.lastChild);
+
+                if (response.ok) {
+                    const advice = `
+                        <p><strong>💡 Suggested Compensation:</strong> ${data.compensation}</p>
+                        <p><strong>⚖️ Legal Basis:</strong> ${data.legal}</p>
+                        <p><strong>📋 Next Steps:</strong> ${data.nextSteps}</p>
+                    `;
+                    addMessage('ai', advice);
+                } else {
+                    addMessage('ai', `❌ Error: ${data.error || 'Something went wrong.'}`);
+                }
+            } catch (error) {
+                const chat = document.getElementById('chatArea');
+                chat.removeChild(chat.lastChild);
+                addMessage('ai', '❌ Sorry, I encountered an error. Please try again.');
+            }
+        }
+
+        function setExample(text) {
+            document.getElementById('userInput').value = text;
+            sendMessage();
+        }
+    </script>
+</body>
+</html>
