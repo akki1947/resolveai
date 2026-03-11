@@ -3,6 +3,7 @@ const path = require('path');
 
 // List of HTML files to update (add any missing ones)
 const htmlFiles = [
+    'index.html',
     'about.html',
     'advisor.html',
     'airtel-complaint.html',
@@ -15,7 +16,8 @@ const htmlFiles = [
     'knowledge.html',
     'negotiation.html',
     'result.html',
-    'search.html'
+    'search.html',
+    'emergency.html' // if exists
 ];
 
 // The snippet to add inside the script block
@@ -35,14 +37,17 @@ htmlFiles.forEach(file => {
 
     let content = fs.readFileSync(filePath, 'utf8');
 
-    // 1. Add id to Home link
+    // 0. Remove the floating "← Home" link (any line with class="home-link")
+    // This regex matches a line containing <a ... class="home-link" ...>
+    content = content.replace(/^\s*<a[^>]*class="home-link"[^>]*>.*<\/a>\s*$/gm, '');
+
+    // 1. Add id to header Home link
     content = content.replace(
         /<a href="index\.html">Home<\/a>/,
         '<a href="index.html" id="header-home-link">Home</a>'
     );
 
     // 2. Add Emergency link before Dashboard (or after Guide)
-    // Look for the line containing "Guide" and insert Emergency after it
     const guideLinkRegex = /(<a href="knowledge\.html">Guide<\/a>)/;
     if (guideLinkRegex.test(content)) {
         content = content.replace(
@@ -54,13 +59,10 @@ htmlFiles.forEach(file => {
     }
 
     // 3. Insert hiding script inside the then() block
-    // Find the line with "supabase.auth.getSession().then(({ data: { session } }) => {"
-    // Then after the if-else block, insert the hiding script before the closing }); of the then callback.
     const thenBlockRegex = /(supabase\.auth\.getSession\(\)\.then\(\(\{ data: \{ session \} \}\) => \{\s+if \(session\) \{[\s\S]+?\} else \{[\s\S]+?\}\s+?\}\);?)/;
     const match = content.match(thenBlockRegex);
     if (match) {
         const thenBlock = match[1];
-        // Insert the hiding script right after the if-else block (before the closing }); )
         const updatedThenBlock = thenBlock.replace(
             /(\}\s+?\}\);?)$/,
             `${hidingScript}\n        $1`
