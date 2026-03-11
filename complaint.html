@@ -60,7 +60,6 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: #0f172a;
-            letter-spacing: -0.02em;
             text-decoration: none;
         }
         .logo span {
@@ -149,6 +148,16 @@
             margin: -16px 0 24px;
             display: none;
         }
+        #authority-suggestion {
+            background: #eff6ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: #0369a1;
+            margin: -16px 0 24px;
+            display: none;
+        }
         .btn {
             background: #0f172a;
             color: white;
@@ -181,7 +190,6 @@
                 <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
-                <a href="about.html">About</a>
                 <a href="knowledge.html">Guide</a>
             </div>
         </div>
@@ -205,8 +213,11 @@
         <input type="text" id="orderId" placeholder="e.g. TXN123456">
 
         <label for="description">What happened?</label>
-        <textarea id="description" placeholder="Describe the problem in detail..." oninput="checkWords()"></textarea>
+        <textarea id="description" placeholder="Describe the problem in detail..." oninput="checkWords(); onDescriptionChange()"></textarea>
         <div id="warning">⚠ Please remove unprofessional language (scam, fraud, etc.)</div>
+        <div id="authority-suggestion">
+            ⚡ Suggested authority: <span id="suggested-authority"></span>
+        </div>
 
         <label>Attach evidence (optional)</label>
         <div class="evidence-zone" onclick="document.getElementById('fileInput').click()" id="uploadZone">
@@ -219,6 +230,7 @@
     </div>
 
     <script>
+        // Get URL parameter to pre-select sector (if coming from search)
         function getUrlParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
@@ -237,6 +249,7 @@
             }
         };
 
+        // Bad word filter
         let isBad = false;
         function checkWords() {
             const text = document.getElementById('description').value.toLowerCase();
@@ -245,6 +258,7 @@
             document.getElementById('warning').style.display = isBad ? 'block' : 'none';
         }
 
+        // File upload handler
         function handleFile() {
             const file = document.getElementById('fileInput').files[0];
             if (file) {
@@ -252,6 +266,41 @@
             }
         }
 
+        // AI Authority Suggestion
+        let suggestionTimeout;
+        function onDescriptionChange() {
+            clearTimeout(suggestionTimeout);
+            const description = document.getElementById('description').value.trim();
+            const suggestionBox = document.getElementById('authority-suggestion');
+            const suggestedSpan = document.getElementById('suggested-authority');
+
+            if (description.length < 15) {
+                suggestionBox.style.display = 'none';
+                return;
+            }
+
+            suggestionTimeout = setTimeout(() => {
+                fetch('/api/suggest-authority', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ description })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.authority) {
+                        suggestedSpan.innerText = `${data.authority} (${data.sector})`;
+                        suggestionBox.style.display = 'block';
+                    } else {
+                        suggestionBox.style.display = 'none';
+                    }
+                })
+                .catch(() => {
+                    suggestionBox.style.display = 'none';
+                });
+            }, 600); // debounce
+        }
+
+        // Proceed to result page
         function goNext() {
             const description = document.getElementById('description').value.trim();
             const orderId = document.getElementById('orderId').value.trim();
