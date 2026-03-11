@@ -1,0 +1,54 @@
+{
+  "Delhi": {
+    "New Delhi": [
+      { "department": "Police", "phone": "100", "description": "Emergency" },
+      { "department": "Ambulance", "phone": "102", "description": "Emergency" },
+      { "department": "Fire", "phone": "101", "description": "Emergency" },
+      { "department": "Women Helpline", "phone": "181", "description": "National" },
+      { "department": "Child Helpline", "phone": "1098", "description": "National" }
+    ]
+  },
+  "Maharashtra": {
+    "Mumbai": [
+      { "department": "Police", "phone": "100", "description": "Emergency" },
+      { "department": "Ambulance", "phone": "102", "description": "Emergency" },
+      { "department": "Fire", "phone": "101", "description": "Emergency" },
+      { "department": "Women Helpline", "phone": "181", "description": "National" },
+      { "department": "Child Helpline", "phone": "1098", "description": "National" }
+    ],
+    "Pune": [
+      { "department": "Police", "phone": "100", "description": "Emergency" },
+      { "department": "Ambulance", "phone": "102", "description": "Emergency" },
+      { "department": "Fire", "phone": "101", "description": "Emergency" }
+    ]
+  },
+  "Karnataka": {
+    "Bangalore": [
+      { "department": "Police", "phone": "100", "description": "Emergency" },
+      { "department": "Ambulance", "phone": "102", "description": "Emergency" },
+      { "department": "Fire", "phone": "101", "description": "Emergency" },
+      { "department": "Women Helpline", "phone": "181", "description": "National" }
+    ],
+    "Mysore": [
+      { "department": "Police", "phone": "100", "description": "Emergency" },
+      { "department": "Ambulance", "phone": "102", "description": "Emergency" }
+    ]
+  },
+  "Tamil Nadu": {
+    "Chennai": [
+      { "department": "Police", "phone": "100", "description": "Emergency" },
+      { "department": "Ambulance", "phone": "102", "description": "Emergency" },
+      { "department": "Fire", "phone": "101", "description": "Emergency" }
+    ]
+  },
+  "Uttar Pradesh": {
+    "Lucknow": [
+      { "department": "Police", "phone": "100", "description": "Emergency" },
+      { "department": "Ambulance", "phone": "102", "description": "Emergency" }
+    ],
+    "Noida": [
+      { "department": "Police", "phone": "100", "description": "Emergency" },
+      { "department": "Ambulance", "phone": "102", "description": "Emergency" }
+    ]
+  }
+}

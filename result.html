@@ -239,11 +239,12 @@
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
+                <a href="index.html" id="header-home-link">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
                 <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="emergency.html">Emergency</a>
                 <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
                 <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
                 <a href="login.html" id="login-link">Login</a>
@@ -266,7 +267,13 @@
                 document.getElementById('login-link').style.display = 'inline';
                 document.getElementById('logout-link').style.display = 'none';
                 document.getElementById('dashboard-link').style.display = 'none';
+            
+            // Hide header Home link on non-homepages
+            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
+                const homeLink = document.getElementById('header-home-link');
+                if (homeLink) homeLink.style.display = 'none';
             }
+        }
         });
     </script>
 

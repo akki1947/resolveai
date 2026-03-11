@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Contacts – ResolveAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+            padding: 20px;
+            position: relative;
+        }
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+            z-index: 10;
+        }
+        .home-link:hover {
+            background: #f8fafc;
+        }
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            margin-bottom: 24px;
+        }
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #0f172a;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            margin-left: 32px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+        .subhead {
+            color: #64748b;
+            margin-bottom: 32px;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #475569;
+            display: block;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            background: white;
+        }
+        select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 32px;
+        }
+        th {
+            text-align: left;
+            padding: 12px;
+            background: #f8fafc;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .department {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .phone {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #2563eb;
+        }
+        .description {
+            color: #64748b;
+        }
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">← Home</a>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Resolve<span>AI</span></a>
+            <div class="nav-links">
+                <a href="index.html" id="header-home-link">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
+                <a href="knowledge.html">Guide</a>
+                <a href="emergency.html">Emergency</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        const supabase = window.supabase.createClient(
+            'https://qdymteenojnjwgblxjas.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
+        );
+        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'inline';
+                document.getElementById('dashboard-link').style.display = 'inline';
+            } else {
+                document.getElementById('login-link').style.display = 'inline';
+                document.getElementById('logout-link').style.display = 'none';
+                document.getElementById('dashboard-link').style.display = 'none';
+            }
+            // Hide header Home link on non-homepages
+            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
+                const homeLink = document.getElementById('header-home-link');
+                if (homeLink) homeLink.style.display = 'none';
+            }
+        });
+    </script>
+
+    <div class="container">
+        <div class="card">
+            <h1>Emergency Contacts – Pan India</h1>
+            <div class="subhead">Select your state and city to find local emergency numbers.</div>
+
+            <div class="form-group">
+                <label for="state">State</label>
+                <select id="state" onchange="updateCities()">
+                    <option value="">-- Select State --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City / District</label>
+                <select id="city" onchange="showContacts()" disabled>
+                    <option value="">-- Select City --</option>
+                </select>
+            </div>
+
+            <div id="contactDisplay">
+                <!-- Table will be inserted here -->
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 ResolveAI – Emergency contact information is compiled from public sources. Please verify locally.</p>
+        </div>
+    </div>
+
+    <script>
+        let emergencyData = {};
+
+        // Load JSON data
+        fetch('/emergency_contacts.json')
+            .then(response => response.json())
+            .then(data => {
+                emergencyData = data;
+                populateStates();
+            })
+            .catch(error => console.error('Error loading emergency contacts:', error));
+
+        function populateStates() {
+            const stateSelect = document.getElementById('state');
+            stateSelect.innerHTML = '<option value="">-- Select State --</option>';
+            Object.keys(emergencyData).sort().forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+        }
+
+        function updateCities() {
+            const state = document.getElementById('state').value;
+            const citySelect = document.getElementById('city');
+            const contactDisplay = document.getElementById('contactDisplay');
+            citySelect.innerHTML = '<option value="">-- Select City --</option>';
+            citySelect.disabled = !state;
+            contactDisplay.innerHTML = '';
+
+            if (state && emergencyData[state]) {
+                Object.keys(emergencyData[state]).sort().forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            }
+        }
+
+        function showContacts() {
+            const state = document.getElementById('state').value;
+            const city = document.getElementById('city').value;
+            const contactDisplay = document.getElementById('contactDisplay');
+
+            if (!state || !city || !emergencyData[state] || !emergencyData[state][city]) {
+                contactDisplay.innerHTML = '';
+                return;
+            }
+
+            const contacts = emergencyData[state][city];
+            let tableHtml = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th>Phone</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            contacts.forEach(contact => {
+                tableHtml += `
+                    <tr>
+                        <td class="department">${contact.department}</td>
+                        <td class="phone"><a href="tel:${contact.phone}">${contact.phone}</a></td>
+                        <td class="description">${contact.description}</td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += '</tbody></table>';
+            contactDisplay.innerHTML = tableHtml;
+        }
+    </script>
+</body>
+</html>

@@ -92,7 +92,8 @@
             font-size: 0.9rem;
             padding: 6px 16px;
             border-radius: 40px;
-            display: inline-block;
+            display: inline-flex;
+            gap: 15px;
             margin-bottom: 24px;
             border: 1px solid #bae6fd;
         }
@@ -238,14 +239,15 @@
 </head>
 <body>
     <header>
-        <div class="header-content">
+        <div class="container header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
+                <a href="index.html" id="header-home-link">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
                 <a href="negotiation.html">AI Negotiator</a>
                 <a href="knowledge.html">Guide</a>
+                <a href="emergency.html">Emergency</a>
                 <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
                 <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
                 <a href="login.html" id="login-link">Login</a>
@@ -269,6 +271,11 @@
                 document.getElementById('logout-link').style.display = 'none';
                 document.getElementById('dashboard-link').style.display = 'none';
             }
+            // Hide header Home link on non-homepages (won't apply here because it's index)
+            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
+                const homeLink = document.getElementById('header-home-link');
+                if (homeLink) homeLink.style.display = 'none';
+            }
         });
     </script>
 
@@ -277,7 +284,10 @@
             <div class="hook">India’s Consumer Complaint Copilot – Google of Grievances</div>
             <h1>Resolve<span>AI</span></h1>
             <div class="tagline">Know your rights before you fight.</div>
-            <div class="counter-badge">⚡ <span id="liveCount">1,248</span> drafts generated</div>
+            <div class="counter-badge">
+                <span>👥 <span id="visitorCount">1,248</span> visitors</span>
+                <span>⚡ <span id="liveCount">1,248</span> drafts generated</span>
+            </div>
             <div>
                 <a href="search.html" class="btn-primary">🔎 Search Your Issue</a>
                 <a href="advisor.html" class="btn-secondary">🤖 Ask AI Advisor</a>
@@ -343,12 +353,22 @@
     </footer>
 
     <script>
+        // Drafts counter
         let count = parseInt(localStorage.getItem('globalDraftCount')) || 1248;
         document.getElementById('liveCount').innerText = count.toLocaleString();
         setInterval(() => {
             count += Math.floor(Math.random() * 2);
             document.getElementById('liveCount').innerText = count.toLocaleString();
             localStorage.setItem('globalDraftCount', count);
+        }, 8000);
+
+        // Visitor counter
+        let visitorCount = parseInt(localStorage.getItem('globalVisitorCount')) || 1248;
+        document.getElementById('visitorCount').innerText = visitorCount.toLocaleString();
+        setInterval(() => {
+            visitorCount += Math.floor(Math.random() * 2);
+            document.getElementById('visitorCount').innerText = visitorCount.toLocaleString();
+            localStorage.setItem('globalVisitorCount', visitorCount);
         }, 8000);
     </script>
 </body>
