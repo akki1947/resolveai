@@ -82,7 +82,7 @@
             }
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         .card {
@@ -143,8 +143,17 @@
             font-size: 0.8rem;
             margin-top: 4px;
         }
+        
+        /* Right-aligned dropdowns container */
+        .selection-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
         .form-group {
-            margin-bottom: 24px;
+            min-width: 250px;
         }
         label {
             font-weight: 600;
@@ -274,19 +283,21 @@
             <!-- National Numbers -->
             <div class="national-section" id="nationalNumbers"></div>
 
-            <!-- State and District Selection -->
-            <div class="form-group">
-                <label for="state">Select State</label>
-                <select id="state" onchange="updateDistricts()">
-                    <option value="">-- Choose State --</option>
-                </select>
-            </div>
+            <!-- Right-aligned dropdowns -->
+            <div class="selection-container">
+                <div class="form-group">
+                    <label for="state">Select State</label>
+                    <select id="state" onchange="updateDistricts()">
+                        <option value="">-- Choose State --</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="district">Select District</label>
-                <select id="district" onchange="showDistrictContacts()" disabled>
-                    <option value="">-- First select a state --</option>
-                </select>
+                <div class="form-group">
+                    <label for="district">Select District</label>
+                    <select id="district" onchange="showDistrictContacts()" disabled>
+                        <option value="">-- First select a state --</option>
+                    </select>
+                </div>
             </div>
 
             <!-- District Contacts Display -->
@@ -299,7 +310,7 @@
     </div>
 
     <script>
-        // Emergency data embedded directly
+        // Emergency data with added Delhi-NCR and Uttar Pradesh
         const emergencyData = {
             "country": "India",
             "national_emergency_numbers": {
@@ -431,6 +442,144 @@
                                 "fire": "101"
                             },
                             "website": "https://coimbatore.nic.in"
+                        }
+                    ]
+                },
+                {
+                    "state": "Delhi-NCR",
+                    "website": "https://delhi.gov.in",
+                    "major_cities": ["New Delhi", "Gurugram", "Noida", "Faridabad", "Ghaziabad"],
+                    "emergency_numbers": {
+                        "police": "100",
+                        "ambulance": "108",
+                        "fire": "101",
+                        "unified": "112",
+                        "state_disaster_control": "1070"
+                    },
+                    "districts": [
+                        {
+                            "district": "New Delhi",
+                            "major_city": "New Delhi",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://newdelhi.nic.in"
+                        },
+                        {
+                            "district": "Gurugram",
+                            "major_city": "Gurugram",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://gurugram.nic.in"
+                        },
+                        {
+                            "district": "Noida",
+                            "major_city": "Noida",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://noida.nic.in"
+                        },
+                        {
+                            "district": "Faridabad",
+                            "major_city": "Faridabad",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://faridabad.nic.in"
+                        },
+                        {
+                            "district": "Ghaziabad",
+                            "major_city": "Ghaziabad",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://ghaziabad.nic.in"
+                        }
+                    ]
+                },
+                {
+                    "state": "Uttar Pradesh",
+                    "website": "https://up.gov.in",
+                    "major_cities": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Allahabad"],
+                    "emergency_numbers": {
+                        "police": "100",
+                        "ambulance": "108",
+                        "fire": "101",
+                        "unified": "112",
+                        "state_disaster_control": "1070"
+                    },
+                    "districts": [
+                        {
+                            "district": "Lucknow",
+                            "major_city": "Lucknow",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://lucknow.nic.in"
+                        },
+                        {
+                            "district": "Kanpur",
+                            "major_city": "Kanpur",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://kanpur.nic.in"
+                        },
+                        {
+                            "district": "Varanasi",
+                            "major_city": "Varanasi",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://varanasi.nic.in"
+                        },
+                        {
+                            "district": "Agra",
+                            "major_city": "Agra",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://agra.nic.in"
+                        },
+                        {
+                            "district": "Prayagraj",
+                            "major_city": "Allahabad",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://prayagraj.nic.in"
                         }
                     ]
                 }
