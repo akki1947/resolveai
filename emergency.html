@@ -58,15 +58,28 @@
         .logo span {
             color: #2563eb;
         }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
         .nav-links a {
             color: #475569;
             text-decoration: none;
-            margin-left: 32px;
             font-weight: 500;
             font-size: 0.95rem;
+            white-space: nowrap;
         }
         .nav-links a:hover {
             color: #2563eb;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
         }
         .container {
             max-width: 800px;
@@ -78,6 +91,7 @@
             padding: 40px;
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
             border: 1px solid #e2e8f0;
+            margin-bottom: 24px;
         }
         h1 {
             font-size: 2.2rem;
@@ -88,6 +102,46 @@
         .subhead {
             color: #64748b;
             margin-bottom: 32px;
+        }
+        .national-section {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .national-section h2 {
+            color: #0369a1;
+            margin-bottom: 16px;
+        }
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .number-item {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .number-label {
+            font-weight: 600;
+            color: #475569;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .number-value {
+            font-family: monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        .number-desc {
+            color: #64748b;
+            font-size: 0.8rem;
+            margin-top: 4px;
         }
         .form-group {
             margin-bottom: 24px;
@@ -117,7 +171,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 32px;
+            margin-top: 20px;
         }
         th {
             text-align: left;
@@ -140,13 +194,22 @@
             font-size: 1.1rem;
             color: #2563eb;
         }
-        .description {
-            color: #64748b;
+        .phone a {
+            color: #2563eb;
+            text-decoration: none;
         }
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: #64748b;
+        .phone a:hover {
+            text-decoration: underline;
+        }
+        .district-info {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 16px 0;
+            font-size: 0.95rem;
+        }
+        .district-info a {
+            color: #2563eb;
         }
         .footer {
             text-align: center;
@@ -157,19 +220,21 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Home</a>
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
-            <a href="index.html" id="header-home-link">Home</a>
-            <a href="search.html">Search</a>
-            <a href="advisor.html">AI Advisor</a>
-            <a href="negotiation.html">AI Negotiator</a>
-            <a href="knowledge.html">Guide</a>
-            <a href="emergency.html">Emergency</a>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
-            <a href="login.html" id="login-link">Login</a></div>
+                <a href="index.html" id="header-home-link">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
+                <a href="knowledge.html">Guide</a>
+                <a href="emergency.html">Emergency</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
+            </div>
         </div>
     </header>
 
@@ -178,7 +243,12 @@
             'https://qdymteenojnjwgblxjas.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
         );
-        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+
         supabase.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 document.getElementById('login-link').style.display = 'none';
@@ -189,126 +259,241 @@
                 document.getElementById('logout-link').style.display = 'none';
                 document.getElementById('dashboard-link').style.display = 'none';
             }
-            // Hide header Home link on non-homepages
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                const homeLink = document.getElementById('header-home-link');
-                if (homeLink) homeLink.style.display = 'none';
-            
-            // Hide header Home link on non-homepages
             if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
                 const homeLink = document.getElementById('header-home-link');
                 if (homeLink) homeLink.style.display = 'none';
             }
-        }
         });
     </script>
 
     <div class="container">
         <div class="card">
-            <h1>Emergency Contacts – Pan India</h1>
-            <div class="subhead">Select your state and city to find local emergency numbers.</div>
+            <h1>Emergency Contacts – India</h1>
+            <div class="subhead">National emergency numbers and state/district-wise contacts.</div>
 
+            <!-- National Numbers -->
+            <div class="national-section" id="nationalNumbers"></div>
+
+            <!-- State and District Selection -->
             <div class="form-group">
-                <label for="state">State</label>
-                <select id="state" onchange="updateCities()">
-                    <option value="">-- Select State --</option>
+                <label for="state">Select State</label>
+                <select id="state" onchange="updateDistricts()">
+                    <option value="">-- Choose State --</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="city">City / District</label>
-                <select id="city" onchange="showContacts()" disabled>
-                    <option value="">-- Select City --</option>
+                <label for="district">Select District</label>
+                <select id="district" onchange="showDistrictContacts()" disabled>
+                    <option value="">-- First select a state --</option>
                 </select>
             </div>
 
-            <div id="contactDisplay">
-                <!-- Table will be inserted here -->
-            </div>
+            <!-- District Contacts Display -->
+            <div id="districtContacts"></div>
         </div>
 
         <div class="footer">
-            <p>© 2026 ResolveAI – Emergency contact information is compiled from public sources. Please verify locally.</p>
+            <p>© 2026 ResolveAI – Emergency information is compiled from public sources. Please verify locally.</p>
         </div>
     </div>
 
     <script>
-        let emergencyData = {};
+        // Emergency data embedded directly
+        const emergencyData = {
+            "country": "India",
+            "national_emergency_numbers": {
+                "unified_emergency": "112",
+                "police": "100",
+                "fire": "101",
+                "ambulance": ["102", "108"],
+                "women_helpline": ["1091", "181"],
+                "child_helpline": "1098",
+                "cyber_crime": "1930",
+                "disaster_management_state": "1070",
+                "district_control_room": "1077",
+                "road_accident_highway": "1033"
+            },
+            "states": [
+                {
+                    "state": "Karnataka",
+                    "website": "https://karnataka.gov.in",
+                    "major_cities": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi", "Belagavi"],
+                    "emergency_numbers": {
+                        "police": "100",
+                        "ambulance": "108",
+                        "fire": "101",
+                        "unified": "112",
+                        "state_disaster_control": "1070"
+                    },
+                    "districts": [
+                        {
+                            "district": "Bengaluru Urban",
+                            "major_city": "Bengaluru",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://bengaluruurban.nic.in"
+                        },
+                        {
+                            "district": "Mysuru",
+                            "major_city": "Mysuru",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://mysuru.nic.in"
+                        },
+                        {
+                            "district": "Dakshina Kannada",
+                            "major_city": "Mangaluru",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://dk.nic.in"
+                        }
+                    ]
+                },
+                {
+                    "state": "Maharashtra",
+                    "website": "https://maharashtra.gov.in",
+                    "major_cities": ["Mumbai", "Pune", "Nagpur", "Nashik"],
+                    "emergency_numbers": {
+                        "police": "100",
+                        "ambulance": "108",
+                        "fire": "101",
+                        "unified": "112",
+                        "state_disaster_control": "1070"
+                    },
+                    "districts": [
+                        {
+                            "district": "Mumbai City",
+                            "major_city": "Mumbai",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://mumbaicity.gov.in"
+                        },
+                        {
+                            "district": "Pune",
+                            "major_city": "Pune",
+                            "control_room": {
+                                "disaster_control": "1077",
+                                "police": "100",
+                                "ambulance": "108",
+                                "fire": "101"
+                            },
+                            "website": "https://pune.gov.in"
+                        }
+                    ]
+                }
+            ]
+        };
 
-        // Load JSON data
-        fetch('/emergency_contacts.json')
-            .then(response => response.json())
-            .then(data => {
-                emergencyData = data;
-                populateStates();
-            })
-            .catch(error => console.error('Error loading emergency contacts:', error));
+        // Display national numbers
+        function displayNationalNumbers() {
+            const national = emergencyData.national_emergency_numbers;
+            let html = '<h2>🇮🇳 National Emergency Numbers</h2><div class="numbers-grid">';
 
+            const formatNumber = (num) => Array.isArray(num) ? num.join(' / ') : num;
+
+            html += `
+                <div class="number-item"><div class="number-label">Unified Emergency</div><div class="number-value">${national.unified_emergency}</div><div class="number-desc">All emergencies</div></div>
+                <div class="number-item"><div class="number-label">Police</div><div class="number-value">${national.police}</div><div class="number-desc">General police</div></div>
+                <div class="number-item"><div class="number-label">Fire</div><div class="number-value">${national.fire}</div><div class="number-desc">Fire brigade</div></div>
+                <div class="number-item"><div class="number-label">Ambulance</div><div class="number-value">${formatNumber(national.ambulance)}</div><div class="number-desc">Medical emergency</div></div>
+                <div class="number-item"><div class="number-label">Women Helpline</div><div class="number-value">${formatNumber(national.women_helpline)}</div><div class="number-desc">Women in distress</div></div>
+                <div class="number-item"><div class="number-label">Child Helpline</div><div class="number-value">${national.child_helpline}</div><div class="number-desc">Children in need</div></div>
+                <div class="number-item"><div class="number-label">Cyber Crime</div><div class="number-value">${national.cyber_crime}</div><div class="number-desc">Online fraud</div></div>
+                <div class="number-item"><div class="number-label">Disaster Management</div><div class="number-value">${national.disaster_management_state}</div><div class="number-desc">State disaster control</div></div>
+                <div class="number-item"><div class="number-label">District Control</div><div class="number-value">${national.district_control_room}</div><div class="number-desc">District emergency</div></div>
+                <div class="number-item"><div class="number-label">Highway Accident</div><div class="number-value">${national.road_accident_highway}</div><div class="number-desc">Road accidents</div></div>
+            `;
+            html += '</div>';
+            document.getElementById('nationalNumbers').innerHTML = html;
+        }
+
+        // Populate state dropdown
         function populateStates() {
             const stateSelect = document.getElementById('state');
-            stateSelect.innerHTML = '<option value="">-- Select State --</option>';
-            Object.keys(emergencyData).sort().forEach(state => {
+            emergencyData.states.forEach(s => {
                 const option = document.createElement('option');
-                option.value = state;
-                option.textContent = state;
+                option.value = s.state;
+                option.textContent = s.state;
                 stateSelect.appendChild(option);
             });
         }
 
-        function updateCities() {
-            const state = document.getElementById('state').value;
-            const citySelect = document.getElementById('city');
-            const contactDisplay = document.getElementById('contactDisplay');
-            citySelect.innerHTML = '<option value="">-- Select City --</option>';
-            citySelect.disabled = !state;
-            contactDisplay.innerHTML = '';
+        // Update district dropdown based on selected state
+        function updateDistricts() {
+            const stateName = document.getElementById('state').value;
+            const districtSelect = document.getElementById('district');
+            const contactsDiv = document.getElementById('districtContacts');
+            
+            districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+            districtSelect.disabled = !stateName;
+            contactsDiv.innerHTML = '';
 
-            if (state && emergencyData[state]) {
-                Object.keys(emergencyData[state]).sort().forEach(city => {
+            if (!stateName) return;
+
+            const state = emergencyData.states.find(s => s.state === stateName);
+            if (state && state.districts) {
+                state.districts.forEach(d => {
                     const option = document.createElement('option');
-                    option.value = city;
-                    option.textContent = city;
-                    citySelect.appendChild(option);
+                    option.value = d.district;
+                    option.textContent = `${d.district} (${d.major_city})`;
+                    districtSelect.appendChild(option);
                 });
             }
         }
 
-        function showContacts() {
-            const state = document.getElementById('state').value;
-            const city = document.getElementById('city').value;
-            const contactDisplay = document.getElementById('contactDisplay');
+        // Show district-specific contacts
+        function showDistrictContacts() {
+            const stateName = document.getElementById('state').value;
+            const districtName = document.getElementById('district').value;
+            const contactsDiv = document.getElementById('districtContacts');
 
-            if (!state || !city || !emergencyData[state] || !emergencyData[state][city]) {
-                contactDisplay.innerHTML = '';
-                return;
-            }
+            if (!stateName || !districtName) return;
 
-            const contacts = emergencyData[state][city];
-            let tableHtml = `
+            const state = emergencyData.states.find(s => s.state === stateName);
+            const district = state?.districts.find(d => d.district === districtName);
+            
+            if (!district) return;
+
+            const cr = district.control_room;
+            contactsDiv.innerHTML = `
+                <div class="district-info">
+                    <strong>📍 ${district.district} (${district.major_city})</strong><br>
+                    <a href="${district.website}" target="_blank">District Official Website</a>
+                </div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Department</th>
-                            <th>Phone</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Department</th><th>Phone</th></tr></thead>
                     <tbody>
+                        <tr><td class="department">🚓 Police</td><td class="phone"><a href="tel:${cr.police}">${cr.police}</a></td></tr>
+                        <tr><td class="department">🚑 Ambulance</td><td class="phone"><a href="tel:${cr.ambulance}">${cr.ambulance}</a></td></tr>
+                        <tr><td class="department">🔥 Fire</td><td class="phone"><a href="tel:${cr.fire}">${cr.fire}</a></td></tr>
+                        <tr><td class="department">🆘 Disaster Control</td><td class="phone"><a href="tel:${cr.disaster_control}">${cr.disaster_control}</a></td></tr>
+                    </tbody>
+                </table>
             `;
-
-            contacts.forEach(contact => {
-                tableHtml += `
-                    <tr>
-                        <td class="department">${contact.department}</td>
-                        <td class="phone"><a href="tel:${contact.phone}">${contact.phone}</a></td>
-                        <td class="description">${contact.description}</td>
-                    </tr>
-                `;
-            });
-
-            tableHtml += '</tbody></table>';
-            contactDisplay.innerHTML = tableHtml;
         }
+
+        // Initialize page
+        window.onload = function() {
+            displayNationalNumbers();
+            populateStates();
+        };
     </script>
 </body>
 </html>
