@@ -1,79 +1,41 @@
 const fs = require('fs');
 const path = require('path');
 
-// List of HTML files to update (add any missing ones)
-const htmlFiles = [
-    'index.html',
-    'about.html',
-    'advisor.html',
-    'airtel-complaint.html',
-    'amazon-complaint.html',
-    'bank-fraud-complaint.html',
-    'builder-delay-complaint.html',
-    'case.html',
-    'complaint.html',
-    'draft.html',
-    'knowledge.html',
-    'negotiation.html',
-    'result.html',
-    'search.html',
-    'emergency.html' // if exists
-];
+// Get all .html files in the current directory (excluding node_modules)
+const files = fs.readdirSync(__dirname).filter(file => 
+    file.endsWith('.html') && !file.includes('node_modules')
+);
 
-// The snippet to add inside the script block
-const hidingScript = `
-            // Hide header Home link on non-homepages
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                const homeLink = document.getElementById('header-home-link');
-                if (homeLink) homeLink.style.display = 'none';
-            }`;
+// Canonical navigation links to replace inside .nav-links
+const canonicalNavLinks = `
+            <a href="index.html" id="header-home-link">Home</a>
+            <a href="search.html">Search</a>
+            <a href="advisor.html">AI Advisor</a>
+            <a href="negotiation.html">AI Negotiator</a>
+            <a href="knowledge.html">Guide</a>
+            <a href="emergency.html">Emergency</a>
+            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+            <a href="login.html" id="login-link">Login</a>`;
 
-htmlFiles.forEach(file => {
+files.forEach(file => {
     const filePath = path.join(__dirname, file);
-    if (!fs.existsSync(filePath)) {
-        console.log(`Skipping ${file} – not found`);
-        return;
-    }
-
     let content = fs.readFileSync(filePath, 'utf8');
 
-    // 0. Remove the floating "← Home" link (any line with class="home-link")
-    // This regex matches a line containing <a ... class="home-link" ...>
+    // 1. Remove any floating "← Home" link (line with class="home-link")
     content = content.replace(/^\s*<a[^>]*class="home-link"[^>]*>.*<\/a>\s*$/gm, '');
 
-    // 1. Add id to header Home link
-    content = content.replace(
-        /<a href="index\.html">Home<\/a>/,
-        '<a href="index.html" id="header-home-link">Home</a>'
-    );
-
-    // 2. Add Emergency link before Dashboard (or after Guide)
-    const guideLinkRegex = /(<a href="knowledge\.html">Guide<\/a>)/;
-    if (guideLinkRegex.test(content)) {
-        content = content.replace(
-            guideLinkRegex,
-            '$1\n                <a href="emergency.html">Emergency</a>'
-        );
+    // 2. Replace the content inside .nav-links with the canonical version
+    // This regex matches <div class="nav-links"> ... </div> and captures the inner content
+    const navLinksRegex = /(<div class="nav-links">)([\s\S]*?)(<\/div>)/;
+    if (navLinksRegex.test(content)) {
+        content = content.replace(navLinksRegex, `$1${canonicalNavLinks}$3`);
+        console.log(`✅ Updated navigation in ${file}`);
     } else {
-        console.log(`Warning: Guide link not found in ${file}, skipping Emergency link insertion.`);
-    }
-
-    // 3. Insert hiding script inside the then() block
-    const thenBlockRegex = /(supabase\.auth\.getSession\(\)\.then\(\(\{ data: \{ session \} \}\) => \{\s+if \(session\) \{[\s\S]+?\} else \{[\s\S]+?\}\s+?\}\);?)/;
-    const match = content.match(thenBlockRegex);
-    if (match) {
-        const thenBlock = match[1];
-        const updatedThenBlock = thenBlock.replace(
-            /(\}\s+?\}\);?)$/,
-            `${hidingScript}\n        $1`
-        );
-        content = content.replace(thenBlockRegex, updatedThenBlock);
-    } else {
-        console.log(`Warning: Could not find the then() block in ${file}. Script may need manual insertion.`);
+        console.log(`⚠️  Could not find .nav-links in ${file}`);
     }
 
     fs.writeFileSync(filePath, content, 'utf8');
-    console.log(`Updated ${file}`);
 });
 
-console.log('All updates completed. Please verify changes.');
+console.log('🎉 All files processed. Please verify changes, especially emergency.html and result.html.');
