@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -195,6 +194,8 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Back to Home</a>
+    
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
@@ -205,44 +206,13 @@
             <a href="negotiation.html">AI Negotiator</a>
             <a href="knowledge.html">Guide</a>
             <a href="emergency.html">Emergency</a>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
-            <a href="login.html" id="login-link">Login</a></div>
+            
+            
+            </div>
         </div>
     </header>
 
-    <script type="module">
-        import { supabase, getSession } from '/js/auth.js';
-        
-        window.logout = async function() {
-            await supabase.auth.signOut();
-            window.location.href = 'index.html';
-        };
-        
-        getSession().then(session => {
-            const loginLink = document.getElementById('login-link');
-            const logoutLink = document.getElementById('logout-link');
-            const dashboardLink = document.getElementById('dashboard-link');
-            
-            if (loginLink && logoutLink && dashboardLink) {
-                if (session) {
-                    loginLink.style.display = 'none';
-                    logoutLink.style.display = 'inline';
-                    dashboardLink.style.display = 'inline';
-                } else {
-                    loginLink.style.display = 'inline';
-                    logoutLink.style.display = 'none';
-                    dashboardLink.style.display = 'none';
-                }
-            }
-            
-            // Hide header Home link on non-homepages
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                const homeLink = document.getElementById('header-home-link');
-                if (homeLink) homeLink.style.display = 'none';
-            }
-        });
-    </script>
+    
 
 
 

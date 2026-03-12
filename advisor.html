@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -188,8 +187,73 @@
             margin: 40px 0;
         }
     </style>
+
+    <script type="module" src="/js/openai-service.js"></script>
+    <script type="module">
+        import { aiService } from '/js/openai-service.js';
+
+        function addMessage(sender, text, isHTML = false) {
+            const history = document.getElementById('chatHistory');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = sender === 'user' ? 'user-message' : 'ai-message';
+            
+            if (isHTML) {
+                msgDiv.innerHTML = text;
+            } else {
+                msgDiv.textContent = text;
+            }
+            
+            history.appendChild(msgDiv);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const history = document.getElementById('chatHistory');
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'typingIndicator';
+            indicator.innerHTML = '<span></span><span></span><span></span>';
+            history.appendChild(indicator);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const question = input.value.trim();
+            if (!question) return;
+
+            addMessage('user', question);
+            input.value = '';
+
+            showTypingIndicator();
+
+            try {
+                const result = await aiService.getAdvice(question, 'general');
+                removeTypingIndicator();
+                addMessage('ai', result.advice, true);
+            } catch (error) {
+                removeTypingIndicator();
+                addMessage('ai', 'Sorry, I encountered an error. Please try again.', false);
+            }
+        }
+
+        function setExample(text) {
+            document.getElementById('userInput').value = text;
+            sendMessage();
+        }
+
+        window.sendMessage = sendMessage;
+        window.setExample = setExample;
+    </script>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Back to Home</a>
+    
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
@@ -200,44 +264,13 @@
             <a href="negotiation.html">AI Negotiator</a>
             <a href="knowledge.html">Guide</a>
             <a href="emergency.html">Emergency</a>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
-            <a href="login.html" id="login-link">Login</a></div>
+            
+            
+            </div>
         </div>
     </header>
 
-    <script type="module">
-        import { supabase, getSession } from '/js/auth.js';
-        
-        window.logout = async function() {
-            await supabase.auth.signOut();
-            window.location.href = 'index.html';
-        };
-        
-        getSession().then(session => {
-            const loginLink = document.getElementById('login-link');
-            const logoutLink = document.getElementById('logout-link');
-            const dashboardLink = document.getElementById('dashboard-link');
-            
-            if (loginLink && logoutLink && dashboardLink) {
-                if (session) {
-                    loginLink.style.display = 'none';
-                    logoutLink.style.display = 'inline';
-                    dashboardLink.style.display = 'inline';
-                } else {
-                    loginLink.style.display = 'inline';
-                    logoutLink.style.display = 'none';
-                    dashboardLink.style.display = 'none';
-                }
-            }
-            
-            // Hide header Home link on non-homepages
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                const homeLink = document.getElementById('header-home-link');
-                if (homeLink) homeLink.style.display = 'none';
-            }
-        });
-    </script>
+    
 
 
 
@@ -258,6 +291,8 @@
                         <li>Bank charged wrong amount</li>
                         <li>Amazon not refunding</li>
                         <li>Builder possession delayed</li>
+                                            <li>LPG gas cylinder not delivered</li>
+                        <li>Gas agency charging extra</li>
                     </ul>
                 </div>
             </div>
@@ -272,6 +307,8 @@
                 <span onclick="setExample('Bank fraud')">🏦 Bank fraud</span>
                 <span onclick="setExample('Amazon not refunding')">🛒 Amazon refund</span>
                 <span onclick="setExample('Builder possession delay')">🏗️ Builder delay</span>
+                            <span onclick="setExample('LPG cylinder not delivered')">🔥 LPG issue</span>
+                <span onclick="setExample('Gas agency overcharging')">⛽ Gas overcharge</span>
             </div>
         </div>
 
@@ -280,102 +317,6 @@
         </div>
     </div>
 
-    <script>
-        function setExample(text) {
-            document.getElementById('userInput').value = text;
-            sendMessage();
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const question = input.value.trim();
-            if (!question) return;
-
-            addMessage('user', question);
-            const answer = getAIResponse(question);
-            addMessage('ai', answer);
-            input.value = '';
-        }
-
-        function addMessage(sender, content) {
-            const history = document.getElementById('chatHistory');
-            const div = document.createElement('div');
-            div.className = sender === 'user' ? 'user-message' : 'ai-message';
-            if (sender === 'ai') {
-                div.innerHTML = content;
-            } else {
-                div.textContent = content;
-            }
-            history.appendChild(div);
-            history.scrollTop = history.scrollHeight;
-        }
-
-        function getAIResponse(question) {
-            const q = question.toLowerCase();
-
-            if (q.includes('airline') || q.includes('flight') || q.includes('dgca') || q.includes('cancellation') || q.includes('delay')) {
-                return `
-                    <p><strong>✈️ Flight Cancellation / Delay</strong></p>
-                    <p><strong>Consumer Law:</strong> DGCA Civil Aviation Requirements (CAR) Section 3, Series M, Part IV</p>
-                    <p><strong>Compensation Rules:</strong></p>
-                    <ul>
-                        <li>Flight delay > 2 hours: meals/refreshments</li>
-                        <li>Delay > 6 hours: refund or alternative flight</li>
-                        <li>Cancellation without notice: compensation up to ₹10,000 depending on delay</li>
-                    </ul>
-                    <p><strong>Next Action:</strong> First file a complaint with the airline. If not resolved in 15 days, escalate to DGCA via <a href="https://airsewa.gov.in" target="_blank">AirSewa</a>.</p>
-                `;
-            }
-
-            if (q.includes('bank') || q.includes('fraud') || q.includes('sbi') || q.includes('hdfc') || q.includes('transaction')) {
-                return `
-                    <p><strong>🏦 Banking / Fraud</strong></p>
-                    <p><strong>Consumer Law:</strong> RBI’s Circular on Limiting Liability of Customers in Unauthorised Transactions (2017)</p>
-                    <p><strong>Compensation Rules:</strong> If fraud reported within 3 days, zero liability. After 3 days, limited liability up to ₹25,000 (subject to terms).</p>
-                    <p><strong>Next Action:</strong> Immediately report to bank's customer care. If not resolved within 30 days, file complaint with <a href="https://cms.rbi.org.in" target="_blank">RBI Ombudsman</a>. Also file cyber complaint at <a href="https://cybercrime.gov.in" target="_blank">cybercrime.gov.in</a> if fraud.</p>
-                `;
-            }
-
-            if (q.includes('amazon') || q.includes('flipkart') || q.includes('refund') || q.includes('order') || q.includes('delivery') || q.includes('return')) {
-                return `
-                    <p><strong>🛒 E‑Commerce / Refund</strong></p>
-                    <p><strong>Consumer Law:</strong> Consumer Protection Act 2019, Section 2(9) – unfair trade practice; Right to seek redressal.</p>
-                    <p><strong>Compensation Rules:</strong> You are entitled to a full refund if the product is defective, not delivered, or not as described. Sellers must refund within 30 days of return.</p>
-                    <p><strong>Next Action:</strong> Escalate to the platform's Grievance Officer (details in their legal section). If no response in 7 days, file on <a href="https://consumerhelpline.gov.in" target="_blank">National Consumer Helpline</a> (1915) or approach Consumer Court.</p>
-                `;
-            }
-
-            if (q.includes('builder') || q.includes('rera') || q.includes('possession') || q.includes('flat') || q.includes('apartment')) {
-                return `
-                    <p><strong>🏗️ Real Estate / Builder Delay</strong></p>
-                    <p><strong>Consumer Law:</strong> RERA Act 2016 – builder must pay monthly interest for delay (same as EMI interest).</p>
-                    <p><strong>Compensation Rules:</strong> You are entitled to interest for every month of delay. If delay > 1 year, you can withdraw from project and get full refund with interest.</p>
-                    <p><strong>Next Action:</strong> File a complaint with the state RERA authority (e.g., <a href="https://rera.delhi.gov.in" target="_blank">Delhi RERA</a>). You can also file in Consumer Court.</p>
-                `;
-            }
-
-            if (q.includes('airtel') || q.includes('jio') || q.includes('vi') || q.includes('network') || q.includes('mobile') || q.includes('telecom')) {
-                return `
-                    <p><strong>📱 Telecom / Network</strong></p>
-                    <p><strong>Consumer Law:</strong> TRAI’s Standards of Quality of Service (2009).</p>
-                    <p><strong>Compensation Rules:</strong> For call drops, you can claim compensation per dropped call (varies by plan). For billing errors, full refund with interest.</p>
-                    <p><strong>Next Action:</strong> First contact customer care. If not resolved in 15 days, escalate to the Nodal Officer. Then file on <a href="https://trai.gov.in" target="_blank">TRAI portal</a>.</p>
-                `;
-            }
-
-            return `
-                <p><strong>🤖 I'm not sure about that specific issue.</strong></p>
-                <p>Try asking about:</p>
-                <ul>
-                    <li>Flight delay / cancellation</li>
-                    <li>Bank fraud / wrong deduction</li>
-                    <li>Amazon / Flipkart refund</li>
-                    <li>Builder / RERA delay</li>
-                    <li>Airtel / Jio network issues</li>
-                </ul>
-                <p>Or use our <a href="search.html">Search</a> to find the right authority.</p>
-            `;
-        }
-    </script>
+    
 </body>
 </html>

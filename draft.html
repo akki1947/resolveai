@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -188,6 +187,8 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Back to Home</a>
+    
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
@@ -198,44 +199,13 @@
             <a href="negotiation.html">AI Negotiator</a>
             <a href="knowledge.html">Guide</a>
             <a href="emergency.html">Emergency</a>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
-            <a href="login.html" id="login-link">Login</a></div>
+            
+            
+            </div>
         </div>
     </header>
 
-    <script type="module">
-        import { supabase, getSession } from '/js/auth.js';
-        
-        window.logout = async function() {
-            await supabase.auth.signOut();
-            window.location.href = 'index.html';
-        };
-        
-        getSession().then(session => {
-            const loginLink = document.getElementById('login-link');
-            const logoutLink = document.getElementById('logout-link');
-            const dashboardLink = document.getElementById('dashboard-link');
-            
-            if (loginLink && logoutLink && dashboardLink) {
-                if (session) {
-                    loginLink.style.display = 'none';
-                    logoutLink.style.display = 'inline';
-                    dashboardLink.style.display = 'inline';
-                } else {
-                    loginLink.style.display = 'inline';
-                    logoutLink.style.display = 'none';
-                    dashboardLink.style.display = 'none';
-                }
-            }
-            
-            // Hide header Home link on non-homepages
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                const homeLink = document.getElementById('header-home-link');
-                if (homeLink) homeLink.style.display = 'none';
-            }
-        });
-    </script>
+    
 
 
 
@@ -391,48 +361,80 @@
     }
 };
 
-        window.onload = function() {
-            const sector = localStorage.getItem('userSector') || 'ecommerce';
-            const issue = localStorage.getItem('userIssue') || '[Detailed Description of Grievance]';
-            const orderId = localStorage.getItem('orderId') || 'N/A';
-            const date = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+        
+    window.onload = function() {
+        const sector = localStorage.getItem('userSector') || 'ecommerce';
+        const issue = localStorage.getItem('userIssue') || 'No issue description provided';
+        const orderId = localStorage.getItem('orderId') || 'Not provided';
+        const company = localStorage.getItem('userCompany') || 'Not specified';
+        const category = localStorage.getItem('userCategory') || '';
+        const type = localStorage.getItem('userType') || '';
+        
+        const date = new Date().toLocaleDateString('en-IN', { 
+            day: 'numeric', 
+            month: 'long', 
+            year: 'numeric' 
+        });
 
-            const auth = authorityMap[sector] || authorityMap['ecommerce'];
-            const regulatorName = auth.regulator;
-            const waitDays = auth.wait_days;
+        // Get regulator name from sector
+        const regulatorMap = {
+            'ecommerce': 'National Consumer Helpline',
+            'banking': 'RBI Ombudsman',
+            'telecom': 'TRAI',
+            'insurance': 'IRDAI',
+            'airline': 'DGCA',
+            'realestate': 'RERA',
+            'internet': 'TRAI',
+            'travel': 'DGCA',
+            'electronics': 'National Consumer Helpline',
+            'food-delivery': 'FSSAI',
+            'fintech': 'RBI Ombudsman'
+        };
+        
+        const regulator = regulatorMap[sector] || 'Concerned Authority';
 
-            const draft = `Date: ${date}
+        const draft = `Date: ${date}
 
-Ref ID / Order ID: ${orderId}
+COMPLAINT DETAILS
+-----------------
+Reference ID: ${orderId}
+Company: ${company}
+Sector: ${sector}
+Issue Type: ${type} (${category})
 
 To,
 The Grievance Redressal Officer,
 ${sector.toUpperCase()} Division
+${company}
 
 Subject: Formal Complaint regarding Deficiency in Service – Final Notice
 
 Respected Sir/Madam,
 
-I am writing this formal application to bring to your immediate notice a significant deficiency in service regarding the transaction/product identified by Reference ID: ${orderId}.
+I am writing this formal application to bring to your immediate notice a significant deficiency in service regarding the transaction/product identified above.
 
-Details of the Grievance:
+DETAILS OF THE GRIEVANCE:
 ${issue}
 
+LEGAL BASIS:
 Under the Consumer Protection Act, 2019, specifically Section 2(9) (right to be protected against unfair trade practices) and Section 2(10) (right to seek redressal), I request a thorough investigation. Despite previous attempts to resolve this through your standard support channels, the matter remains unresolved, causing me mental and financial distress.
 
-I request you to investigate this grievance and provide a resolution within the statutory timeline prescribed for the ${sector} industry. As per industry guidelines, a response is expected within ${waitDays} days.
+TIMELINE:
+I request you to investigate this grievance and provide a resolution within the statutory timeline prescribed for the ${sector} industry. As per industry guidelines, a response is expected within the prescribed timeframe.
 
-Failure to provide a satisfactory response within the next 7 working days will compel me to escalate this matter to the **${regulatorName}** and file a formal petition with the National Consumer Helpline (1915).
+ESCALATION NOTICE:
+Failure to provide a satisfactory response within the next 7 working days will compel me to escalate this matter to the **${regulator}** and file a formal petition with the National Consumer Helpline (1915) / appropriate regulatory authority.
 
 Thanking you,
 
 Sincerely,
 
 [Your Name]
-[Your Contact Number]`;
+[Your Contact Number]
+[Your Email Address]`;
 
-            document.getElementById('letter-body').innerText = draft;
-        };
+        document.getElementById('letter-body').innerText = draft;
+    };
 
         function copyText() {
             const text = document.getElementById('letter-body').innerText;
