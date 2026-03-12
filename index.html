@@ -43,15 +43,30 @@
         .logo span {
             color: #2563eb;
         }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
         .nav-links a {
             color: #475569;
             text-decoration: none;
             margin-left: 32px;
             font-weight: 500;
             font-size: 0.95rem;
+            white-space: nowrap;
         }
         .nav-links a:hover {
             color: #2563eb;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 12px;
+            }
+            .nav-links a {
+                margin-left: 16px;
+                font-size: 0.85rem;
+            }
         }
         .hero {
             background: linear-gradient(145deg, #f8fafc 0%, #ffffff 100%);
@@ -231,10 +246,6 @@
             border-top: 1px solid #1e293b;
             font-size: 0.8rem;
         }
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 2.2rem; }
-            .nav-links a { margin-left: 16px; }
-        }
     </style>
 </head>
 <body>
@@ -242,24 +253,31 @@
         <div class="container header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
-            <a href="index.html" id="header-home-link">Home</a>
-            <a href="search.html">Search</a>
-            <a href="advisor.html">AI Advisor</a>
-            <a href="negotiation.html">AI Negotiator</a>
-            <a href="knowledge.html">Guide</a>
-            <a href="emergency.html">Emergency</a>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
-            <a href="login.html" id="login-link">Login</a></div>
+                <a href="index.html" id="header-home-link">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
+                <a href="knowledge.html">Guide</a>
+                <a href="emergency.html">Emergency</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
+            </div>
         </div>
     </header>
 
     <script>
+        // ---------- SINGLE SUPABASE DECLARATION ----------
         const supabase = window.supabase.createClient(
             'https://qdymteenojnjwgblxjas.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
         );
-        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+
         supabase.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 document.getElementById('login-link').style.display = 'none';
@@ -270,23 +288,17 @@
                 document.getElementById('logout-link').style.display = 'none';
                 document.getElementById('dashboard-link').style.display = 'none';
             }
-            // Hide header Home link on non-homepages (won't apply here because it's index)
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                const homeLink = document.getElementById('header-home-link');
-                if (homeLink) homeLink.style.display = 'none';
-            
-            // Hide header Home link on non-homepages
+            // Hide header Home link on non-homepages (won't apply here)
             if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
                 const homeLink = document.getElementById('header-home-link');
                 if (homeLink) homeLink.style.display = 'none';
             }
-        }
         });
     </script>
 
     <section class="hero">
         <div class="container">
-            <div class="hook">India’s Consumer Complaint Copilot – Google of Grievances</div>
+            <div class="hook">India's Consumer Complaint Copilot – Google of Grievances</div>
             <h1>Resolve<span>AI</span></h1>
             <div class="tagline">Know your rights before you fight.</div>
             <div class="counter-badge">
@@ -308,7 +320,7 @@
                 <div class="card">
                     <div class="card-number">1</div>
                     <h3>Search</h3>
-                    <p>Type your problem – “airtel network”, “bank fraud”, “refund not received”.</p>
+                    <p>Type your problem – "airtel network", "bank fraud", "refund not received".</p>
                 </div>
                 <div class="card">
                     <div class="card-number">2</div>

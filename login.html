@@ -127,45 +127,37 @@
     </div>
 
     <script>
+        // ---------- SUPABASE AUTH ----------
         const supabase = window.supabase.createClient(
             'https://qdymteenojnjwgblxjas.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
         );
 
-        let isLogin = true;
-
-        function toggleMode() {
-            isLogin = !isLogin;
-            document.getElementById('form-title').innerText = isLogin ? 'Sign in to your account' : 'Create an account';
-            document.getElementById('submit-btn').innerText = isLogin ? 'Sign In' : 'Sign Up';
-            document.getElementById('toggle-link').innerText = isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in";
-        }
-
-        async function handleAuth(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('error-message');
-            errorDiv.style.display = 'none';
-
-            let response;
-            if (isLogin) {
-                response = await supabase.auth.signInWithPassword({ email, password });
-            } else {
-                response = await supabase.auth.signUp({ email, password });
-            }
-
-            const { error } = response;
-            if (error) {
-                errorDiv.innerText = error.message;
-                errorDiv.style.display = 'block';
-            } else {
-                window.location.href = 'dashboard.html';
-            }
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
         }
 
         supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) window.location.href = 'dashboard.html';
+            const loginLink = document.getElementById('login-link');
+            const logoutLink = document.getElementById('logout-link');
+            const dashboardLink = document.getElementById('dashboard-link');
+            
+            if (session) {
+                if (loginLink) loginLink.style.display = 'none';
+                if (logoutLink) logoutLink.style.display = 'inline';
+                if (dashboardLink) dashboardLink.style.display = 'inline';
+            } else {
+                if (loginLink) loginLink.style.display = 'inline';
+                if (logoutLink) logoutLink.style.display = 'none';
+                if (dashboardLink) dashboardLink.style.display = 'none';
+            }
+            
+            // Hide header Home link on non-homepages
+            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
+                const homeLink = document.getElementById('header-home-link');
+                if (homeLink) homeLink.style.display = 'none';
+            }
         });
     </script>
 </body>
