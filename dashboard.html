@@ -8,146 +8,358 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="/js/config.js" type="module"></script>
+    <link rel="stylesheet" href="/css/components.css">
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg-light: #f8fafc;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
+            background: var(--bg-light);
+            color: var(--text-dark);
             line-height: 1.6;
         }
+
         header {
             background: white;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--border);
             padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 10;
         }
+
         .header-content {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
+
         .logo {
             font-weight: 700;
             font-size: 1.5rem;
-            color: #0f172a;
+            color: var(--text-dark);
             text-decoration: none;
         }
+
         .logo span {
-            color: #2563eb;
+            color: var(--primary);
         }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
         .nav-links a {
             color: #475569;
             text-decoration: none;
-            margin-left: 32px;
             font-weight: 500;
+            font-size: 0.95rem;
         }
+
         .nav-links a:hover {
-            color: #2563eb;
+            color: var(--primary);
         }
+
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 40px auto;
             padding: 0 24px;
         }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
-        .subhead {
-            color: #64748b;
+
+        .dashboard-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             margin-bottom: 32px;
         }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            background: var(--bg-light);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .complaint-grid {
+            display: grid;
+            gap: 20px;
+        }
+
         .complaint-card {
             background: white;
-            border-radius: 24px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
         }
+
         .complaint-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            border-color: var(--primary);
         }
+
         .complaint-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
-        .case-id {
+
+        .complaint-id {
             font-family: monospace;
-            background: #e2e8f0;
+            background: var(--bg-light);
             padding: 4px 12px;
             border-radius: 40px;
             font-size: 0.9rem;
         }
-        .status {
-            background: #fef9c3;
-            color: #854d0e;
+
+        .complaint-status {
             padding: 4px 12px;
             border-radius: 40px;
+            font-size: 0.85rem;
             font-weight: 500;
         }
+
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-resolved { background: #d4edda; color: #155724; }
+        .status-escalated { background: #f8d7da; color: #721c24; }
+
         .complaint-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 8px;
         }
+
         .complaint-meta {
             display: flex;
-            gap: 24px;
-            color: #64748b;
+            gap: 20px;
+            color: var(--text-light);
             font-size: 0.9rem;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
         }
-        .btn-view {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            margin-top: 12px;
+            overflow: hidden;
         }
-        .btn-view:hover {
-            background: #1d4ed8;
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.3s ease;
         }
+
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .empty-state-text {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
             border-radius: 24px;
-            border: 1px solid #e2e8f0;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
         }
-        .empty-state p {
-            color: #64748b;
-            margin-bottom: 20px;
-        }
-        .logout-btn {
-            background: #0f172a;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: 500;
+
+        .modal-close {
+            float: right;
+            font-size: 1.5rem;
             cursor: pointer;
+            color: var(--text-light);
         }
-        footer {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.8rem;
-            margin: 40px 0;
+
+        .evidence-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .evidence-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .evidence-check {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+        }
+
+        .timeline {
+            margin: 24px 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid white;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -156,15 +368,16 @@
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
-            <a href="index.html" id="header-home-link">Home</a>
-            <a href="search.html">Search</a>
-            <a href="advisor.html">AI Advisor</a>
-            <a href="negotiation.html">AI Negotiator</a>
-            <a href="knowledge.html">Guide</a>
-            <a href="emergency.html">Emergency</a>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
-            <a href="login.html" id="login-link">Login</a></div>
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
+                <a href="knowledge.html">Guide</a>
+                <a href="emergency.html">Emergency</a>
+                <a href="dashboard.html" id="dashboard-link">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()">Logout</a>
+                <a href="login.html" id="login-link" style="display:none;">Login</a>
+            </div>
         </div>
     </header>
 
@@ -173,82 +386,216 @@
             'https://qdymteenojnjwgblxjas.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
         );
-        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+
         supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                document.getElementById('login-link').style.display = 'none';
-                document.getElementById('logout-link').style.display = 'inline';
-                document.getElementById('dashboard-link').style.display = 'inline';
-            } else {
-                document.getElementById('login-link').style.display = 'inline';
-                document.getElementById('logout-link').style.display = 'none';
-                document.getElementById('dashboard-link').style.display = 'none';
-                // Redirect to login if not authenticated on dashboard page
+            if (!session) {
                 window.location.href = 'login.html';
             }
         });
     </script>
 
     <div class="container">
-        <h1>My Complaints Dashboard</h1>
-        <div class="subhead">Track and manage all your complaints in one place.</div>
+        <div class="dashboard-header">
+            <h1>My Dashboard</h1>
+            <a href="complaint.html" class="btn btn-primary">+ New Complaint</a>
+        </div>
 
-        <div id="complaints-list">
-            <div class="empty-state">
-                <p>Loading your complaints...</p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalComplaints">0</div>
+                <div class="stat-label">Total Complaints</div>
             </div>
+            <div class="stat-card">
+                <div class="stat-value" id="activeComplaints">0</div>
+                <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="resolvedComplaints">0</div>
+                <div class="stat-label">Resolved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgResponse">-</div>
+                <div class="stat-label">Avg Response Time</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <span class="tab active" onclick="filterComplaints('all')">All</span>
+            <span class="tab" onclick="filterComplaints('pending')">Pending</span>
+            <span class="tab" onclick="filterComplaints('in-progress')">In Progress</span>
+            <span class="tab" onclick="filterComplaints('resolved')">Resolved</span>
+            <span class="tab" onclick="filterComplaints('escalated')">Escalated</span>
+        </div>
+
+        <div id="complaintsContainer" class="complaint-grid">
+            <!-- Complaints will be loaded here -->
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 ResolveAI – Free consumer guidance tool.</p>
-    </footer>
+    <!-- Complaint Detail Modal -->
+    <div class="modal" id="complaintModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
 
     <script>
+        let complaints = [];
+        let currentFilter = 'all';
+
         async function loadComplaints() {
             const { data: { session } } = await supabase.auth.getSession();
+            
             if (!session) return;
 
             const response = await fetch('/api/get-user-complaints', {
                 headers: { 'Authorization': `Bearer ${session.access_token}` }
             });
-            const complaints = await response.json();
+            
+            complaints = await response.json();
+            updateStats();
+            displayComplaints();
+        }
 
-            const container = document.getElementById('complaints-list');
-            if (!complaints || complaints.length === 0) {
+        function updateStats() {
+            document.getElementById('totalComplaints').innerText = complaints.length;
+            document.getElementById('activeComplaints').innerText = 
+                complaints.filter(c => c.status === 'pending' || c.status === 'in-progress').length;
+            document.getElementById('resolvedComplaints').innerText = 
+                complaints.filter(c => c.status === 'resolved').length;
+            
+            // Calculate average response time (mock data)
+            document.getElementById('avgResponse').innerText = '3.2 days';
+        }
+
+        function displayComplaints() {
+            const container = document.getElementById('complaintsContainer');
+            
+            const filtered = currentFilter === 'all' ? complaints :
+                complaints.filter(c => c.status === currentFilter);
+            
+            if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
-                        <p>You haven't filed any complaints yet.</p>
-                        <a href="complaint.html" class="btn-view">File Your First Complaint</a>
+                        <div class="empty-state-icon">📭</div>
+                        <div class="empty-state-title">No complaints found</div>
+                        <div class="empty-state-text">Start by filing your first complaint</div>
+                        <a href="complaint.html" class="btn btn-primary">File a Complaint</a>
                     </div>
                 `;
                 return;
             }
 
-            let html = '';
-            complaints.forEach(c => {
-                const date = new Date(c.date_created).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-                html += `
-                    <div class="complaint-card">
+            container.innerHTML = filtered.map(complaint => {
+                const statusClass = `complaint-status status-${complaint.status}`;
+                const progress = complaint.status === 'resolved' ? 100 :
+                               complaint.status === 'escalated' ? 75 :
+                               complaint.status === 'in-progress' ? 50 : 25;
+                
+                return `
+                    <div class="complaint-card" onclick="viewComplaint('${complaint.id}')">
                         <div class="complaint-header">
-                            <span class="case-id">${c.public_id || 'N/A'}</span>
-                            <span class="status">${c.status}</span>
+                            <span class="complaint-id">${complaint.public_id || 'N/A'}</span>
+                            <span class="${statusClass}">${complaint.status}</span>
                         </div>
-                        <div class="complaint-title">${c.title}</div>
+                        <div class="complaint-title">${complaint.title}</div>
                         <div class="complaint-meta">
-                            <span>📅 ${date}</span>
-                            <span>🏛️ ${c.authority}</span>
+                            <span>📅 ${new Date(complaint.date_created).toLocaleDateString()}</span>
+                            <span>🏛️ ${complaint.authority}</span>
                         </div>
-                        <a href="case.html?public_id=${c.public_id}" class="btn-view">View Details</a>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
                     </div>
                 `;
-            });
-            container.innerHTML = html;
+            }).join('');
         }
 
-        // Wait for session check then load complaints
+        async function viewComplaint(id) {
+            const complaint = complaints.find(c => c.id === id);
+            const modal = document.getElementById('complaintModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const evidence = JSON.parse(complaint.evidence_list || '[]');
+            
+            modalContent.innerHTML = `
+                <h2>${complaint.title}</h2>
+                <div class="complaint-meta" style="margin: 16px 0">
+                    <span>ID: ${complaint.public_id}</span>
+                    <span>Filed: ${new Date(complaint.date_created).toLocaleDateString()}</span>
+                </div>
+                
+                <h3>Description</h3>
+                <p>${complaint.description}</p>
+                
+                <h3 style="margin-top: 20px">Required Evidence</h3>
+                <div class="evidence-list">
+                    ${evidence.map(item => `
+                        <div class="evidence-item">
+                            <input type="checkbox" class="evidence-check" ${complaint.evidence_submitted?.includes(item) ? 'checked' : ''}>
+                            <span>${item}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <h3 style="margin-top: 20px">Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">${new Date(complaint.date_created).toLocaleString()}</div>
+                            <div class="timeline-title">Complaint Filed</div>
+                            <div class="timeline-desc">Your complaint was submitted successfully</div>
+                        </div>
+                    </div>
+                    ${complaint.status === 'resolved' ? `
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: #22c55e"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">${new Date().toLocaleString()}</div>
+                                <div class="timeline-title">Resolved</div>
+                                <div class="timeline-desc">Your complaint has been marked as resolved</div>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 24px">
+                    <a href="case.html?public_id=${complaint.public_id}" class="btn btn-primary" style="flex: 1">View Public Page</a>
+                    <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('complaintModal').classList.remove('active');
+        }
+
+        function filterComplaints(filter) {
+            currentFilter = filter;
+            
+            // Update tab UI
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            displayComplaints();
+        }
+
+        // Load complaints on page load
         supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) loadComplaints();
+            if (session) {
+                loadComplaints();
+            }
         });
     </script>
 </body>
