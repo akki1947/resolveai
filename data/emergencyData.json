@@ -1156,5 +1156,296 @@
         }
       ]
     }
+    ,
+{
+  "state": "Arunachal Pradesh",
+  "website": "https://arunachalpradesh.gov.in",
+  "major_cities": ["Itanagar", "Naharlagun", "Pasighat", "Tawang", "Ziro"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Itanagar",
+      "major_city": "Itanagar",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://itanagar.nic.in"
+    }
+  ]
+},
+{
+  "state": "Chhattisgarh",
+  "website": "https://cgstate.gov.in",
+  "major_cities": ["Raipur", "Bhilai", "Bilaspur", "Korba", "Durg"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Raipur",
+      "major_city": "Raipur",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://raipur.gov.in"
+    }
+  ]
+},
+{
+  "state": "Himachal Pradesh",
+  "website": "https://himachal.nic.in",
+  "major_cities": ["Shimla", "Dharamshala", "Solan", "Mandi", "Kullu"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Shimla",
+      "major_city": "Shimla",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://shimla.nic.in"
+    }
+  ]
+},
+{
+  "state": "Kerala",
+  "website": "https://kerala.gov.in",
+  "major_cities": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Kannur"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Thiruvananthapuram",
+      "major_city": "Thiruvananthapuram",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://trivandrum.nic.in"
+    }
+  ]
+},
+{
+  "state": "Manipur",
+  "website": "https://manipur.gov.in",
+  "major_cities": ["Imphal", "Thoubal", "Bishnupur", "Ukhrul", "Churachandpur"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Imphal West",
+      "major_city": "Imphal",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://imphalwest.nic.in"
+    }
+  ]
+},
+{
+  "state": "Meghalaya",
+  "website": "https://meghalaya.gov.in",
+  "major_cities": ["Shillong", "Tura", "Jowai", "Nongpoh", "Baghmara"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "East Khasi Hills",
+      "major_city": "Shillong",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://eastkhasihills.gov.in"
+    }
+  ]
+},
+{
+  "state": "Mizoram",
+  "website": "https://mizoram.gov.in",
+  "major_cities": ["Aizawl", "Lunglei", "Champhai", "Serchhip", "Kolasib"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Aizawl",
+      "major_city": "Aizawl",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://aizawl.nic.in"
+    }
+  ]
+},
+{
+  "state": "Nagaland",
+  "website": "https://nagaland.gov.in",
+  "major_cities": ["Kohima", "Dimapur", "Mokokchung", "Tuensang", "Wokha"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Kohima",
+      "major_city": "Kohima",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://kohima.nic.in"
+    }
+  ]
+},
+{
+  "state": "Sikkim",
+  "website": "https://sikkim.gov.in",
+  "major_cities": ["Gangtok", "Namchi", "Gyalshing", "Mangan", "Rangpo"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Gangtok",
+      "major_city": "Gangtok",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://gangtok.nic.in"
+    }
+  ]
+},
+{
+  "state": "Tripura",
+  "website": "https://tripura.gov.in",
+  "major_cities": ["Agartala", "Udaipur", "Dharmanagar", "Kailashahar", "Belonia"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "West Tripura",
+      "major_city": "Agartala",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930",
+        "railway": "139",
+        "tourist_police": "1363"
+      },
+      "website": "https://westtripura.nic.in"
+    }
+  ]
+}
   ]
 }
