@@ -1,41 +1,190 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
 
-// Get all .html files in the current directory (excluding node_modules)
-const files = fs.readdirSync(__dirname).filter(file => 
-    file.endsWith('.html') && !file.includes('node_modules')
-);
+const filePath = "emergency.html";
+let html = fs.readFileSync(filePath, "utf8");
 
-// Canonical navigation links to replace inside .nav-links
-const canonicalNavLinks = `
-            <a href="index.html" id="header-home-link">Home</a>
-            <a href="search.html">Search</a>
-            <a href="advisor.html">AI Advisor</a>
-            <a href="negotiation.html">AI Negotiator</a>
-            <a href="knowledge.html">Guide</a>
-            <a href="emergency.html">Emergency</a>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
-            <a href="login.html" id="login-link">Login</a>`;
+// Remove duplicate states
+const statesToRemove = [
+  "Andhra Pradesh",
+  "Telangana",
+  "Gujarat"
+];
 
-files.forEach(file => {
-    const filePath = path.join(__dirname, file);
-    let content = fs.readFileSync(filePath, 'utf8');
-
-    // 1. Remove any floating "← Home" link (line with class="home-link")
-    content = content.replace(/^\s*<a[^>]*class="home-link"[^>]*>.*<\/a>\s*$/gm, '');
-
-    // 2. Replace the content inside .nav-links with the canonical version
-    // This regex matches <div class="nav-links"> ... </div> and captures the inner content
-    const navLinksRegex = /(<div class="nav-links">)([\s\S]*?)(<\/div>)/;
-    if (navLinksRegex.test(content)) {
-        content = content.replace(navLinksRegex, `$1${canonicalNavLinks}$3`);
-        console.log(`✅ Updated navigation in ${file}`);
-    } else {
-        console.log(`⚠️  Could not find .nav-links in ${file}`);
-    }
-
-    fs.writeFileSync(filePath, content, 'utf8');
+statesToRemove.forEach(state => {
+  const regex = new RegExp(`,?\\s*\\{[^}]*"state"\\s*:\\s*"${state}"[\\s\\S]*?\\}\\s*,?`, "g");
+  html = html.replace(regex, "");
 });
 
-console.log('🎉 All files processed. Please verify changes, especially emergency.html and result.html.');
+// States to append
+const newStates = `
+,
+{
+  "state": "Tripura",
+  "website": "https://tripura.gov.in",
+  "major_cities": ["Agartala"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "West Tripura",
+      "major_city": "Agartala",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930"
+      },
+      "website": "https://westtripura.nic.in"
+    }
+  ]
+},
+{
+  "state": "Meghalaya",
+  "website": "https://meghalaya.gov.in",
+  "major_cities": ["Shillong"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "East Khasi Hills",
+      "major_city": "Shillong",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930"
+      },
+      "website": "https://eastkhasihills.nic.in"
+    }
+  ]
+},
+{
+  "state": "Manipur",
+  "website": "https://manipur.gov.in",
+  "major_cities": ["Imphal"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Imphal West",
+      "major_city": "Imphal",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930"
+      },
+      "website": "https://imphalwest.nic.in"
+    }
+  ]
+},
+{
+  "state": "Sikkim",
+  "website": "https://sikkim.gov.in",
+  "major_cities": ["Gangtok"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "East Sikkim",
+      "major_city": "Gangtok",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930"
+      },
+      "website": "https://eastsikkim.nic.in"
+    }
+  ]
+},
+{
+  "state": "Goa",
+  "website": "https://goa.gov.in",
+  "major_cities": ["Panaji","Margao"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "North Goa",
+      "major_city": "Panaji",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930"
+      },
+      "website": "https://northgoa.nic.in"
+    }
+  ]
+},
+{
+  "state": "Punjab",
+  "website": "https://punjab.gov.in",
+  "major_cities": ["Chandigarh","Ludhiana","Amritsar","Jalandhar"],
+  "emergency_numbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "unified": "112",
+    "state_disaster_control": "1070"
+  },
+  "districts": [
+    {
+      "district": "Amritsar",
+      "major_city": "Amritsar",
+      "control_room": {
+        "disaster_control": "1077",
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "women_helpline": "1091",
+        "cyber_crime": "1930"
+      },
+      "website": "https://amritsar.nic.in"
+    }
+  ]
+}
+`;
+
+const insertPosition = html.lastIndexOf("]");
+html = html.slice(0, insertPosition) + newStates + html.slice(insertPosition);
+
+fs.writeFileSync(filePath, html);
+
+console.log("Duplicates removed and new states appended successfully.");

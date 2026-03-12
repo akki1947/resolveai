@@ -1,0 +1,119 @@
+{
+  "sectors": {
+    "ecommerce": {
+      "name": "E-commerce",
+      "icon": "🛒",
+      "companies": [
+        "Amazon India",
+        "Flipkart",
+        "Myntra",
+        "Ajio",
+        "Meesho",
+        "Snapdeal",
+        "Tata Cliq",
+        "Nykaa"
+      ]
+    },
+    "banking": {
+      "name": "Banking",
+      "icon": "🏦",
+      "companies": [
+        "State Bank of India",
+        "HDFC Bank",
+        "ICICI Bank",
+        "Axis Bank",
+        "Kotak Mahindra Bank",
+        "Punjab National Bank",
+        "Bank of Baroda",
+        "IDFC First Bank"
+      ]
+    },
+    "telecom": {
+      "name": "Telecom",
+      "icon": "📱",
+      "companies": [
+        "Reliance Jio",
+        "Bharti Airtel",
+        "Vodafone Idea",
+        "BSNL"
+      ]
+    },
+    "internet": {
+      "name": "Internet",
+      "icon": "🌐",
+      "companies": [
+        "ACT Fibernet",
+        "Hathway"
+      ]
+    },
+    "insurance": {
+      "name": "Insurance",
+      "icon": "🛡️",
+      "companies": [
+        "Life Insurance Corporation of India",
+        "Star Health and Allied Insurance",
+        "HDFC Life",
+        "ICICI Lombard",
+        "Bajaj Allianz General Insurance"
+      ]
+    },
+    "airlines": {
+      "name": "Airlines",
+      "icon": "✈️",
+      "companies": [
+        "IndiGo",
+        "Air India",
+        "SpiceJet"
+      ]
+    },
+    "travel": {
+      "name": "Travel",
+      "icon": "🧳",
+      "companies": [
+        "MakeMyTrip",
+        "EaseMyTrip"
+      ]
+    },
+    "electronics": {
+      "name": "Electronics",
+      "icon": "📺",
+      "companies": [
+        "Samsung India",
+        "LG Electronics India",
+        "Sony India",
+        "Reliance Digital",
+        "Croma"
+      ]
+    },
+    "food-delivery": {
+      "name": "Food Delivery",
+      "icon": "🍔",
+      "companies": [
+        "Zomato",
+        "Swiggy",
+        "EatSure"
+      ]
+    },
+    "fintech": {
+      "name": "Fintech",
+      "icon": "💳",
+      "companies": [
+        "Paytm",
+        "PhonePe",
+        "Google Pay",
+        "Razorpay",
+        "BharatPe"
+      ]
+    },
+    "real-estate": {
+      "name": "Real Estate",
+      "icon": "🏗️",
+      "companies": [
+        "DLF",
+        "Godrej Properties",
+        "Prestige Group",
+        "Sobha Limited"
+      ]
+    }
+  }
+}

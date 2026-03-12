@@ -95,9 +95,29 @@
             font-size: 0.8rem;
             margin-bottom: 8px;
         }
-        .subcategory-badge {
+        .company-badge {
+            background: #e0f2fe;
+            color: #0369a1;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+        .category-badge {
             background: #f0f9ff;
             color: #0369a1;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+        .type-badge {
+            background: #fff3cd;
+            color: #856404;
             font-weight: 500;
             padding: 4px 12px;
             border-radius: 40px;
@@ -196,21 +216,29 @@
         .checklist-title {
             font-weight: 600;
             font-size: 1.2rem;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+        .checklist-subtitle {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #2563eb;
+            margin: 16px 0 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #e2e8f0;
         }
         .checklist-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             font-size: 0.95rem;
         }
         .checklist-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             accent-color: #2563eb;
         }
         .btn-primary {
@@ -240,6 +268,12 @@
             color: #94a3b8;
             font-size: 0.8rem;
             margin-top: 20px;
+        }
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
         }
     </style>
 </head>
@@ -292,18 +326,15 @@
     <div class="container">
         <div class="card">
             <h2>Your escalation path</h2>
-            <div>
-                <span class="sector-badge" id="sectorDisplay"></span>
-                <span class="subcategory-badge" id="subcategoryDisplay"></span>
-            </div>
+            <div class="badge-container" id="badgeContainer"></div>
             <div class="steps-container" id="stepsContainer"></div>
             <div id="regulatorInfo"></div>
             <div id="waitNote" class="wait-note"></div>
         </div>
 
         <div class="checklist-card">
-            <div class="checklist-title">📋 Evidence checklist</div>
-            <div id="checklistItems"></div>
+            <div class="checklist-title">📋 Required Evidence Checklist</div>
+            <div id="dynamicEvidence"></div>
         </div>
 
         <a href="draft.html" class="btn-primary">Generate Formal Draft</a>
@@ -344,6 +375,13 @@
                 "wait_days": 30,
                 "path": ["Customer Care", "Appellate Authority", "TRAI / DoT"]
             },
+            "internet": {
+                "regulator": "TRAI / DoT",
+                "description": "Internet services – broadband, connectivity",
+                "website": "https://www.tccms.trai.gov.in",
+                "wait_days": 30,
+                "path": ["Customer Care", "Appellate Authority", "TRAI / DoT"]
+            },
             "insurance": {
                 "regulator": "IRDAI (Bima Bharosa)",
                 "description": "Insurance claims, policy disputes, mis-selling",
@@ -358,45 +396,75 @@
                 "wait_days": 60,
                 "path": ["Developer", "RERA Conciliation", "RERA Bench"]
             },
-            "food": {
-                "regulator": "FSSAI",
-                "description": "Food safety, hygiene issues, adulteration",
+            "travel": {
+                "regulator": "DGCA / AirSewa",
+                "description": "Travel and tourism complaints",
+                "website": "https://airsewa.gov.in",
+                "wait_days": 15,
+                "path": ["Travel Agency", "Nodal Officer", "Consumer Court"]
+            },
+            "electronics": {
+                "regulator": "National Consumer Helpline (NCH)",
+                "description": "Electronic products, warranty, service issues",
+                "website": "https://consumerhelpline.gov.in",
+                "wait_days": 7,
+                "path": ["Customer Support", "Grievance Officer", "NCH Docket", "Consumer Court"]
+            },
+            "food-delivery": {
+                "regulator": "FSSAI / NCH",
+                "description": "Food delivery, hygiene, order issues",
                 "website": "https://foscos.fssai.gov.in",
                 "wait_days": 0,
-                "path": ["Restaurant/Brand", "FSSAI Cloud", "Food Safety Officer"]
+                "path": ["Restaurant/Platform", "NCH Docket", "FSSAI"]
+            },
+            "fintech": {
+                "regulator": "RBI Ombudsman",
+                "description": "Digital payments, fintech services",
+                "website": "https://cms.rbi.org.in",
+                "wait_days": 30,
+                "path": ["Customer Care", "Internal Nodal Officer", "RBI Ombudsman"]
             }
         };
 
-        const sectorEvidence = {
-            "ecommerce": ["Invoice Copy", "Order Confirmation Email", "Payment Screenshot", "Product Photos", "Delivery Status Screenshot"],
-            "banking": ["Bank Statement", "Transaction SMS", "Account Statement", "Complaint Reference Number", "Identity Proof"],
-            "telecom": ["Mobile Bill", "Service Request (SR) Number", "Speed Test Screenshots", "Call Logs"],
-            "insurance": ["Policy Document", "Premium Receipt", "Claim Rejection Letter", "Medical Records", "Hospital Bills"],
-            "airline": ["Ticket Copy", "PNR Number", "Boarding Pass", "Baggage Tag", "Delay/Cancellation Confirmation"],
-            "realestate": ["Agreement for Sale", "Payment Receipts", "Possession Letter", "Correspondence with Builder"],
-            "food": ["Order Receipt", "Food Photos", "Packaging Photos", "Restaurant Name", "Date/Time of Order"]
+        // Fallback evidence mapping for when specific evidence isn't available
+        const sectorEvidenceFallback = {
+            "ecommerce": ["Order Confirmation", "Payment Receipt", "Product Photos", "Communication with Seller"],
+            "banking": ["Bank Statement", "Transaction Details", "Complaint Reference Number", "Communication with Bank"],
+            "telecom": ["Bill Copy", "Service Request Number", "Speed Test Results", "Call Logs"],
+            "internet": ["Bill Copy", "Service Request Number", "Speed Test Results", "Connection Logs"],
+            "insurance": ["Policy Document", "Claim Form", "Rejection Letter", "Medical Records"],
+            "airline": ["Ticket Copy", "PNR Number", "Cancellation Email", "Payment Receipt"],
+            "travel": ["Booking Confirmation", "Payment Receipt", "Communication with Agent", "Cancellation Email"],
+            "electronics": ["Purchase Receipt", "Product Photos", "Warranty Card", "Service Report"],
+            "food-delivery": ["Order Confirmation", "Food Photos", "App Chat Logs", "Payment Receipt"],
+            "fintech": ["Transaction Receipt", "Bank Statement", "App Screenshots", "Customer Support Chat"],
+            "realestate": ["Agreement for Sale", "Payment Receipts", "Possession Letter", "Correspondence with Builder"]
         };
+
+        // Helper function to format keys for display
+        function formatDisplay(key) {
+            return key.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
 
         window.onload = function() {
             const sector = localStorage.getItem('userSector') || 'ecommerce';
-            const subcategory = localStorage.getItem('userSubcategory') || '';
+            const company = localStorage.getItem('userCompany') || '';
+            const category = localStorage.getItem('userCategory') || '';
+            const type = localStorage.getItem('userType') || '';
+            const evidenceList = JSON.parse(localStorage.getItem('evidenceList') || '[]');
             
-            document.getElementById('sectorDisplay').innerText = sector.charAt(0).toUpperCase() + sector.slice(1);
-            
-            // Try to load a friendly subcategory name (this could be enhanced with a JSON file)
-            const subcategoryMap = {
-                'non-delivery': 'Non-delivery / Delayed Delivery',
-                'wrong-items': 'Wrong / Defective Items',
-                'refund-issues': 'Refund Issues',
-                'fake-products': 'Fake / Poor Quality Products',
-                'fraud-transactions': 'Unauthorized Transactions / Fraud',
-                'network-issues': 'Network / Connectivity Issues',
-                'claim-rejection': 'Claim Rejection / Delay'
-            };
-            document.getElementById('subcategoryDisplay').innerText = subcategoryMap[subcategory] || subcategory.replace(/-/g, ' ');
+            // Display badges
+            const badgeContainer = document.getElementById('badgeContainer');
+            badgeContainer.innerHTML = `
+                <span class="sector-badge">${formatDisplay(sector)}</span>
+                ${company && company !== 'others' ? `<span class="company-badge">${company}</span>` : ''}
+                ${category ? `<span class="category-badge">${formatDisplay(category)}</span>` : ''}
+                ${type ? `<span class="type-badge">${formatDisplay(type)}</span>` : ''}
+            `;
 
             const auth = authorityMap[sector] || authorityMap['ecommerce'];
 
+            // Render escalation steps
             const stepsContainer = document.getElementById('stepsContainer');
             stepsContainer.innerHTML = '';
             auth.path.forEach((stepTitle, index) => {
@@ -416,6 +484,7 @@
                 `;
             });
 
+            // Render regulator info
             document.getElementById('regulatorInfo').innerHTML = `
                 <div class="regulator-box">
                     <div class="regulator-name">${auth.regulator}</div>
@@ -424,6 +493,7 @@
                 </div>
             `;
 
+            // Render wait note
             const waitDiv = document.getElementById('waitNote');
             if (auth.wait_days > 0) {
                 waitDiv.innerHTML = `⏳ Wait at least <strong>${auth.wait_days} days</strong> after internal escalation before approaching the regulator.`;
@@ -431,16 +501,30 @@
                 waitDiv.innerHTML = `⚠️ You can approach the regulator immediately for this issue.`;
             }
 
-            const items = sectorEvidence[sector] || sectorEvidence['ecommerce'];
-            const checklist = document.getElementById('checklistItems');
-            checklist.innerHTML = '';
-            items.forEach(item => {
-                checklist.innerHTML += `
-                    <div class="checklist-item">
-                        <input type="checkbox"> ${item}
-                    </div>
-                `;
-            });
+            // Render evidence checklist
+            const evidenceContainer = document.getElementById('dynamicEvidence');
+            evidenceContainer.innerHTML = '';
+
+            if (evidenceList && evidenceList.length > 0) {
+                // Group evidence by category if needed (evidenceList is flat from JSON)
+                evidenceList.forEach(item => {
+                    evidenceContainer.innerHTML += `
+                        <div class="checklist-item">
+                            <input type="checkbox"> ${item}
+                        </div>
+                    `;
+                });
+            } else {
+                // Fallback to sector-based evidence
+                const fallbackEvidence = sectorEvidenceFallback[sector] || sectorEvidenceFallback['ecommerce'];
+                fallbackEvidence.forEach(item => {
+                    evidenceContainer.innerHTML += `
+                        <div class="checklist-item">
+                            <input type="checkbox"> ${item}
+                        </div>
+                    `;
+                });
+            }
         };
     </script>
 </body>

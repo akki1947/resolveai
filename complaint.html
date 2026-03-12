@@ -93,7 +93,7 @@
             background: white;
             border-radius: 32px;
             padding: 40px;
-            max-width: 550px;
+            max-width: 600px;
             width: 100%;
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
             border: 1px solid #e2e8f0;
@@ -142,20 +142,6 @@
             resize: vertical;
             min-height: 120px;
         }
-        .evidence-zone {
-            border: 2px dashed #cbd5e1;
-            border-radius: 20px;
-            padding: 28px;
-            text-align: center;
-            color: #64748b;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-bottom: 24px;
-        }
-        .evidence-zone:hover {
-            background: #f8fafc;
-            border-color: #2563eb;
-        }
         #warning {
             background: #fee2e2;
             border: 1px solid #fecaca;
@@ -175,6 +161,21 @@
             color: #0369a1;
             margin: -16px 0 24px;
             display: none;
+        }
+        .company-search {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .company-search input {
+            padding-left: 40px;
+            margin-bottom: 0;
+        }
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
         }
         .btn {
             background: #0f172a;
@@ -219,6 +220,37 @@
             padding: 2px 8px;
             border-radius: 20px;
             font-weight: 600;
+        }
+        .evidence-preview {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border-left: 4px solid #2563eb;
+        }
+        .evidence-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+        .evidence-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .evidence-tag {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 40px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+        .evidence-tag.required {
+            background: #dbeafe;
+            border-color: #2563eb;
+            color: #1e40af;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -270,22 +302,42 @@
     </script>
 
     <div class="card">
-        <h2>Describe your issue</h2>
-        <div class="subhead">Select your problem category and we'll route it to the right authority.</div>
+        <h2>File a Complaint</h2>
+        <div class="subhead">Select your issue and company – we'll guide you through the process.</div>
 
         <div id="loading-categories" class="loading">Loading complaint categories...</div>
         <div id="error-container" style="display: none;"></div>
 
         <form id="complaint-form" style="display: none;">
-            <label for="sector">Main Category</label>
-            <select id="sector" onchange="updateSubcategories()">
-                <option value="">-- Select Main Category --</option>
+            <label for="sector">Sector</label>
+            <select id="sector" onchange="handleSectorChange()">
+                <option value="">-- Select Sector --</option>
             </select>
 
-            <label for="subcategory">Specific Issue</label>
-            <select id="subcategory" onchange="updateSuggestion()" disabled>
+            <div class="company-search" id="company-search-container" style="display: none;">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="company-search" placeholder="Search for your company..." oninput="filterCompanies()">
+            </div>
+
+            <label for="company">Company</label>
+            <select id="company" onchange="handleCompanyChange()" disabled>
+                <option value="">-- First select a sector --</option>
+            </select>
+
+            <label for="category">Category</label>
+            <select id="category" onchange="handleCategoryChange()" disabled>
+                <option value="">-- First select a company --</option>
+            </select>
+
+            <label for="type">Specific Issue</label>
+            <select id="type" onchange="handleTypeChange()" disabled>
                 <option value="">-- First select a category --</option>
             </select>
+
+            <div id="evidence-preview" class="evidence-preview" style="display: none;">
+                <div class="evidence-title">📋 Recommended Evidence</div>
+                <div class="evidence-tags" id="evidence-tags"></div>
+            </div>
 
             <div id="authority-suggestion"></div>
 
@@ -294,13 +346,7 @@
 
             <label for="description">Describe what happened</label>
             <textarea id="description" placeholder="Provide details about the issue..." oninput="checkWords()"></textarea>
-            <div id="warning">⚠ Please remove unprofessional language (scam, fraud, etc.)</div>
-
-            <label>Attach evidence (optional)</label>
-            <div class="evidence-zone" onclick="document.getElementById('fileInput').click()" id="uploadZone">
-                📎 Click to upload (photos, PDFs)
-                <input type="file" id="fileInput" style="display:none" onchange="handleFile()" multiple>
-            </div>
+            <div id="warning">⚠ Please remove unprofessional language</div>
 
             <button type="button" class="btn" onclick="goNext()" id="submit-btn">Analyze Issue</button>
         </form>
@@ -310,31 +356,33 @@
 
     <script>
         let categoriesData = null;
+        let companiesData = null;
+        let filteredCompanies = [];
         let isBad = false;
+        let currentSectorId = null;
+        let currentTypeEvidence = [];
 
-        // Load categories from JSON
-        fetch('/data/complaint-categories.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to load categories');
-                }
-                return response.json();
-            })
-            .then(data => {
-                categoriesData = data;
-                document.getElementById('loading-categories').style.display = 'none';
-                document.getElementById('complaint-form').style.display = 'block';
-                populateSectors();
-            })
-            .catch(error => {
-                console.error('Error loading categories:', error);
-                document.getElementById('loading-categories').style.display = 'none';
-                document.getElementById('error-container').style.display = 'block';
-                document.getElementById('error-container').innerHTML = 
-                    '<div class="error-message">Failed to load complaint categories. Please refresh the page.</div>';
-            });
+        // Load all data
+        Promise.all([
+            fetch('/data/grievance-categories.json').then(res => res.json()),
+            fetch('/data/companies.json').then(res => res.json())
+        ])
+        .then(([categories, companies]) => {
+            categoriesData = categories;
+            companiesData = companies;
+            document.getElementById('loading-categories').style.display = 'none';
+            document.getElementById('complaint-form').style.display = 'block';
+            populateSectors();
+        })
+        .catch(error => {
+            console.error('Error loading data:', error);
+            document.getElementById('loading-categories').style.display = 'none';
+            document.getElementById('error-container').style.display = 'block';
+            document.getElementById('error-container').innerHTML = 
+                '<div class="error-message">Failed to load data. Please refresh the page.</div>';
+        });
 
-        // Populate main categories
+        // Populate sectors
         function populateSectors() {
             const sectorSelect = document.getElementById('sector');
             categoriesData.sectors.forEach(sector => {
@@ -345,50 +393,216 @@
             });
         }
 
-        // Update subcategories based on selected main category
-        function updateSubcategories() {
+        // Handle sector change
+        function handleSectorChange() {
             const sectorId = document.getElementById('sector').value;
-            const subSelect = document.getElementById('subcategory');
-            const suggestionDiv = document.getElementById('authority-suggestion');
+            const companyContainer = document.getElementById('company-search-container');
+            const companySelect = document.getElementById('company');
+            const categorySelect = document.getElementById('category');
+            const typeSelect = document.getElementById('type');
+            const evidencePreview = document.getElementById('evidence-preview');
             
-            subSelect.innerHTML = '<option value="">-- Select Specific Issue --</option>';
-            subSelect.disabled = !sectorId;
-            suggestionDiv.style.display = 'none';
-            suggestionDiv.innerHTML = '';
+            currentSectorId = sectorId;
+            
+            categorySelect.innerHTML = '<option value="">-- First select a company --</option>';
+            categorySelect.disabled = true;
+            typeSelect.innerHTML = '<option value="">-- First select a category --</option>';
+            typeSelect.disabled = true;
+            evidencePreview.style.display = 'none';
+            
+            if (!sectorId) {
+                companyContainer.style.display = 'none';
+                companySelect.innerHTML = '<option value="">-- First select a sector --</option>';
+                companySelect.disabled = true;
+                return;
+            }
 
-            if (!sectorId) return;
+            companyContainer.style.display = 'block';
+            companySelect.disabled = false;
+            populateCompanies(sectorId);
+        }
 
+        // Populate companies based on sector
+        function populateCompanies(sectorId) {
+            const companySelect = document.getElementById('company');
+            const sectorCompanies = companiesData.sectors[sectorId]?.companies || [];
+            
+            companySelect.innerHTML = '<option value="">-- Select Company --</option>';
+            
+            // Add "Others" option
+            const othersOption = document.createElement('option');
+            othersOption.value = 'others';
+            othersOption.textContent = 'Others (Company not listed)';
+            companySelect.appendChild(othersOption);
+            
+            // Sort companies alphabetically
+            const sortedCompanies = [...sectorCompanies].sort();
+            sortedCompanies.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company;
+                option.textContent = company;
+                companySelect.appendChild(option);
+            });
+            
+            filteredCompanies = sortedCompanies;
+        }
+
+        // Filter companies based on search
+        function filterCompanies() {
+            const searchTerm = document.getElementById('company-search').value.toLowerCase();
+            const companySelect = document.getElementById('company');
+            const currentValue = companySelect.value;
+            
+            companySelect.innerHTML = '<option value="">-- Select Company --</option>';
+            
+            // Add "Others" option
+            const othersOption = document.createElement('option');
+            othersOption.value = 'others';
+            othersOption.textContent = 'Others (Company not listed)';
+            companySelect.appendChild(othersOption);
+            
+            // Filter and add matching companies
+            const filtered = filteredCompanies.filter(company => 
+                company.toLowerCase().includes(searchTerm)
+            );
+            
+            filtered.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company;
+                option.textContent = company;
+                companySelect.appendChild(option);
+            });
+            
+            // Restore selection if still valid
+            if (currentValue && (currentValue === 'others' || filtered.includes(currentValue))) {
+                companySelect.value = currentValue;
+            }
+        }
+
+        // Handle company change
+        function handleCompanyChange() {
+            const categorySelect = document.getElementById('category');
+            const typeSelect = document.getElementById('type');
+            const evidencePreview = document.getElementById('evidence-preview');
+            
+            typeSelect.innerHTML = '<option value="">-- First select a category --</option>';
+            typeSelect.disabled = true;
+            evidencePreview.style.display = 'none';
+            
+            if (!document.getElementById('company').value) {
+                categorySelect.innerHTML = '<option value="">-- First select a company --</option>';
+                categorySelect.disabled = true;
+                return;
+            }
+
+            categorySelect.disabled = false;
+            populateCategories();
+        }
+
+        // Populate categories based on sector
+        function populateCategories() {
+            const sectorId = currentSectorId;
+            const categorySelect = document.getElementById('category');
+            
+            categorySelect.innerHTML = '<option value="">-- Select Category --</option>';
+            
             const sector = categoriesData.sectors.find(s => s.id === sectorId);
-            if (sector && sector.subcategories) {
-                sector.subcategories.forEach(sub => {
+            if (sector && sector.categories) {
+                sector.categories.forEach(cat => {
                     const option = document.createElement('option');
-                    option.value = sub.id;
-                    option.textContent = sub.name;
-                    option.dataset.authority = sub.suggested_authority;
-                    option.dataset.sector = sub.authority;
-                    subSelect.appendChild(option);
+                    option.value = cat.id;
+                    option.textContent = cat.name;
+                    categorySelect.appendChild(option);
                 });
             }
         }
 
-        // Update authority suggestion based on selected subcategory
-        function updateSuggestion() {
-            const subSelect = document.getElementById('subcategory');
-            const selectedOption = subSelect.options[subSelect.selectedIndex];
+        // Handle category change
+        function handleCategoryChange() {
+            const typeSelect = document.getElementById('type');
+            const evidencePreview = document.getElementById('evidence-preview');
+            
+            if (!document.getElementById('category').value) {
+                typeSelect.innerHTML = '<option value="">-- First select a category --</option>';
+                typeSelect.disabled = true;
+                evidencePreview.style.display = 'none';
+                return;
+            }
+
+            typeSelect.disabled = false;
+            populateTypes();
+        }
+
+        // Populate types based on selected category
+        function populateTypes() {
+            const sectorId = currentSectorId;
+            const categoryId = document.getElementById('category').value;
+            const typeSelect = document.getElementById('type');
+            
+            typeSelect.innerHTML = '<option value="">-- Select Specific Issue --</option>';
+            
+            const sector = categoriesData.sectors.find(s => s.id === sectorId);
+            const category = sector?.categories.find(c => c.id === categoryId);
+            
+            if (category && category.types) {
+                category.types.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type.id;
+                    option.textContent = type.name;
+                    option.dataset.authority = type.suggested_authority;
+                    option.dataset.sector = type.authority;
+                    option.dataset.details = type.details;
+                    option.dataset.evidence = JSON.stringify(type.evidence || []);
+                    typeSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Handle type change
+        function handleTypeChange() {
+            const typeSelect = document.getElementById('type');
+            const selectedOption = typeSelect.options[typeSelect.selectedIndex];
             const suggestionDiv = document.getElementById('authority-suggestion');
+            const evidencePreview = document.getElementById('evidence-preview');
+            const evidenceTags = document.getElementById('evidence-tags');
 
             if (!selectedOption || !selectedOption.value) {
                 suggestionDiv.style.display = 'none';
+                evidencePreview.style.display = 'none';
                 return;
             }
 
             const authority = selectedOption.dataset.authority;
             const sector = selectedOption.dataset.sector;
+            const details = selectedOption.dataset.details;
+            const evidence = JSON.parse(selectedOption.dataset.evidence || '[]');
+            
+            currentTypeEvidence = evidence;
             
             suggestionDiv.innerHTML = `
-                ⚡ Suggested authority: <span class="suggestion-highlight">${authority}</span> (${sector})
+                ⚡ Suggested authority: <span class="suggestion-highlight">${authority}</span> (${sector})<br>
+                <small>${details}</small>
             `;
             suggestionDiv.style.display = 'block';
+            
+            // Display evidence tags
+            evidenceTags.innerHTML = '';
+            evidence.forEach(item => {
+                const tag = document.createElement('span');
+                tag.className = 'evidence-tag required';
+                tag.textContent = item;
+                evidenceTags.appendChild(tag);
+            });
+            
+            if (evidence.length > 0) {
+                evidencePreview.style.display = 'block';
+            }
+            
+            // Pre-fill description placeholder
+            const descField = document.getElementById('description');
+            if (descField.value === '') {
+                descField.placeholder = `e.g., ${details}. Please provide more specifics...`;
+            }
         }
 
         // Bad word filter
@@ -399,17 +613,7 @@
             document.getElementById('warning').style.display = isBad ? 'block' : 'none';
         }
 
-        // File upload handler
-        function handleFile() {
-            const fileInput = document.getElementById('fileInput');
-            const files = fileInput.files;
-            if (files.length > 0) {
-                const fileNames = Array.from(files).map(f => f.name).join(', ');
-                document.getElementById('uploadZone').innerHTML = `✅ ${files.length} file(s) selected: ${fileNames}`;
-            }
-        }
-
-        // Get URL parameter to pre-select sector (if coming from search)
+        // Get URL parameter to pre-select sector
         function getUrlParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
@@ -418,16 +622,26 @@
         // Proceed to result page
         function goNext() {
             const sectorSelect = document.getElementById('sector');
-            const subSelect = document.getElementById('subcategory');
+            const companySelect = document.getElementById('company');
+            const categorySelect = document.getElementById('category');
+            const typeSelect = document.getElementById('type');
             const description = document.getElementById('description').value.trim();
             const orderId = document.getElementById('orderId').value.trim();
 
             if (!sectorSelect.value) {
-                alert('Please select a main category.');
+                alert('Please select a sector.');
                 return;
             }
-            if (!subSelect.value) {
-                alert('Please select a specific issue.');
+            if (!companySelect.value) {
+                alert('Please select a company.');
+                return;
+            }
+            if (!categorySelect.value) {
+                alert('Please select a category.');
+                return;
+            }
+            if (!typeSelect.value) {
+                alert('Please select a specific issue type.');
                 return;
             }
             if (!description) {
@@ -439,29 +653,34 @@
                 return;
             }
 
-            // Get the sector from the selected subcategory
-            const selectedOption = subSelect.options[subSelect.selectedIndex];
+            // Get the sector from the selected type
+            const selectedOption = typeSelect.options[typeSelect.selectedIndex];
             const sector = selectedOption.dataset.sector || sectorSelect.value;
+            const typeId = typeSelect.value;
+            const categoryId = categorySelect.value;
+            const company = companySelect.value;
 
             localStorage.setItem('userSector', sector);
             localStorage.setItem('userIssue', description);
-            localStorage.setItem('userSubcategory', subSelect.value);
+            localStorage.setItem('userCategory', categoryId);
+            localStorage.setItem('userType', typeId);
+            localStorage.setItem('userCompany', company);
             localStorage.setItem('orderId', orderId || 'N/A');
+            localStorage.setItem('evidenceList', JSON.stringify(currentTypeEvidence));
 
             window.location.href = 'result.html';
         }
 
-        // Handle URL parameter for pre-selection (after categories load)
+        // Handle URL parameter for pre-selection
         window.addEventListener('load', function() {
             const sectorParam = getUrlParam('sector');
             if (sectorParam && categoriesData) {
-                // Wait a bit for categories to populate
                 setTimeout(() => {
                     const sectorSelect = document.getElementById('sector');
                     for (let option of sectorSelect.options) {
                         if (option.value === sectorParam) {
                             option.selected = true;
-                            updateSubcategories();
+                            handleSectorChange();
                             break;
                         }
                     }

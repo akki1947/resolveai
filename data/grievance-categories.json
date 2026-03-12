@@ -15,7 +15,13 @@
               "details": "Product not delivered within promised timeline",
               "keywords": ["not delivered", "never arrived", "delivery pending"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Order confirmation & tracking details",
+                "Delivery attempts and timestamps",
+                "Customer communication (emails, chat logs)",
+                "Courier receipts or GPS proof"
+              ]
             },
             {
               "id": "delayed-delivery",
@@ -23,7 +29,13 @@
               "details": "Late shipment",
               "keywords": ["late delivery", "delayed shipment", "shipping delay"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Order confirmation & tracking details",
+                "Delivery attempts and timestamps",
+                "Customer communication (emails, chat logs)",
+                "Courier receipts or GPS proof"
+              ]
             }
           ]
         },
@@ -37,7 +49,13 @@
               "details": "Wrong or damaged product delivered",
               "keywords": ["wrong product", "incorrect item", "different product"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Product photos (showing defect or wrong item)",
+                "Original order confirmation",
+                "Packaging evidence",
+                "Serial numbers or authenticity certificates"
+              ]
             },
             {
               "id": "defective-product",
@@ -45,7 +63,27 @@
               "details": "Faulty product delivered",
               "keywords": ["defective", "not working", "broken", "faulty"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Product photos (showing defect or wrong item)",
+                "Original order confirmation",
+                "Packaging evidence",
+                "Serial numbers or authenticity certificates"
+              ]
+            },
+            {
+              "id": "fake-product",
+              "name": "Fake Product",
+              "details": "Suspected counterfeit product",
+              "keywords": ["fake", "counterfeit", "duplicate", "not original"],
+              "authority": "ecommerce",
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Product photos (showing defect or wrong item)",
+                "Original order confirmation",
+                "Packaging evidence",
+                "Serial numbers or authenticity certificates"
+              ]
             }
           ]
         },
@@ -59,7 +97,13 @@
               "details": "Refund not processed",
               "keywords": ["refund pending", "money not returned", "refund delay"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Refund request logs",
+                "Bank statements / payment receipts",
+                "Customer service communications",
+                "Replacement request details"
+              ]
             },
             {
               "id": "replacement-delay",
@@ -67,7 +111,13 @@
               "details": "Replacement not processed",
               "keywords": ["replacement pending", "exchange not done"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Refund request logs",
+                "Bank statements / payment receipts",
+                "Customer service communications",
+                "Replacement request details"
+              ]
             }
           ]
         },
@@ -81,21 +131,12 @@
               "details": "Additional charges applied",
               "keywords": ["extra charge", "hidden fee", "overcharged"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
-            }
-          ]
-        },
-        {
-          "id": "product-quality",
-          "name": "Product Quality",
-          "types": [
-            {
-              "id": "fake-product",
-              "name": "Fake Product",
-              "details": "Suspected counterfeit product",
-              "keywords": ["fake", "counterfeit", "duplicate", "not original"],
-              "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Original invoice & final bill",
+                "Payment breakdown or screenshots",
+                "Terms & conditions showing extra charges"
+              ]
             }
           ]
         }
@@ -116,7 +157,12 @@
               "details": "Unrecognized debit from account",
               "keywords": ["unauthorized", "unknown transaction", "money deducted"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Transaction statements",
+                "Fraud reporting reference numbers",
+                "Communication with bank regarding fraud"
+              ]
             },
             {
               "id": "upi-fraud",
@@ -124,7 +170,12 @@
               "details": "Fraudulent digital transaction",
               "keywords": ["upi fraud", "phonepe fraud", "google pay fraud", "fraudulent payment"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Transaction statements",
+                "Fraud reporting reference numbers",
+                "Communication with bank regarding fraud"
+              ]
             }
           ]
         },
@@ -138,7 +189,12 @@
               "details": "Incorrect charges",
               "keywords": ["wrong charge", "incorrect bill", "billing error"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Credit card statements",
+                "Billing breakdown",
+                "Terms and agreements"
+              ]
             },
             {
               "id": "high-fees",
@@ -146,7 +202,12 @@
               "details": "Excessive charges",
               "keywords": ["excessive fee", "high interest", "hidden charges"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Credit card statements",
+                "Billing breakdown",
+                "Terms and agreements"
+              ]
             }
           ]
         },
@@ -160,7 +221,12 @@
               "details": "Loan processing delay",
               "keywords": ["loan pending", "loan not processed", "disbursement delay"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Application forms & submission proof",
+                "Communication with bank officials",
+                "System timestamps or acknowledgment receipts"
+              ]
             },
             {
               "id": "account-issue",
@@ -168,7 +234,12 @@
               "details": "Delay in account services",
               "keywords": ["account opening delay", "service pending", "update delay"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Application forms & submission proof",
+                "Communication with bank officials",
+                "System timestamps or acknowledgment receipts"
+              ]
             }
           ]
         },
@@ -182,7 +253,12 @@
               "details": "Misleading product sales",
               "keywords": ["mis-sold", "wrong product", "misleading", "false promises"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Marketing material / brochures",
+                "Contract or agreement",
+                "Communication logs (calls, emails)"
+              ]
             }
           ]
         },
@@ -196,7 +272,12 @@
               "details": "Issue unresolved",
               "keywords": ["no response", "unresolved", "pending complaint"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Complaint reference number",
+                "Communication records",
+                "Response timeline"
+              ]
             }
           ]
         }
@@ -217,7 +298,12 @@
               "details": "Poor internet speed",
               "keywords": ["slow internet", "low speed", "speed not as promised"],
               "authority": "telecom",
-              "suggested_authority": "TRAI / DoT"
+              "suggested_authority": "TRAI / DoT",
+              "evidence": [
+                "Speed test reports",
+                "Call logs",
+                "Complaint tickets"
+              ]
             },
             {
               "id": "call-drops",
@@ -225,7 +311,12 @@
               "details": "Frequent call drops",
               "keywords": ["call drop", "call disconnect", "frequent disconnection"],
               "authority": "telecom",
-              "suggested_authority": "TRAI / DoT"
+              "suggested_authority": "TRAI / DoT",
+              "evidence": [
+                "Speed test reports",
+                "Call logs",
+                "Complaint tickets"
+              ]
             }
           ]
         },
@@ -239,7 +330,12 @@
               "details": "Incorrect bill",
               "keywords": ["wrong bill", "overcharged", "extra charge", "billing error"],
               "authority": "telecom",
-              "suggested_authority": "TRAI / DoT"
+              "suggested_authority": "TRAI / DoT",
+              "evidence": [
+                "Bills and payment receipts",
+                "Comparison with advertised rates",
+                "Customer service interaction logs"
+              ]
             }
           ]
         }
@@ -251,30 +347,8 @@
       "icon": "🌐",
       "categories": [
         {
-          "id": "service-issue",
-          "name": "Service Issue",
-          "types": [
-            {
-              "id": "slow-broadband",
-              "name": "Slow Broadband",
-              "details": "Speed below promised",
-              "keywords": ["slow broadband", "speed issue", "low speed"],
-              "authority": "telecom",
-              "suggested_authority": "TRAI / DoT"
-            },
-            {
-              "id": "connectivity-issue",
-              "name": "Connectivity Issue",
-              "details": "Frequent connection drops",
-              "keywords": ["connection drop", "disconnected", "no internet"],
-              "authority": "telecom",
-              "suggested_authority": "TRAI / DoT"
-            }
-          ]
-        },
-        {
-          "id": "broadband-issue",
-          "name": "Broadband Issue",
+          "id": "internet-issue",
+          "name": "Internet Issue",
           "types": [
             {
               "id": "broadband-failure",
@@ -282,7 +356,38 @@
               "details": "Broadband not working",
               "keywords": ["broadband down", "no connection", "service down"],
               "authority": "telecom",
-              "suggested_authority": "TRAI / DoT"
+              "suggested_authority": "TRAI / DoT",
+              "evidence": [
+                "Network outage reports",
+                "Customer service tickets",
+                "Photos or screenshots of errors"
+              ]
+            },
+            {
+              "id": "connectivity-issue",
+              "name": "Connectivity Issue",
+              "details": "Frequent connection drops",
+              "keywords": ["connection drop", "disconnected", "no internet"],
+              "authority": "telecom",
+              "suggested_authority": "TRAI / DoT",
+              "evidence": [
+                "Network outage reports",
+                "Customer service tickets",
+                "Photos or screenshots of errors"
+              ]
+            },
+            {
+              "id": "slow-broadband",
+              "name": "Slow Broadband",
+              "details": "Speed below promised",
+              "keywords": ["slow broadband", "speed issue", "low speed"],
+              "authority": "telecom",
+              "suggested_authority": "TRAI / DoT",
+              "evidence": [
+                "Network outage reports",
+                "Customer service tickets",
+                "Photos or screenshots of errors"
+              ]
             }
           ]
         }
@@ -303,7 +408,12 @@
               "details": "Claim denied",
               "keywords": ["claim rejected", "claim denied", "not approved"],
               "authority": "insurance",
-              "suggested_authority": "IRDAI (Bima Bharosa)"
+              "suggested_authority": "IRDAI (Bima Bharosa)",
+              "evidence": [
+                "Claim forms & supporting documents",
+                "Policy copy & terms",
+                "Rejection letters or emails"
+              ]
             },
             {
               "id": "claim-dispute",
@@ -311,7 +421,12 @@
               "details": "Dispute in claim processing",
               "keywords": ["dispute", "claim disagreement", "processing issue"],
               "authority": "insurance",
-              "suggested_authority": "IRDAI (Bima Bharosa)"
+              "suggested_authority": "IRDAI (Bima Bharosa)",
+              "evidence": [
+                "Claim forms & supporting documents",
+                "Policy copy & terms",
+                "Rejection letters or emails"
+              ]
             }
           ]
         },
@@ -325,21 +440,12 @@
               "details": "Claim settlement pending",
               "keywords": ["settlement pending", "claim pending", "delay"],
               "authority": "insurance",
-              "suggested_authority": "IRDAI (Bima Bharosa)"
-            }
-          ]
-        },
-        {
-          "id": "mis-selling",
-          "name": "Mis-selling",
-          "types": [
-            {
-              "id": "policy-misrepresentation",
-              "name": "Policy Misrepresentation",
-              "details": "Policy benefits misrepresented",
-              "keywords": ["wrong policy", "mis-sold", "benefits not as told"],
-              "authority": "insurance",
-              "suggested_authority": "IRDAI (Bima Bharosa)"
+              "suggested_authority": "IRDAI (Bima Bharosa)",
+              "evidence": [
+                "Claim submission proof",
+                "Follow-up emails and calls",
+                "Bank statement showing delayed payout"
+              ]
             }
           ]
         },
@@ -353,7 +459,31 @@
               "details": "Claim settlement delay",
               "keywords": ["delay", "pending", "not settled"],
               "authority": "insurance",
-              "suggested_authority": "IRDAI (Bima Bharosa)"
+              "suggested_authority": "IRDAI (Bima Bharosa)",
+              "evidence": [
+                "Claim submission proof",
+                "Follow-up emails and calls",
+                "Bank statement showing delayed payout"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "mis-selling",
+          "name": "Mis-selling",
+          "types": [
+            {
+              "id": "policy-misrepresentation",
+              "name": "Policy Misrepresentation",
+              "details": "Policy benefits misrepresented",
+              "keywords": ["wrong policy", "mis-sold", "benefits not as told"],
+              "authority": "insurance",
+              "suggested_authority": "IRDAI (Bima Bharosa)",
+              "evidence": [
+                "Policy documents",
+                "Promotional material",
+                "Recorded conversations or emails"
+              ]
             }
           ]
         }
@@ -374,21 +504,12 @@
               "details": "Flight cancelled without refund",
               "keywords": ["flight cancelled", "cancellation no refund", "ticket cancelled"],
               "authority": "airline",
-              "suggested_authority": "DGCA / AirSewa"
-            }
-          ]
-        },
-        {
-          "id": "refund-issue",
-          "name": "Refund Issue",
-          "types": [
-            {
-              "id": "refund-delay",
-              "name": "Refund Delay",
-              "details": "Refund not processed",
-              "keywords": ["refund pending", "money not returned", "refund delay"],
-              "authority": "airline",
-              "suggested_authority": "DGCA / AirSewa"
+              "suggested_authority": "DGCA / AirSewa",
+              "evidence": [
+                "Ticket copy & booking confirmation",
+                "Cancellation emails",
+                "Communication with airline or travel agent"
+              ]
             }
           ]
         },
@@ -402,7 +523,44 @@
               "details": "Seat unavailable",
               "keywords": ["overbooked", "no seat", "denied boarding"],
               "authority": "airline",
-              "suggested_authority": "DGCA / AirSewa"
+              "suggested_authority": "DGCA / AirSewa",
+              "evidence": [
+                "Ticket copy & booking confirmation",
+                "Cancellation emails",
+                "Communication with airline or travel agent"
+              ]
+            },
+            {
+              "id": "booking-error",
+              "name": "Booking Error",
+              "details": "System booking error",
+              "keywords": ["booking failed", "error in booking", "system glitch"],
+              "authority": "airline",
+              "suggested_authority": "DGCA / AirSewa",
+              "evidence": [
+                "Ticket copy & booking confirmation",
+                "Cancellation emails",
+                "Communication with airline or travel agent"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "refund-issue",
+          "name": "Refund Issue",
+          "types": [
+            {
+              "id": "refund-delay",
+              "name": "Refund Delay",
+              "details": "Refund not processed",
+              "keywords": ["refund pending", "money not returned", "refund delay"],
+              "authority": "airline",
+              "suggested_authority": "DGCA / AirSewa",
+              "evidence": [
+                "Refund request confirmation",
+                "Bank statement showing pending refund",
+                "Emails or chat logs with support"
+              ]
             }
           ]
         }
@@ -423,7 +581,12 @@
               "details": "System booking error",
               "keywords": ["booking failed", "error in booking", "system glitch"],
               "authority": "airline",
-              "suggested_authority": "DGCA / AirSewa"
+              "suggested_authority": "DGCA / AirSewa",
+              "evidence": [
+                "Ticket copy & booking confirmation",
+                "Cancellation emails",
+                "Communication with airline or travel agent"
+              ]
             }
           ]
         },
@@ -437,7 +600,12 @@
               "details": "Refund delayed",
               "keywords": ["refund pending", "money not back", "refund delay"],
               "authority": "airline",
-              "suggested_authority": "DGCA / AirSewa"
+              "suggested_authority": "DGCA / AirSewa",
+              "evidence": [
+                "Refund request confirmation",
+                "Bank statement showing pending refund",
+                "Emails or chat logs with support"
+              ]
             }
           ]
         }
@@ -458,7 +626,12 @@
               "details": "Device malfunction",
               "keywords": ["not working", "defective", "malfunction", "broken"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Product photos & serial number",
+                "Purchase receipt",
+                "Service reports"
+              ]
             }
           ]
         },
@@ -472,21 +645,25 @@
               "details": "Repair delayed",
               "keywords": ["repair pending", "service delay", "warranty claim"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
-            }
-          ]
-        },
-        {
-          "id": "service-issue",
-          "name": "Service Issue",
-          "types": [
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Warranty documents",
+                "Service request logs",
+                "Repair receipts"
+              ]
+            },
             {
               "id": "repair-issue",
               "name": "Repair Issue",
               "details": "Service center delay",
               "keywords": ["repair center", "service pending", "not fixed"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Warranty documents",
+                "Service request logs",
+                "Repair receipts"
+              ]
             }
           ]
         },
@@ -500,7 +677,12 @@
               "details": "Installation delayed",
               "keywords": ["not installed", "installation pending", "setup delay"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Delivery tracking & installation request",
+                "Photos of delivered item",
+                "Communication logs"
+              ]
             },
             {
               "id": "late-delivery",
@@ -508,7 +690,12 @@
               "details": "Late shipment",
               "keywords": ["late delivery", "delayed shipment", "shipping delay"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Delivery tracking & installation request",
+                "Photos of delivered item",
+                "Communication logs"
+              ]
             }
           ]
         }
@@ -529,7 +716,12 @@
               "details": "Incorrect order delivered",
               "keywords": ["wrong food", "incorrect order", "different item"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Order confirmation",
+                "Photos of delivered items",
+                "App or chat logs"
+              ]
             },
             {
               "id": "missing-item",
@@ -537,7 +729,12 @@
               "details": "Missing items",
               "keywords": ["item missing", "incomplete order", "partial delivery"],
               "authority": "ecommerce",
-              "suggested_authority": "National Consumer Helpline (NCH)"
+              "suggested_authority": "National Consumer Helpline (NCH)",
+              "evidence": [
+                "Order confirmation",
+                "Photos of delivered items",
+                "App or chat logs"
+              ]
             }
           ]
         },
@@ -551,7 +748,12 @@
               "details": "Food safety concern",
               "keywords": ["unhygienic", "dirty", "hair in food", "bad quality"],
               "authority": "food",
-              "suggested_authority": "FSSAI"
+              "suggested_authority": "FSSAI",
+              "evidence": [
+                "Photos or videos",
+                "Inspection reports (if available)",
+                "Customer complaints logged with service"
+              ]
             }
           ]
         }
@@ -572,21 +774,12 @@
               "details": "Payment deducted but failed",
               "keywords": ["payment failed", "money deducted", "transaction failed"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
-            }
-          ]
-        },
-        {
-          "id": "refund-issue",
-          "name": "Refund Issue",
-          "types": [
-            {
-              "id": "refund-delay",
-              "name": "Refund Delay",
-              "details": "Refund not received",
-              "keywords": ["refund pending", "money not back", "refund delay"],
-              "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Transaction receipts",
+                "Bank statements",
+                "App error screenshots"
+              ]
             }
           ]
         },
@@ -600,7 +793,31 @@
               "details": "Payment failed",
               "keywords": ["payment failed", "transaction error", "payment not processed"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Transaction receipts",
+                "Bank statements",
+                "App error screenshots"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "refund-issue",
+          "name": "Refund Issue",
+          "types": [
+            {
+              "id": "refund-delay",
+              "name": "Refund Delay",
+              "details": "Refund not received",
+              "keywords": ["refund pending", "money not back", "refund delay"],
+              "authority": "banking",
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Refund requests",
+                "Bank statements",
+                "Customer support communication"
+              ]
             }
           ]
         },
@@ -614,7 +831,12 @@
               "details": "Merchant payment delayed",
               "keywords": ["merchant settlement", "payment to merchant", "settlement delay"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Merchant agreement",
+                "Transaction records",
+                "Communication with fintech service"
+              ]
             }
           ]
         },
@@ -628,7 +850,12 @@
               "details": "Delay in merchant settlement",
               "keywords": ["settlement delay", "merchant payment pending"],
               "authority": "banking",
-              "suggested_authority": "RBI Ombudsman"
+              "suggested_authority": "RBI Ombudsman",
+              "evidence": [
+                "Merchant agreement",
+                "Transaction records",
+                "Communication with fintech service"
+              ]
             }
           ]
         }
@@ -649,21 +876,12 @@
               "details": "Housing project delayed",
               "keywords": ["possession delayed", "project delayed", "handover late"],
               "authority": "realestate",
-              "suggested_authority": "RERA"
-            }
-          ]
-        },
-        {
-          "id": "sales-issue",
-          "name": "Sales Issue",
-          "types": [
-            {
-              "id": "misleading-ads",
-              "name": "Misleading Ads",
-              "details": "False project claims",
-              "keywords": ["false promise", "misleading", "different from advertised"],
-              "authority": "realestate",
-              "suggested_authority": "RERA"
+              "suggested_authority": "RERA",
+              "evidence": [
+                "Agreement & project timeline",
+                "Emails / letters requesting updates",
+                "Photos or official notices"
+              ]
             }
           ]
         },
@@ -677,7 +895,31 @@
               "details": "Construction delay",
               "keywords": ["construction slow", "work not progressing", "delay"],
               "authority": "realestate",
-              "suggested_authority": "RERA"
+              "suggested_authority": "RERA",
+              "evidence": [
+                "Agreement & project timeline",
+                "Emails / letters requesting updates",
+                "Photos or official notices"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sales-issue",
+          "name": "Sales Issue",
+          "types": [
+            {
+              "id": "misleading-ads",
+              "name": "Misleading Ads",
+              "details": "False project claims",
+              "keywords": ["false promise", "misleading", "different from advertised"],
+              "authority": "realestate",
+              "suggested_authority": "RERA",
+              "evidence": [
+                "Advertisement copy",
+                "Contract / offer letter",
+                "Communication logs"
+              ]
             }
           ]
         },
@@ -691,7 +933,12 @@
               "details": "Quality defects",
               "keywords": ["poor quality", "defects", "cracks", "substandard"],
               "authority": "realestate",
-              "suggested_authority": "RERA"
+              "suggested_authority": "RERA",
+              "evidence": [
+                "Photos / videos",
+                "Inspection reports",
+                "Third-party expert evaluation"
+              ]
             }
           ]
         }
