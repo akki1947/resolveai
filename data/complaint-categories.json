@@ -1,0 +1,291 @@
+{
+  "sectors": [
+    {
+      "id": "ecommerce",
+      "name": "E-commerce / Online Shopping",
+      "icon": "🛒",
+      "subcategories": [
+        {
+          "id": "non-delivery",
+          "name": "Non-delivery or delayed delivery",
+          "keywords": ["not delivered", "delayed delivery", "shipping delay", "not received"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        },
+        {
+          "id": "wrong-items",
+          "name": "Wrong, defective, or missing items",
+          "keywords": ["wrong item", "defective product", "missing item", "damaged product"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        },
+        {
+          "id": "refund-issues",
+          "name": "Refund or replacement issues",
+          "keywords": ["refund not received", "replacement not sent", "refund delay"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        },
+        {
+          "id": "fake-products",
+          "name": "Poor quality or fake products",
+          "keywords": ["fake product", "counterfeit", "poor quality", "duplicate"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        },
+        {
+          "id": "overcharging",
+          "name": "Overcharging beyond MRP or hidden fees",
+          "keywords": ["overcharged", "extra charges", "hidden fees", "more than MRP"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        }
+      ]
+    },
+    {
+      "id": "banking",
+      "name": "Banking & Financial Services",
+      "icon": "🏦",
+      "subcategories": [
+        {
+          "id": "fraud-transactions",
+          "name": "Unauthorized electronic transactions or fraud",
+          "keywords": ["unauthorized transaction", "fraud", "money debited", "fake call"],
+          "authority": "banking",
+          "suggested_authority": "RBI Ombudsman"
+        },
+        {
+          "id": "service-delay",
+          "name": "Delay in services (loan processing, account updates)",
+          "keywords": ["loan delay", "account update", "slow service", "processing delay"],
+          "authority": "banking",
+          "suggested_authority": "RBI Ombudsman"
+        },
+        {
+          "id": "credit-card",
+          "name": "Credit card disputes (billing errors, excessive fees)",
+          "keywords": ["credit card bill", "wrong charge", "excess fee", "billing error"],
+          "authority": "banking",
+          "suggested_authority": "RBI Ombudsman"
+        },
+        {
+          "id": "mis-selling",
+          "name": "Mis-selling of financial products",
+          "keywords": ["mis-sold", "wrong advice", "hidden terms", "misleading"],
+          "authority": "banking",
+          "suggested_authority": "RBI Ombudsman"
+        },
+        {
+          "id": "poor-service",
+          "name": "Poor customer service or unresolved complaints",
+          "keywords": ["unresolved", "no response", "bad service", "ignored"],
+          "authority": "banking",
+          "suggested_authority": "RBI Ombudsman"
+        }
+      ]
+    },
+    {
+      "id": "telecom",
+      "name": "Telecom & Internet Services",
+      "icon": "📱",
+      "subcategories": [
+        {
+          "id": "network-issues",
+          "name": "Call drops, poor network coverage, or slow internet",
+          "keywords": ["call drop", "network issue", "slow internet", "no signal"],
+          "authority": "telecom",
+          "suggested_authority": "TRAI / DoT"
+        },
+        {
+          "id": "billing-disputes",
+          "name": "Billing disputes or overcharging",
+          "keywords": ["wrong bill", "overcharged", "extra charges", "billing error"],
+          "authority": "telecom",
+          "suggested_authority": "TRAI / DoT"
+        },
+        {
+          "id": "poor-support",
+          "name": "Poor customer support",
+          "keywords": ["no help", "unhelpful", "bad support", "ignored"],
+          "authority": "telecom",
+          "suggested_authority": "TRAI / DoT"
+        },
+        {
+          "id": "portability",
+          "name": "Issues with number portability",
+          "keywords": ["MNP", "porting", "number transfer", "port failed"],
+          "authority": "telecom",
+          "suggested_authority": "TRAI / DoT"
+        },
+        {
+          "id": "hidden-charges",
+          "name": "Hidden charges or unfair plans",
+          "keywords": ["hidden charge", "unfair plan", "unexpected fee"],
+          "authority": "telecom",
+          "suggested_authority": "TRAI / DoT"
+        }
+      ]
+    },
+    {
+      "id": "insurance",
+      "name": "Insurance (Especially Health Insurance)",
+      "icon": "🛡️",
+      "subcategories": [
+        {
+          "id": "claim-rejection",
+          "name": "Claim rejections or claim delays",
+          "keywords": ["claim rejected", "claim denied", "no payment", "delayed claim"],
+          "authority": "insurance",
+          "suggested_authority": "IRDAI (Bima Bharosa)"
+        },
+        {
+          "id": "mis-selling",
+          "name": "Mis-selling of insurance policies",
+          "keywords": ["wrong policy", "mis-sold", "hidden terms", "false promise"],
+          "authority": "insurance",
+          "suggested_authority": "IRDAI (Bima Bharosa)"
+        },
+        {
+          "id": "unfair-practices",
+          "name": "Unfair business practices",
+          "keywords": ["unfair", "cheating", "bad practice", "discrimination"],
+          "authority": "insurance",
+          "suggested_authority": "IRDAI (Bima Bharosa)"
+        },
+        {
+          "id": "settlement-issues",
+          "name": "Poor claim settlement performance",
+          "keywords": ["slow settlement", "poor service", "claim delay", "no response"],
+          "authority": "insurance",
+          "suggested_authority": "IRDAI (Bima Bharosa)"
+        }
+      ]
+    },
+    {
+      "id": "travel",
+      "name": "Travel & Tourism / Airlines",
+      "icon": "✈️",
+      "subcategories": [
+        {
+          "id": "cancellation",
+          "name": "Flight or trip cancellations without proper refunds",
+          "keywords": ["flight cancelled", "trip cancelled", "no refund", "refund delay"],
+          "authority": "airline",
+          "suggested_authority": "DGCA / AirSewa"
+        },
+        {
+          "id": "poor-service",
+          "name": "Poor service quality",
+          "keywords": ["bad service", "rude staff", "unhelpful", "delay"],
+          "authority": "airline",
+          "suggested_authority": "DGCA / AirSewa"
+        },
+        {
+          "id": "booking-issues",
+          "name": "Booking issues or overbooking",
+          "keywords": ["booking failed", "overbooked", "no seat", "double booking"],
+          "authority": "airline",
+          "suggested_authority": "DGCA / AirSewa"
+        },
+        {
+          "id": "refund-delay",
+          "name": "Refund delays for cancelled bookings",
+          "keywords": ["refund delay", "money not back", "refund pending"],
+          "authority": "airline",
+          "suggested_authority": "DGCA / AirSewa"
+        }
+      ]
+    },
+    {
+      "id": "electronics",
+      "name": "Electronic Products & Consumer Durables",
+      "icon": "📺",
+      "subcategories": [
+        {
+          "id": "defective",
+          "name": "Defective products",
+          "keywords": ["not working", "defective", "broken", "faulty"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        },
+        {
+          "id": "warranty",
+          "name": "Warranty or after-sales service failures",
+          "keywords": ["warranty claim", "service failed", "no service", "repair not done"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        },
+        {
+          "id": "delivery",
+          "name": "Delivery or installation problems",
+          "keywords": ["not installed", "delivery issue", "installation pending"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        }
+      ]
+    },
+    {
+      "id": "realestate",
+      "name": "Real Estate",
+      "icon": "🏗️",
+      "subcategories": [
+        {
+          "id": "project-delay",
+          "name": "Project delays",
+          "keywords": ["possession delay", "project delay", "handover late"],
+          "authority": "realestate",
+          "suggested_authority": "RERA"
+        },
+        {
+          "id": "misleading-promises",
+          "name": "Misleading promises",
+          "keywords": ["false promise", "different from agreed", "cheating"],
+          "authority": "realestate",
+          "suggested_authority": "RERA"
+        }
+      ]
+    },
+    {
+      "id": "food-delivery",
+      "name": "Food Delivery / Online Food Services",
+      "icon": "🍔",
+      "subcategories": [
+        {
+          "id": "wrong-order",
+          "name": "Wrong orders",
+          "keywords": ["wrong food", "incorrect order", "missing item"],
+          "authority": "ecommerce",
+          "suggested_authority": "National Consumer Helpline (NCH)"
+        },
+        {
+          "id": "hygiene",
+          "name": "Hygiene issues",
+          "keywords": ["unhygienic", "dirty", "hair in food", "bad quality"],
+          "authority": "food",
+          "suggested_authority": "FSSAI"
+        }
+      ]
+    },
+    {
+      "id": "digital-payments",
+      "name": "Agency Services & Digital Payments",
+      "icon": "💳",
+      "subcategories": [
+        {
+          "id": "failed-transaction",
+          "name": "Failed transactions",
+          "keywords": ["payment failed", "money deducted", "transaction failed"],
+          "authority": "banking",
+          "suggested_authority": "RBI Ombudsman"
+        },
+        {
+          "id": "non-refund",
+          "name": "Non-refunds",
+          "keywords": ["no refund", "refund not processed", "money not returned"],
+          "authority": "banking",
+          "suggested_authority": "RBI Ombudsman"
+        }
+      ]
+    }
+  ]
+}

@@ -66,21 +66,34 @@
         .logo span {
             color: #2563eb;
         }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
         .nav-links a {
             color: #475569;
             text-decoration: none;
-            margin-left: 32px;
             font-weight: 500;
             font-size: 0.95rem;
+            white-space: nowrap;
         }
         .nav-links a:hover {
             color: #2563eb;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
         }
         .card {
             background: white;
             border-radius: 32px;
             padding: 40px;
-            max-width: 520px;
+            max-width: 550px;
             width: 100%;
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
             border: 1px solid #e2e8f0;
@@ -120,6 +133,10 @@
         select:focus, input:focus, textarea:focus {
             border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        select:disabled {
+            background-color: #f1f5f9;
+            cursor: not-allowed;
         }
         textarea {
             resize: vertical;
@@ -174,28 +191,53 @@
         .btn:hover {
             background: #1e293b;
         }
+        .btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
         .footer-note {
             text-align: center;
             margin-top: 24px;
             color: #94a3b8;
             font-size: 0.8rem;
         }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
+        .error-message {
+            color: #b91c1c;
+            background: #fee2e2;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .suggestion-highlight {
+            background: #dbeafe;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
+    <a href="index.html" class="home-link">← Home</a>
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
-            <a href="index.html" id="header-home-link">Home</a>
-            <a href="search.html">Search</a>
-            <a href="advisor.html">AI Advisor</a>
-            <a href="negotiation.html">AI Negotiator</a>
-            <a href="knowledge.html">Guide</a>
-            <a href="emergency.html">Emergency</a>
-            <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
-            <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
-            <a href="login.html" id="login-link">Login</a></div>
+                <a href="index.html" id="header-home-link">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
+                <a href="knowledge.html">Guide</a>
+                <a href="emergency.html">Emergency</a>
+                <a href="dashboard.html" id="dashboard-link" style="display:none;">Dashboard</a>
+                <a href="#" id="logout-link" onclick="logout()" style="display:none;">Logout</a>
+                <a href="login.html" id="login-link">Login</a>
+            </div>
         </div>
     </header>
 
@@ -204,7 +246,12 @@
             'https://qdymteenojnjwgblxjas.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
         );
-        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
+
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+
         supabase.auth.getSession().then(({ data: { session } }) => {
             if (session) {
                 document.getElementById('login-link').style.display = 'none';
@@ -214,134 +261,175 @@
                 document.getElementById('login-link').style.display = 'inline';
                 document.getElementById('logout-link').style.display = 'none';
                 document.getElementById('dashboard-link').style.display = 'none';
-            
-            // Hide header Home link on non-homepages
+            }
             if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
                 const homeLink = document.getElementById('header-home-link');
                 if (homeLink) homeLink.style.display = 'none';
             }
-        
-            // Hide header Home link on non-homepages
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                const homeLink = document.getElementById('header-home-link');
-                if (homeLink) homeLink.style.display = 'none';
-            }
-        }
         });
     </script>
 
     <div class="card">
         <h2>Describe your issue</h2>
-        <div class="subhead">We'll route it to the right authority.</div>
+        <div class="subhead">Select your problem category and we'll route it to the right authority.</div>
 
-        <label for="sector">Sector / Industry</label>
-        <select id="sector">
-            <option value="ecommerce">E‑Commerce</option>
-            <option value="banking">Banking & Finance</option>
-            <option value="telecom">Telecom</option>
-            <option value="insurance">Insurance</option>
-            <option value="airline">Aviation</option>
-            <option value="fmcg">FMCG (Food & Goods)</option>
-            <option value="realestate">Real Estate</option>
-        </select>
+        <div id="loading-categories" class="loading">Loading complaint categories...</div>
+        <div id="error-container" style="display: none;"></div>
 
-        <label for="orderId">Order / Transaction ID (optional)</label>
-        <input type="text" id="orderId" placeholder="e.g. TXN123456">
+        <form id="complaint-form" style="display: none;">
+            <label for="sector">Main Category</label>
+            <select id="sector" onchange="updateSubcategories()">
+                <option value="">-- Select Main Category --</option>
+            </select>
 
-        <label for="description">What happened?</label>
-        <textarea id="description" placeholder="Describe the problem in detail..." oninput="checkWords(); onDescriptionChange()"></textarea>
-        <div id="warning">⚠ Please remove unprofessional language (scam, fraud, etc.)</div>
-        <div id="authority-suggestion">
-            ⚡ Suggested authority: <span id="suggested-authority"></span>
-        </div>
+            <label for="subcategory">Specific Issue</label>
+            <select id="subcategory" onchange="updateSuggestion()" disabled>
+                <option value="">-- First select a category --</option>
+            </select>
 
-        <label>Attach evidence (optional)</label>
-        <div class="evidence-zone" onclick="document.getElementById('fileInput').click()" id="uploadZone">
-            📎 Click to upload (photos, PDFs)
-            <input type="file" id="fileInput" style="display:none" onchange="handleFile()">
-        </div>
+            <div id="authority-suggestion"></div>
 
-        <button class="btn" onclick="goNext()">Analyze Issue</button>
+            <label for="orderId">Order / Transaction / Reference ID (optional)</label>
+            <input type="text" id="orderId" placeholder="e.g. TXN123456, Order #ABC123">
+
+            <label for="description">Describe what happened</label>
+            <textarea id="description" placeholder="Provide details about the issue..." oninput="checkWords()"></textarea>
+            <div id="warning">⚠ Please remove unprofessional language (scam, fraud, etc.)</div>
+
+            <label>Attach evidence (optional)</label>
+            <div class="evidence-zone" onclick="document.getElementById('fileInput').click()" id="uploadZone">
+                📎 Click to upload (photos, PDFs)
+                <input type="file" id="fileInput" style="display:none" onchange="handleFile()" multiple>
+            </div>
+
+            <button type="button" class="btn" onclick="goNext()" id="submit-btn">Analyze Issue</button>
+        </form>
+
         <div class="footer-note">Your data stays on your device.</div>
     </div>
 
     <script>
-        // Get URL parameter to pre-select sector (if coming from search)
-        function getUrlParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
+        let categoriesData = null;
+        let isBad = false;
+
+        // Load categories from JSON
+        fetch('/data/complaint-categories.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load categories');
+                }
+                return response.json();
+            })
+            .then(data => {
+                categoriesData = data;
+                document.getElementById('loading-categories').style.display = 'none';
+                document.getElementById('complaint-form').style.display = 'block';
+                populateSectors();
+            })
+            .catch(error => {
+                console.error('Error loading categories:', error);
+                document.getElementById('loading-categories').style.display = 'none';
+                document.getElementById('error-container').style.display = 'block';
+                document.getElementById('error-container').innerHTML = 
+                    '<div class="error-message">Failed to load complaint categories. Please refresh the page.</div>';
+            });
+
+        // Populate main categories
+        function populateSectors() {
+            const sectorSelect = document.getElementById('sector');
+            categoriesData.sectors.forEach(sector => {
+                const option = document.createElement('option');
+                option.value = sector.id;
+                option.textContent = `${sector.icon || '•'} ${sector.name}`;
+                sectorSelect.appendChild(option);
+            });
         }
 
-        window.onload = function() {
-            const sectorParam = getUrlParam('sector');
-            if (sectorParam) {
-                const select = document.getElementById('sector');
-                for (let option of select.options) {
-                    if (option.value === sectorParam) {
-                        option.selected = true;
-                        break;
-                    }
-                }
+        // Update subcategories based on selected main category
+        function updateSubcategories() {
+            const sectorId = document.getElementById('sector').value;
+            const subSelect = document.getElementById('subcategory');
+            const suggestionDiv = document.getElementById('authority-suggestion');
+            
+            subSelect.innerHTML = '<option value="">-- Select Specific Issue --</option>';
+            subSelect.disabled = !sectorId;
+            suggestionDiv.style.display = 'none';
+            suggestionDiv.innerHTML = '';
+
+            if (!sectorId) return;
+
+            const sector = categoriesData.sectors.find(s => s.id === sectorId);
+            if (sector && sector.subcategories) {
+                sector.subcategories.forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub.id;
+                    option.textContent = sub.name;
+                    option.dataset.authority = sub.suggested_authority;
+                    option.dataset.sector = sub.authority;
+                    subSelect.appendChild(option);
+                });
             }
-        };
+        }
+
+        // Update authority suggestion based on selected subcategory
+        function updateSuggestion() {
+            const subSelect = document.getElementById('subcategory');
+            const selectedOption = subSelect.options[subSelect.selectedIndex];
+            const suggestionDiv = document.getElementById('authority-suggestion');
+
+            if (!selectedOption || !selectedOption.value) {
+                suggestionDiv.style.display = 'none';
+                return;
+            }
+
+            const authority = selectedOption.dataset.authority;
+            const sector = selectedOption.dataset.sector;
+            
+            suggestionDiv.innerHTML = `
+                ⚡ Suggested authority: <span class="suggestion-highlight">${authority}</span> (${sector})
+            `;
+            suggestionDiv.style.display = 'block';
+        }
 
         // Bad word filter
-        let isBad = false;
         function checkWords() {
             const text = document.getElementById('description').value.toLowerCase();
-            const badWords = ['scam', 'fraud', 'cheat', 'fake', 'loot', 'chor', 'stupid', 'idiot'];
+            const badWords = ['scam', 'fraud', 'cheat', 'fake', 'loot', 'chor', 'stupid', 'idiot', 'bc', 'mc'];
             isBad = badWords.some(word => text.includes(word));
             document.getElementById('warning').style.display = isBad ? 'block' : 'none';
         }
 
         // File upload handler
         function handleFile() {
-            const file = document.getElementById('fileInput').files[0];
-            if (file) {
-                document.getElementById('uploadZone').innerHTML = `✅ ${file.name}`;
+            const fileInput = document.getElementById('fileInput');
+            const files = fileInput.files;
+            if (files.length > 0) {
+                const fileNames = Array.from(files).map(f => f.name).join(', ');
+                document.getElementById('uploadZone').innerHTML = `✅ ${files.length} file(s) selected: ${fileNames}`;
             }
         }
 
-        // AI Authority Suggestion
-        let suggestionTimeout;
-        function onDescriptionChange() {
-            clearTimeout(suggestionTimeout);
-            const description = document.getElementById('description').value.trim();
-            const suggestionBox = document.getElementById('authority-suggestion');
-            const suggestedSpan = document.getElementById('suggested-authority');
-
-            if (description.length < 15) {
-                suggestionBox.style.display = 'none';
-                return;
-            }
-
-            suggestionTimeout = setTimeout(() => {
-                fetch('/api/suggest-authority', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ description })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.authority) {
-                        suggestedSpan.innerText = `${data.authority} (${data.sector})`;
-                        suggestionBox.style.display = 'block';
-                    } else {
-                        suggestionBox.style.display = 'none';
-                    }
-                })
-                .catch(() => {
-                    suggestionBox.style.display = 'none';
-                });
-            }, 600);
+        // Get URL parameter to pre-select sector (if coming from search)
+        function getUrlParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
         }
 
         // Proceed to result page
         function goNext() {
+            const sectorSelect = document.getElementById('sector');
+            const subSelect = document.getElementById('subcategory');
             const description = document.getElementById('description').value.trim();
             const orderId = document.getElementById('orderId').value.trim();
-            const sector = document.getElementById('sector').value;
 
+            if (!sectorSelect.value) {
+                alert('Please select a main category.');
+                return;
+            }
+            if (!subSelect.value) {
+                alert('Please select a specific issue.');
+                return;
+            }
             if (!description) {
                 alert('Please describe your issue.');
                 return;
@@ -351,12 +439,35 @@
                 return;
             }
 
+            // Get the sector from the selected subcategory
+            const selectedOption = subSelect.options[subSelect.selectedIndex];
+            const sector = selectedOption.dataset.sector || sectorSelect.value;
+
             localStorage.setItem('userSector', sector);
             localStorage.setItem('userIssue', description);
+            localStorage.setItem('userSubcategory', subSelect.value);
             localStorage.setItem('orderId', orderId || 'N/A');
 
             window.location.href = 'result.html';
         }
+
+        // Handle URL parameter for pre-selection (after categories load)
+        window.addEventListener('load', function() {
+            const sectorParam = getUrlParam('sector');
+            if (sectorParam && categoriesData) {
+                // Wait a bit for categories to populate
+                setTimeout(() => {
+                    const sectorSelect = document.getElementById('sector');
+                    for (let option of sectorSelect.options) {
+                        if (option.value === sectorParam) {
+                            option.selected = true;
+                            updateSubcategories();
+                            break;
+                        }
+                    }
+                }, 500);
+            }
+        });
     </script>
 </body>
 </html>
