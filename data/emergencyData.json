@@ -21,9 +21,9 @@
   },
   "states": [
     {
-      "state": "Karnataka",
-      "website": "https://karnataka.gov.in",
-      "major_cities": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi", "Belagavi"],
+      "state": "Andhra Pradesh",
+      "website": "https://ap.gov.in",
+      "major_cities": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati"],
       "emergency_numbers": {
         "police": "100",
         "ambulance": "108",
@@ -33,8 +33,8 @@
       },
       "districts": [
         {
-          "district": "Bengaluru Urban",
-          "major_city": "Bengaluru",
+          "district": "Visakhapatnam",
+          "major_city": "Visakhapatnam",
           "control_room": {
             "disaster_control": "1077",
             "police": "100",
@@ -45,11 +45,11 @@
             "railway": "139",
             "tourist_police": "1363"
           },
-          "website": "https://bengaluruurban.nic.in"
+          "website": "https://visakhapatnam.ap.gov.in"
         },
         {
-          "district": "Mysuru",
-          "major_city": "Mysuru",
+          "district": "Vijayawada",
+          "major_city": "Vijayawada",
           "control_room": {
             "disaster_control": "1077",
             "police": "100",
@@ -60,11 +60,11 @@
             "railway": "139",
             "tourist_police": "1363"
           },
-          "website": "https://mysuru.nic.in"
+          "website": "https://vijayawada.ap.gov.in"
         },
         {
-          "district": "Dakshina Kannada",
-          "major_city": "Mangaluru",
+          "district": "Guntur",
+          "major_city": "Guntur",
           "control_room": {
             "disaster_control": "1077",
             "police": "100",
@@ -75,14 +75,14 @@
             "railway": "139",
             "tourist_police": "1363"
           },
-          "website": "https://dk.nic.in"
+          "website": "https://guntur.ap.gov.in"
         }
       ]
     },
     {
-      "state": "Maharashtra",
-      "website": "https://maharashtra.gov.in",
-      "major_cities": ["Mumbai", "Pune", "Nagpur", "Nashik"],
+      "state": "Assam",
+      "website": "https://assam.gov.in",
+      "major_cities": ["Guwahati", "Dibrugarh", "Silchar", "Jorhat", "Tezpur"],
       "emergency_numbers": {
         "police": "100",
         "ambulance": "108",
@@ -92,8 +92,8 @@
       },
       "districts": [
         {
-          "district": "Mumbai City",
-          "major_city": "Mumbai",
+          "district": "Guwahati",
+          "major_city": "Guwahati",
           "control_room": {
             "disaster_control": "1077",
             "police": "100",
@@ -104,11 +104,11 @@
             "railway": "139",
             "tourist_police": "1363"
           },
-          "website": "https://mumbaicity.gov.in"
+          "website": "https://guwahati.assam.gov.in"
         },
         {
-          "district": "Pune",
-          "major_city": "Pune",
+          "district": "Dibrugarh",
+          "major_city": "Dibrugarh",
           "control_room": {
             "disaster_control": "1077",
             "police": "100",
@@ -119,14 +119,29 @@
             "railway": "139",
             "tourist_police": "1363"
           },
-          "website": "https://pune.gov.in"
+          "website": "https://dibrugarh.assam.gov.in"
+        },
+        {
+          "district": "Silchar",
+          "major_city": "Silchar",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://cachar.gov.in"
         }
       ]
     },
     {
-      "state": "Tamil Nadu",
-      "website": "https://tn.gov.in",
-      "major_cities": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+      "state": "Bihar",
+      "website": "https://bihar.gov.in",
+      "major_cities": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Darbhanga"],
       "emergency_numbers": {
         "police": "100",
         "ambulance": "108",
@@ -136,8 +151,8 @@
       },
       "districts": [
         {
-          "district": "Chennai",
-          "major_city": "Chennai",
+          "district": "Patna",
+          "major_city": "Patna",
           "control_room": {
             "disaster_control": "1077",
             "police": "100",
@@ -148,11 +163,11 @@
             "railway": "139",
             "tourist_police": "1363"
           },
-          "website": "https://chennai.nic.in"
+          "website": "https://patna.nic.in"
         },
         {
-          "district": "Coimbatore",
-          "major_city": "Coimbatore",
+          "district": "Gaya",
+          "major_city": "Gaya",
           "control_room": {
             "disaster_control": "1077",
             "police": "100",
@@ -163,7 +178,22 @@
             "railway": "139",
             "tourist_police": "1363"
           },
-          "website": "https://coimbatore.nic.in"
+          "website": "https://gaya.nic.in"
+        },
+        {
+          "district": "Bhagalpur",
+          "major_city": "Bhagalpur",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://bhagalpur.nic.in"
         }
       ]
     },
@@ -257,6 +287,669 @@
       ]
     },
     {
+      "state": "Goa",
+      "website": "https://goa.gov.in",
+      "major_cities": ["Panaji", "Margao", "Vasco da Gama", "Mapusa", "Ponda"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "North Goa",
+          "major_city": "Panaji",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://northgoa.gov.in"
+        },
+        {
+          "district": "South Goa",
+          "major_city": "Margao",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://southgoa.gov.in"
+        }
+      ]
+    },
+    {
+      "state": "Gujarat",
+      "website": "https://gujarat.gov.in",
+      "major_cities": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Ahmedabad",
+          "major_city": "Ahmedabad",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://ahmedabad.nic.in"
+        },
+        {
+          "district": "Surat",
+          "major_city": "Surat",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://surat.nic.in"
+        },
+        {
+          "district": "Vadodara",
+          "major_city": "Vadodara",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://vadodara.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "Haryana",
+      "website": "https://haryana.gov.in",
+      "major_cities": ["Faridabad", "Gurugram", "Panipat", "Ambala", "Hisar"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Faridabad",
+          "major_city": "Faridabad",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://faridabad.nic.in"
+        },
+        {
+          "district": "Gurugram",
+          "major_city": "Gurugram",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://gurugram.nic.in"
+        },
+        {
+          "district": "Panipat",
+          "major_city": "Panipat",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://panipat.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "Jharkhand",
+      "website": "https://jharkhand.gov.in",
+      "major_cities": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro", "Hazaribagh"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Ranchi",
+          "major_city": "Ranchi",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://ranchi.nic.in"
+        },
+        {
+          "district": "Jamshedpur",
+          "major_city": "Jamshedpur",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://jamshedpur.nic.in"
+        },
+        {
+          "district": "Dhanbad",
+          "major_city": "Dhanbad",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://dhanbad.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "Karnataka",
+      "website": "https://karnataka.gov.in",
+      "major_cities": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi", "Belagavi"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Bengaluru Urban",
+          "major_city": "Bengaluru",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://bengaluruurban.nic.in"
+        },
+        {
+          "district": "Mysuru",
+          "major_city": "Mysuru",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://mysuru.nic.in"
+        },
+        {
+          "district": "Dakshina Kannada",
+          "major_city": "Mangaluru",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://dk.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "Madhya Pradesh",
+      "website": "https://mp.gov.in",
+      "major_cities": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Bhopal",
+          "major_city": "Bhopal",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://bhopal.nic.in"
+        },
+        {
+          "district": "Indore",
+          "major_city": "Indore",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://indore.nic.in"
+        },
+        {
+          "district": "Gwalior",
+          "major_city": "Gwalior",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://gwalior.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "Maharashtra",
+      "website": "https://maharashtra.gov.in",
+      "major_cities": ["Mumbai", "Pune", "Nagpur", "Nashik"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Mumbai City",
+          "major_city": "Mumbai",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://mumbaicity.gov.in"
+        },
+        {
+          "district": "Pune",
+          "major_city": "Pune",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://pune.gov.in"
+        }
+      ]
+    },
+    {
+      "state": "Odisha",
+      "website": "https://odisha.gov.in",
+      "major_cities": ["Bhubaneswar", "Cuttack", "Puri", "Rourkela", "Sambalpur"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Bhubaneswar",
+          "major_city": "Bhubaneswar",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://bhubaneswar.nic.in"
+        },
+        {
+          "district": "Cuttack",
+          "major_city": "Cuttack",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://cuttack.nic.in"
+        },
+        {
+          "district": "Puri",
+          "major_city": "Puri",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://puri.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "Punjab",
+      "website": "https://punjab.gov.in",
+      "major_cities": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala", "Chandigarh"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Ludhiana",
+          "major_city": "Ludhiana",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://ludhiana.nic.in"
+        },
+        {
+          "district": "Amritsar",
+          "major_city": "Amritsar",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://amritsar.nic.in"
+        },
+        {
+          "district": "Jalandhar",
+          "major_city": "Jalandhar",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://jalandhar.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "Rajasthan",
+      "website": "https://rajasthan.gov.in",
+      "major_cities": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Jaipur",
+          "major_city": "Jaipur",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://jaipur.rajasthan.gov.in"
+        },
+        {
+          "district": "Jodhpur",
+          "major_city": "Jodhpur",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://jodhpur.rajasthan.gov.in"
+        },
+        {
+          "district": "Udaipur",
+          "major_city": "Udaipur",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://udaipur.rajasthan.gov.in"
+        }
+      ]
+    },
+    {
+      "state": "Tamil Nadu",
+      "website": "https://tn.gov.in",
+      "major_cities": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Chennai",
+          "major_city": "Chennai",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://chennai.nic.in"
+        },
+        {
+          "district": "Coimbatore",
+          "major_city": "Coimbatore",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://coimbatore.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "Telangana",
+      "website": "https://telangana.gov.in",
+      "major_cities": ["Hyderabad", "Warangal", "Nizamabad", "Khammam", "Karimnagar"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Hyderabad",
+          "major_city": "Hyderabad",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://hyderabad.telangana.gov.in"
+        },
+        {
+          "district": "Warangal",
+          "major_city": "Warangal",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://warangal.telangana.gov.in"
+        },
+        {
+          "district": "Khammam",
+          "major_city": "Khammam",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://khammam.telangana.gov.in"
+        }
+      ]
+    },
+    {
       "state": "Uttar Pradesh",
       "website": "https://up.gov.in",
       "major_cities": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Prayagraj"],
@@ -346,655 +1039,6 @@
       ]
     },
     {
-      "state": "West Bengal",
-      "website": "https://wb.gov.in",
-      "major_cities": ["Kolkata", "Howrah", "Darjeeling", "Siliguri", "Durgapur"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Kolkata",
-          "major_city": "Kolkata",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://kolkata.nic.in"
-        },
-        {
-          "district": "Howrah",
-          "major_city": "Howrah",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://howrah.nic.in"
-        },
-        {
-          "district": "Darjeeling",
-          "major_city": "Darjeeling",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://darjeeling.nic.in"
-        }
-      ]
-    },
-    {
-      "state": "Odisha",
-      "website": "https://odisha.gov.in",
-      "major_cities": ["Bhubaneswar", "Cuttack", "Puri", "Rourkela", "Sambalpur"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Bhubaneswar",
-          "major_city": "Bhubaneswar",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://bhubaneswar.nic.in"
-        },
-        {
-          "district": "Cuttack",
-          "major_city": "Cuttack",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://cuttack.nic.in"
-        },
-        {
-          "district": "Puri",
-          "major_city": "Puri",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://puri.nic.in"
-        }
-      ]
-    },
-    {
-      "state": "Bihar",
-      "website": "https://bihar.gov.in",
-      "major_cities": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Darbhanga"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Patna",
-          "major_city": "Patna",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://patna.nic.in"
-        },
-        {
-          "district": "Gaya",
-          "major_city": "Gaya",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://gaya.nic.in"
-        },
-        {
-          "district": "Bhagalpur",
-          "major_city": "Bhagalpur",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://bhagalpur.nic.in"
-        }
-      ]
-    },
-    {
-      "state": "Madhya Pradesh",
-      "website": "https://mp.gov.in",
-      "major_cities": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Bhopal",
-          "major_city": "Bhopal",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://bhopal.nic.in"
-        },
-        {
-          "district": "Indore",
-          "major_city": "Indore",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://indore.nic.in"
-        },
-        {
-          "district": "Gwalior",
-          "major_city": "Gwalior",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://gwalior.nic.in"
-        }
-      ]
-    },
-    {
-      "state": "Gujarat",
-      "website": "https://gujarat.gov.in",
-      "major_cities": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Ahmedabad",
-          "major_city": "Ahmedabad",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://ahmedabad.nic.in"
-        },
-        {
-          "district": "Surat",
-          "major_city": "Surat",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://surat.nic.in"
-        },
-        {
-          "district": "Vadodara",
-          "major_city": "Vadodara",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://vadodara.nic.in"
-        }
-      ]
-    },
-    {
-      "state": "Andhra Pradesh",
-      "website": "https://ap.gov.in",
-      "major_cities": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Visakhapatnam",
-          "major_city": "Visakhapatnam",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://visakhapatnam.ap.gov.in"
-        },
-        {
-          "district": "Vijayawada",
-          "major_city": "Vijayawada",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://vijayawada.ap.gov.in"
-        },
-        {
-          "district": "Guntur",
-          "major_city": "Guntur",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://guntur.ap.gov.in"
-        }
-      ]
-    },
-    {
-      "state": "Jharkhand",
-      "website": "https://jharkhand.gov.in",
-      "major_cities": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro", "Hazaribagh"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Ranchi",
-          "major_city": "Ranchi",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://ranchi.nic.in"
-        },
-        {
-          "district": "Jamshedpur",
-          "major_city": "Jamshedpur",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://jamshedpur.nic.in"
-        },
-        {
-          "district": "Dhanbad",
-          "major_city": "Dhanbad",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://dhanbad.nic.in"
-        }
-      ]
-    },
-    {
-      "state": "Assam",
-      "website": "https://assam.gov.in",
-      "major_cities": ["Guwahati", "Dibrugarh", "Silchar", "Jorhat", "Tezpur"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Guwahati",
-          "major_city": "Guwahati",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://guwahati.assam.gov.in"
-        },
-        {
-          "district": "Dibrugarh",
-          "major_city": "Dibrugarh",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://dibrugarh.assam.gov.in"
-        },
-        {
-          "district": "Silchar",
-          "major_city": "Silchar",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://cachar.gov.in"
-        }
-      ]
-    },
-    {
-      "state": "Telangana",
-      "website": "https://telangana.gov.in",
-      "major_cities": ["Hyderabad", "Warangal", "Nizamabad", "Khammam", "Karimnagar"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Hyderabad",
-          "major_city": "Hyderabad",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://hyderabad.telangana.gov.in"
-        },
-        {
-          "district": "Warangal",
-          "major_city": "Warangal",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://warangal.telangana.gov.in"
-        },
-        {
-          "district": "Khammam",
-          "major_city": "Khammam",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://khammam.telangana.gov.in"
-        }
-      ]
-    },
-    {
-      "state": "Haryana",
-      "website": "https://haryana.gov.in",
-      "major_cities": ["Faridabad", "Gurugram", "Panipat", "Ambala", "Hisar"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Faridabad",
-          "major_city": "Faridabad",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://faridabad.nic.in"
-        },
-        {
-          "district": "Gurugram",
-          "major_city": "Gurugram",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://gurugram.nic.in"
-        },
-        {
-          "district": "Panipat",
-          "major_city": "Panipat",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://panipat.nic.in"
-        }
-      ]
-    },
-    {
-      "state": "Rajasthan",
-      "website": "https://rajasthan.gov.in",
-      "major_cities": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer"],
-      "emergency_numbers": {
-        "police": "100",
-        "ambulance": "108",
-        "fire": "101",
-        "unified": "112",
-        "state_disaster_control": "1070"
-      },
-      "districts": [
-        {
-          "district": "Jaipur",
-          "major_city": "Jaipur",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://jaipur.rajasthan.gov.in"
-        },
-        {
-          "district": "Jodhpur",
-          "major_city": "Jodhpur",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://jodhpur.rajasthan.gov.in"
-        },
-        {
-          "district": "Udaipur",
-          "major_city": "Udaipur",
-          "control_room": {
-            "disaster_control": "1077",
-            "police": "100",
-            "ambulance": "108",
-            "fire": "101",
-            "women_helpline": "1091",
-            "cyber_crime": "1930",
-            "railway": "139",
-            "tourist_police": "1363"
-          },
-          "website": "https://udaipur.rajasthan.gov.in"
-        }
-      ]
-    },
-    {
       "state": "Uttarakhand",
       "website": "https://uk.gov.in",
       "major_cities": ["Dehradun", "Haridwar", "Rishikesh", "Nainital", "Mussoorie"],
@@ -1050,6 +1094,65 @@
             "tourist_police": "1363"
           },
           "website": "https://nainital.nic.in"
+        }
+      ]
+    },
+    {
+      "state": "West Bengal",
+      "website": "https://wb.gov.in",
+      "major_cities": ["Kolkata", "Howrah", "Darjeeling", "Siliguri", "Durgapur"],
+      "emergency_numbers": {
+        "police": "100",
+        "ambulance": "108",
+        "fire": "101",
+        "unified": "112",
+        "state_disaster_control": "1070"
+      },
+      "districts": [
+        {
+          "district": "Kolkata",
+          "major_city": "Kolkata",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://kolkata.nic.in"
+        },
+        {
+          "district": "Howrah",
+          "major_city": "Howrah",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://howrah.nic.in"
+        },
+        {
+          "district": "Darjeeling",
+          "major_city": "Darjeeling",
+          "control_room": {
+            "disaster_control": "1077",
+            "police": "100",
+            "ambulance": "108",
+            "fire": "101",
+            "women_helpline": "1091",
+            "cyber_crime": "1930",
+            "railway": "139",
+            "tourist_police": "1363"
+          },
+          "website": "https://darjeeling.nic.in"
         }
       ]
     }
