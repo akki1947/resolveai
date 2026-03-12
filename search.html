@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script src="/js/config.js" type="module"></script>
     <script src="/js/data-service.js" type="module"></script>
+    <script src="/js/auth.js" type="module"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -198,6 +199,8 @@
             font-size: 0.9rem;
             font-weight: 500;
             transition: background 0.2s;
+            border: none;
+            cursor: pointer;
         }
         .action-btn.primary {
             background: #2563eb;
@@ -265,7 +268,7 @@
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
+                <a href="index.html" id="header-home-link">Home</a>
                 <a href="search.html">Search</a>
                 <a href="advisor.html">AI Advisor</a>
                 <a href="negotiation.html">AI Negotiator</a>
@@ -301,32 +304,32 @@
     </footer>
 
     <script type="module">
-        import CONFIG from '/js/config.js';
+        import { supabase, getSession } from '/js/auth.js';
         import { dataService } from '/js/data-service.js';
 
-        // Initialize Supabase
-        const supabase = window.supabase.createClient(CONFIG.supabase.url, CONFIG.supabase.anonKey);
-
-        async function logout() {
-            await supabase.auth.signOut();
-            window.location.href = 'index.html';
-        }
-
-        supabase.auth.getSession().then(({ data: { session } }) => {
+        // Update header based on auth state
+        getSession().then(session => {
             const loginLink = document.getElementById('login-link');
             const logoutLink = document.getElementById('logout-link');
             const dashboardLink = document.getElementById('dashboard-link');
             
-            if (session) {
-                loginLink.style.display = 'none';
-                logoutLink.style.display = 'inline';
-                dashboardLink.style.display = 'inline';
-            } else {
-                loginLink.style.display = 'inline';
-                logoutLink.style.display = 'none';
-                dashboardLink.style.display = 'none';
+            if (loginLink && logoutLink && dashboardLink) {
+                if (session) {
+                    loginLink.style.display = 'none';
+                    logoutLink.style.display = 'inline';
+                    dashboardLink.style.display = 'inline';
+                } else {
+                    loginLink.style.display = 'inline';
+                    logoutLink.style.display = 'none';
+                    dashboardLink.style.display = 'none';
+                }
             }
         });
+
+        window.logout = async function() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        };
 
         // Search functionality
         let categoriesData = null;
@@ -346,8 +349,21 @@
                 buildSearchIndex();
                 populateFilters();
                 populateSuggestions();
+                
+                // Check for URL parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const queryParam = urlParams.get('q');
+                if (queryParam) {
+                    document.getElementById('searchInput').value = queryParam;
+                    performSearch();
+                }
             } catch (error) {
-                showError('Failed to load search data');
+                console.error('Search init error:', error);
+                document.getElementById('resultsContainer').innerHTML = `
+                    <div class="error-message">
+                        Failed to load search data. Please refresh the page.
+                    </div>
+                `;
             }
         }
 
@@ -357,7 +373,6 @@
             categoriesData.sectors.forEach(sector => {
                 sector.categories.forEach(category => {
                     category.types.forEach(type => {
-                        // Add to search index
                         searchIndex.push({
                             type: 'grievance',
                             sector: sector.name,
@@ -367,21 +382,29 @@
                             details: type.details,
                             authority: type.suggested_authority,
                             authorityId: type.authority,
-                            evidence: type.evidence,
-                            keywords: [...type.keywords, type.name, category.name, sector.name]
+                            evidence: type.evidence || [],
+                            keywords: [
+                                ...(type.keywords || []),
+                                type.name.toLowerCase(),
+                                category.name.toLowerCase(),
+                                sector.name.toLowerCase()
+                            ],
+                            score: 0
                         });
                     });
                 });
             });
             
-            // Add companies to search index
+            // Add companies
             Object.entries(companiesData.sectors).forEach(([sectorId, sector]) => {
-                sector.companies.forEach(company => {
+                (sector.companies || []).forEach(company => {
                     searchIndex.push({
                         type: 'company',
                         company: company,
                         sector: sector.name,
-                        sectorId: sectorId
+                        sectorId: sectorId,
+                        keywords: [company.toLowerCase(), sector.name.toLowerCase()],
+                        score: 0
                     });
                 });
             });
@@ -428,14 +451,41 @@
             
             // Perform search with filter
             const query = document.getElementById('searchInput').value;
-            performSearch(query, sector);
+            performSearchWithFilter(query, sector);
         };
 
-        async function performSearch(query, sectorFilter = 'all') {
-            const searchQuery = query || document.getElementById('searchInput').value;
+        function calculateRelevance(item, query) {
+            const words = query.toLowerCase().split(' ');
+            let score = 0;
+            
+            words.forEach(word => {
+                if (item.keywords) {
+                    item.keywords.forEach(keyword => {
+                        if (keyword.includes(word)) {
+                            score += 10;
+                            if (keyword === word) score += 20;
+                        }
+                    });
+                }
+                
+                if (item.type === 'grievance') {
+                    if (item.typeName.toLowerCase().includes(word)) score += 15;
+                    if (item.category.toLowerCase().includes(word)) score += 10;
+                    if (item.sector.toLowerCase().includes(word)) score += 5;
+                }
+                
+                if (item.type === 'company') {
+                    if (item.company.toLowerCase().includes(word)) score += 15;
+                }
+            });
+            
+            return score;
+        }
+
+        async function performSearchWithFilter(query, sectorFilter) {
             const container = document.getElementById('resultsContainer');
             
-            if (!searchQuery.trim()) {
+            if (!query) {
                 container.innerHTML = '<div class="loading">Enter a search term to begin</div>';
                 return;
             }
@@ -447,38 +497,55 @@
                 </div>
             `;
             
-            // Simulate search delay for smooth UX
+            // Calculate scores for all items
+            const results = searchIndex
+                .map(item => ({
+                    ...item,
+                    score: calculateRelevance(item, query)
+                }))
+                .filter(item => {
+                    if (sectorFilter !== 'all' && item.sector !== sectorFilter) return false;
+                    return item.score > 0;
+                })
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 10);
+            
             setTimeout(() => {
-                const results = searchIndex.filter(item => {
-                    const matchesQuery = item.keywords ? 
-                        item.keywords.some(k => k.toLowerCase().includes(searchQuery.toLowerCase())) :
-                        item.company.toLowerCase().includes(searchQuery.toLowerCase());
-                    
-                    const matchesSector = sectorFilter === 'all' || item.sector === sectorFilter;
-                    
-                    return matchesQuery && matchesSector;
-                });
-                
-                displayResults(results.slice(0, 10)); // Limit to 10 results
+                displayResults(results, query);
             }, 300);
         }
 
-        function displayResults(results) {
+        window.performSearch = function() {
+            const query = document.getElementById('searchInput').value;
+            const activeFilter = document.querySelector('.filter-chip.active')?.innerText || 'All';
+            performSearchWithFilter(query, activeFilter === 'All' ? 'all' : activeFilter);
+        };
+
+        function displayResults(results, query) {
             const container = document.getElementById('resultsContainer');
             
             if (results.length === 0) {
                 container.innerHTML = `
                     <div class="error-message">
-                        No results found. Try different keywords or browse our guides.
+                        <strong>No results found for "${query}"</strong><br>
+                        Try different keywords or browse our guides:
+                        <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                            <a href="amazon-complaint.html" class="action-btn">Amazon Issues</a>
+                            <a href="airtel-complaint.html" class="action-btn">Airtel Issues</a>
+                            <a href="bank-fraud-complaint.html" class="action-btn">Bank Fraud</a>
+                            <a href="builder-delay-complaint.html" class="action-btn">Builder Delay</a>
+                        </div>
                     </div>
                 `;
                 return;
             }
             
-            container.innerHTML = results.map(item => {
+            container.innerHTML = results.map((item, index) => {
+                const delay = index * 0.05;
+                
                 if (item.type === 'grievance') {
                     return `
-                        <div class="result-card" style="animation-delay: ${Math.random() * 0.2}s">
+                        <div class="result-card" style="animation-delay: ${delay}s">
                             <div class="result-title">${item.sector}: ${item.typeName}</div>
                             <div class="result-meta">
                                 <span class="meta-item"><i>📋</i> ${item.category}</span>
@@ -487,14 +554,14 @@
                             <div class="result-description">${item.details}</div>
                             <div class="result-actions">
                                 <a href="complaint.html?sector=${item.sectorId}" class="action-btn primary">File Complaint</a>
-                                <a href="advisor.html?q=${encodeURIComponent(item.typeName)}" class="action-btn">Ask AI Advisor</a>
-                                <a href="#" class="action-btn" onclick="showEvidence('${item.evidence.join('||')}')">📋 Evidence</a>
+                                <a href="advisor.html?q=${encodeURIComponent(item.typeName)}" class="action-btn">Ask AI</a>
+                                <button class="action-btn" onclick="showEvidence('${item.evidence.join('||')}')">📋 Evidence</button>
                             </div>
                         </div>
                     `;
                 } else {
                     return `
-                        <div class="result-card" style="animation-delay: ${Math.random() * 0.2}s">
+                        <div class="result-card" style="animation-delay: ${delay}s">
                             <div class="result-title">${item.company}</div>
                             <div class="result-meta">
                                 <span class="meta-item"><i>🏢</i> ${item.sector}</span>
@@ -509,13 +576,9 @@
             }).join('');
         }
 
-        window.showEvidence = function(evidenceList) {
-            const items = evidenceList.split('||');
+        window.showEvidence = function(evidenceStr) {
+            const items = evidenceStr.split('||');
             alert('Required Evidence:\n• ' + items.join('\n• '));
-        };
-
-        window.performSearch = function() {
-            performSearch();
         };
 
         // Initialize on load

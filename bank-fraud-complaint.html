@@ -230,36 +230,42 @@
         </div>
     </header>
 
-    <script>
-        const supabase = window.supabase.createClient(
-            'https://qdymteenojnjwgblxjas.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFkeW10ZWVub2puandnYmx4amFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2NTY5MTIsImV4cCI6MjA1NzIzMjkxMn0.9Yx8c8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8Pc8'
-        );
-        async function logout() { await supabase.auth.signOut(); window.location.href = 'index.html'; }
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                document.getElementById('login-link').style.display = 'none';
-                document.getElementById('logout-link').style.display = 'inline';
-                document.getElementById('dashboard-link').style.display = 'inline';
-            } else {
-                document.getElementById('login-link').style.display = 'inline';
-                document.getElementById('logout-link').style.display = 'none';
-                document.getElementById('dashboard-link').style.display = 'none';
+    <script type="module">
+        import { supabase, getSession } from '/js/auth.js';
+        
+        window.logout = async function() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        };
+        
+        getSession().then(session => {
+            const loginLink = document.getElementById('login-link');
+            const logoutLink = document.getElementById('logout-link');
+            const dashboardLink = document.getElementById('dashboard-link');
+            
+            if (loginLink && logoutLink && dashboardLink) {
+                if (session) {
+                    loginLink.style.display = 'none';
+                    logoutLink.style.display = 'inline';
+                    dashboardLink.style.display = 'inline';
+                } else {
+                    loginLink.style.display = 'inline';
+                    logoutLink.style.display = 'none';
+                    dashboardLink.style.display = 'none';
+                }
+            }
             
             // Hide header Home link on non-homepages
             if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
                 const homeLink = document.getElementById('header-home-link');
                 if (homeLink) homeLink.style.display = 'none';
             }
-        
-            // Hide header Home link on non-homepages
-            if (window.location.pathname !== '/' && !window.location.pathname.endsWith('index.html')) {
-                const homeLink = document.getElementById('header-home-link');
-                if (homeLink) homeLink.style.display = 'none';
-            }
-        }
         });
     </script>
+
+
+
+    
 
     <div class="container">
         <h1>Bank Fraud Complaint India – Complete Guide 2026</h1>
