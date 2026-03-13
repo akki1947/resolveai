@@ -7,8 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -17,13 +15,24 @@
             color: #1e293b;
             line-height: 1.6;
         }
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
         header {
             background: white;
             border-bottom: 1px solid #e2e8f0;
             padding: 16px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            margin-bottom: 30px;
         }
         .header-content {
             max-width: 1200px;
@@ -57,68 +66,66 @@
             color: #2563eb;
         }
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 24px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .search-hero {
+        h1 {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
         }
-        .search-hero h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 16px;
-        }
-        .search-hero p {
+        .subhead {
+            text-align: center;
             color: #64748b;
-            font-size: 1.1rem;
+            margin-bottom: 30px;
         }
         .search-box {
-            background: white;
-            border-radius: 60px;
-            padding: 8px 8px 8px 24px;
             display: flex;
-            align-items: center;
-            box-shadow: 0 8px 16px -8px rgba(0,0,0,0.1);
-            border: 1px solid #e2e8f0;
-            margin-bottom: 24px;
+            gap: 10px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .search-box input {
+        .search-input {
             flex: 1;
-            border: none;
-            padding: 16px 0;
-            font-size: 1.1rem;
-            outline: none;
-            background: transparent;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.2s;
         }
-        .search-box button {
+        .search-input:focus {
+            border-color: #2563eb;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        .search-button {
+            padding: 15px 30px;
             background: #2563eb;
             color: white;
             border: none;
-            padding: 12px 32px;
-            border-radius: 40px;
+            border-radius: 50px;
             font-weight: 600;
-            font-size: 1rem;
             cursor: pointer;
             transition: background 0.2s;
         }
-        .search-box button:hover {
+        .search-button:hover {
             background: #1d4ed8;
         }
-        .search-filters {
+        .filters {
             display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
+            gap: 10px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
+            justify-content: center;
         }
         .filter-chip {
             background: white;
             border: 1px solid #e2e8f0;
             border-radius: 40px;
             padding: 8px 16px;
-            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -134,69 +141,52 @@
         .results-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
         .result-card {
             background: white;
-            border-radius: 24px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 20px;
             border: 1px solid #e2e8f0;
             transition: all 0.2s;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideIn 0.3s ease forwards;
-        }
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            cursor: pointer;
         }
         .result-card:hover {
-            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             border-color: #2563eb;
         }
         .result-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 8px;
         }
         .result-meta {
             display: flex;
             gap: 20px;
-            margin-bottom: 16px;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
             flex-wrap: wrap;
         }
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #475569;
-            font-size: 0.9rem;
-        }
-        .meta-item i {
-            color: #2563eb;
-        }
         .result-description {
-            color: #64748b;
-            margin-bottom: 16px;
-            line-height: 1.6;
+            color: #475569;
+            margin-bottom: 15px;
         }
         .result-actions {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
         .action-btn {
-            background: #f1f5f9;
-            color: #1e293b;
-            padding: 8px 20px;
+            padding: 8px 16px;
             border-radius: 40px;
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            background: #f1f5f9;
+            color: #1e293b;
             border: none;
             cursor: pointer;
         }
@@ -210,239 +200,361 @@
         .action-btn.primary:hover {
             background: #1d4ed8;
         }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+        }
         .loading {
             text-align: center;
             padding: 40px;
             color: #64748b;
         }
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #e2e8f0;
-            border-top-color: #2563eb;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .error-message {
-            background: #fee2e2;
-            color: #b91c1c;
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-        }
-        .suggestion-pills {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-        .suggestion-pill {
-            background: #e2e8f0;
-            padding: 6px 12px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .suggestion-pill:hover {
-            background: #cbd5e1;
-        }
-        footer {
+        .footer {
             text-align: center;
             color: #94a3b8;
             font-size: 0.8rem;
-            margin-top: 60px;
+            margin-top: 40px;
             padding: 20px;
             border-top: 1px solid #e2e8f0;
-        }
-    
-        .home-link {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: white;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            text-decoration: none;
-            color: #2563eb;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: all 0.2s;
-            z-index: 100;
-        }
-        .home-link:hover {
-            background: #f8fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="home-link">← Back to Home</a>
+    <a href="index.html" class="home-link">← Home</a>
     
     <header>
         <div class="header-content">
             <a href="index.html" class="logo">Resolve<span>AI</span></a>
             <div class="nav-links">
-                <a href="index.html" id="header-home-link">Home</a>
+                <a href="index.html">Home</a>
                 <a href="search.html">Search</a>
-                <a href="advisor.html">AI Advisor</a>
-                <a href="negotiation.html">AI Negotiator</a>
-                <a href="knowledge.html">Guide</a>
+                <a href="rights-guide.html">📚 Rights Guide</a>
                 <a href="emergency.html">Emergency</a>
-                
-                
-                
             </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="search-hero">
-            <h1>Smart Complaint Search</h1>
-            <p>Find the right authority and complaint process in seconds</p>
-        </div>
-
+        <h1>Smart Complaint Search</h1>
+        <div class="subhead">Find the right authority and complaint process</div>
+        
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="e.g., 'Amazon not refunding', 'Airtel network issue', 'Bank fraud'..." autofocus>
-            <button onclick="performSearch()">Search</button>
+            <input type="text" id="searchInput" class="search-input" placeholder="e.g., flight delay, bank fraud, refund...">
+            <button class="search-button" onclick="performSearch()">Search</button>
         </div>
-
-        <div class="suggestion-pills" id="suggestionPills"></div>
-
-        <div class="search-filters" id="filterContainer"></div>
-
-        <div id="resultsContainer" class="results-container"></div>
+        
+        <div class="filters" id="filters"></div>
+        
+        <div id="results" class="results-container">
+            <div class="loading">Enter a search term to begin</div>
+        </div>
     </div>
 
-    <footer>
-        <p>© 2026 ResolveAI – Smart Consumer Complaint Platform</p>
-    </footer>
-
-    
-
-    
+    <div class="footer">
+        <p>© 2026 ResolveAI – Consumer Rights Platform</p>
+    </div>
 
     <script>
-        // Smart Complaint Search - Working Version
-        document.addEventListener('DOMContentLoaded', function() {
-            loadSearchData();
-        });
-
-        let searchData = {
-            grievances: [],
-            companies: []
-        };
-
-        async function loadSearchData() {
-            try {
-                // Load categories
-                const catResponse = await fetch('/data/grievance-categories.json');
-                const categories = await catResponse.json();
-                
-                // Load companies
-                const compResponse = await fetch('/data/companies.json');
-                const companies = await compResponse.json();
-                
-                // Build search index
-                buildSearchIndex(categories, companies);
-                
-                // Check for URL parameter
-                const urlParams = new URLSearchParams(window.location.search);
-                const queryParam = urlParams.get('q');
-                if (queryParam) {
-                    document.getElementById('searchInput').value = queryParam;
-                    performSearch();
-                }
-            } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('resultsContainer').innerHTML = 
-                    '<div class="error-message">Failed to load search data. Please refresh.</div>';
-            }
-        }
-
-        function buildSearchIndex(categories, companies) {
-            searchData.grievances = [];
+        // Simple search database
+                      const searchDatabase = [
+            // ===== E-COMMERCE =====
+            { title: 'Amazon Non-Delivery', category: 'E-commerce', sector: 'ecommerce', company: 'Amazon India', keywords: ['amazon', 'not delivered', 'delivery', 'order', 'shipping', 'package', 'missing'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Product not delivered within promised timeline' },
+            { title: 'Amazon Wrong Item', category: 'E-commerce', sector: 'ecommerce', company: 'Amazon India', keywords: ['amazon', 'wrong item', 'wrong product', 'incorrect', 'different'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Wrong or damaged product delivered' },
+            { title: 'Amazon Refund Delay', category: 'E-commerce', sector: 'ecommerce', company: 'Amazon India', keywords: ['amazon', 'refund', 'money back', 'refund delay', 'payment'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Refund not processed' },
+            { title: 'Amazon Hidden Charges', category: 'E-commerce', sector: 'ecommerce', company: 'Amazon India', keywords: ['amazon', 'hidden charges', 'extra', 'overcharge', 'price'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Additional charges applied' },
+            { title: 'Amazon Fake Product', category: 'E-commerce', sector: 'ecommerce', company: 'Amazon India', keywords: ['amazon', 'fake', 'counterfeit', 'duplicate', 'original'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Suspected counterfeit product' },
+            { title: 'Amazon Delayed Delivery', category: 'E-commerce', sector: 'ecommerce', company: 'Amazon India', keywords: ['amazon', 'delayed', 'late delivery', 'shipping'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Late shipment' },
+            { title: 'Amazon Defective Product', category: 'E-commerce', sector: 'ecommerce', company: 'Amazon India', keywords: ['amazon', 'defective', 'faulty', 'not working'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Faulty product delivered' },
+            { title: 'Amazon Replacement Delay', category: 'E-commerce', sector: 'ecommerce', company: 'Amazon India', keywords: ['amazon', 'replacement', 'exchange', 'delay'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Replacement not processed' },
             
-            // Add grievances
-            categories.sectors.forEach(sector => {
-                sector.categories.forEach(category => {
-                    category.types.forEach(type => {
-                        searchData.grievances.push({
-                            sector: sector.name,
-                            sectorId: sector.id,
-                            category: category.name,
-                            type: type.name,
-                            details: type.details,
-                            authority: type.suggested_authority,
-                            keywords: [
-                                type.name.toLowerCase(),
-                                category.name.toLowerCase(),
-                                sector.name.toLowerCase(),
-                                ...(type.keywords || [])
-                            ]
-                        });
-                    });
-                });
-            });
+            { title: 'Flipkart Wrong Item', category: 'E-commerce', sector: 'ecommerce', company: 'Flipkart', keywords: ['flipkart', 'wrong item', 'damaged', 'product'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Wrong or damaged product delivered' },
+            { title: 'Flipkart Non-Delivery', category: 'E-commerce', sector: 'ecommerce', company: 'Flipkart', keywords: ['flipkart', 'not delivered', 'delivery', 'order'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Product not delivered' },
+            { title: 'Flipkart Refund Delay', category: 'E-commerce', sector: 'ecommerce', company: 'Flipkart', keywords: ['flipkart', 'refund', 'money back'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Refund not processed' },
+            { title: 'Flipkart Defective Product', category: 'E-commerce', sector: 'ecommerce', company: 'Flipkart', keywords: ['flipkart', 'defective', 'faulty'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Faulty product delivered' },
             
-            // Add companies
-            searchData.companies = [];
-            Object.entries(companies.sectors).forEach(([sectorId, sector]) => {
-                (sector.companies || []).forEach(company => {
-                    searchData.companies.push({
-                        name: company,
-                        sector: sector.name,
-                        sectorId: sectorId,
-                        keywords: [company.toLowerCase(), sector.name.toLowerCase()]
-                    });
-                });
-            });
+            { title: 'Myntra Refund Delay', category: 'E-commerce', sector: 'ecommerce', company: 'Myntra', keywords: ['myntra', 'refund', 'money back', 'return'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Refund not processed' },
+            { title: 'Myntra Wrong Item', category: 'E-commerce', sector: 'ecommerce', company: 'Myntra', keywords: ['myntra', 'wrong item', 'size issue'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Wrong size or item delivered' },
             
-            populateFilters(categories);
-            populateSuggestions();
-        }
-
-        function populateFilters(categories) {
-            const filterDiv = document.getElementById('filterContainer');
-            if (!filterDiv) return;
+            { title: 'Ajio Hidden Charges', category: 'E-commerce', sector: 'ecommerce', company: 'Ajio', keywords: ['ajio', 'hidden charges', 'extra', 'price'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Additional charges applied' },
+            { title: 'Ajio Refund Delay', category: 'E-commerce', sector: 'ecommerce', company: 'Ajio', keywords: ['ajio', 'refund', 'delay'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Refund not processed' },
             
-            const sectors = [...new Set(categories.sectors.map(s => s.name))];
-            filterDiv.innerHTML = '<span class="filter-chip active" onclick="filterBySector('all')">All</span>' +
-                sectors.map(s => '<span class="filter-chip" onclick="filterBySector('' + s + '')">' + s + '</span>').join('');
-        }
-
-        function populateSuggestions() {
-            const suggestions = [
-                "Amazon not refunding",
-                "Airtel network issue",
-                "Bank fraud transaction",
-                "Flight cancelled refund",
-                "Insurance claim rejected",
-                "LPG cylinder not delivered",
-                "Builder possession delay"
-            ];
+            { title: 'Meesho Fake Product', category: 'E-commerce', sector: 'ecommerce', company: 'Meesho', keywords: ['meesho', 'fake', 'counterfeit', 'quality'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Suspected counterfeit product' },
+            { title: 'Meesho Delivery Delay', category: 'E-commerce', sector: 'ecommerce', company: 'Meesho', keywords: ['meesho', 'delivery', 'delay'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Late delivery' },
             
-            const container = document.getElementById('suggestionPills');
-            if (container) {
-                container.innerHTML = suggestions.map(s => 
-                    '<span class="suggestion-pill" onclick="setSearch('' + s + '')">🔍 ' + s + '</span>'
-                ).join('');
-            }
-        }
+            { title: 'Snapdeal Delayed Delivery', category: 'E-commerce', sector: 'ecommerce', company: 'Snapdeal', keywords: ['snapdeal', 'delayed', 'late delivery', 'shipping'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Late shipment' },
+            { title: 'Snapdeal Refund Issue', category: 'E-commerce', sector: 'ecommerce', company: 'Snapdeal', keywords: ['snapdeal', 'refund'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Refund not processed' },
+            
+            { title: 'Tata Cliq Defective Product', category: 'E-commerce', sector: 'ecommerce', company: 'Tata Cliq', keywords: ['tata cliq', 'defective', 'faulty', 'not working'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Faulty product delivered' },
+            { title: 'Tata Cliq Delivery Issue', category: 'E-commerce', sector: 'ecommerce', company: 'Tata Cliq', keywords: ['tata cliq', 'delivery'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Delivery problem' },
+            
+            { title: 'Nykaa Replacement Delay', category: 'E-commerce', sector: 'ecommerce', company: 'Nykaa', keywords: ['nykaa', 'replacement', 'exchange', 'delay'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Replacement not processed' },
+            { title: 'Nykaa Wrong Item', category: 'E-commerce', sector: 'ecommerce', company: 'Nykaa', keywords: ['nykaa', 'wrong item', 'cosmetics'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Wrong product delivered' },
+            
+            // ===== FMCG (Fast Moving Consumer Goods) =====
+            { title: 'Nestle Product Quality', category: 'FMCG', sector: 'fmcg', company: 'Nestle', keywords: ['nestle', 'quality', 'food', 'product', 'defective'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality or defective food product' },
+            { title: 'Nestle Expired Product', category: 'FMCG', sector: 'fmcg', company: 'Nestle', keywords: ['nestle', 'expired', 'expiry', 'date'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Expired product sold' },
+            
+            { title: 'HUL Product Quality', category: 'FMCG', sector: 'fmcg', company: 'Hindustan Unilever', keywords: ['hul', 'unilever', 'quality', 'product', 'soap', 'detergent'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality or defective product' },
+            { title: 'HUL Expired Product', category: 'FMCG', sector: 'fmcg', company: 'Hindustan Unilever', keywords: ['hul', 'unilever', 'expired'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Expired product sold' },
+            
+            { title: 'ITC Product Quality', category: 'FMCG', sector: 'fmcg', company: 'ITC', keywords: ['itc', 'quality', 'food', 'product', 'biscuit', 'snack'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality food product' },
+            { title: 'ITC Expired Product', category: 'FMCG', sector: 'fmcg', company: 'ITC', keywords: ['itc', 'expired'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Expired product sold' },
+            
+            { title: 'Patanjali Product Quality', category: 'FMCG', sector: 'fmcg', company: 'Patanjali', keywords: ['patanjali', 'quality', 'ayurvedic', 'product'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality or misleading claims' },
+            { title: 'Patanjali Expired Product', category: 'FMCG', sector: 'fmcg', company: 'Patanjali', keywords: ['patanjali', 'expired'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Expired product sold' },
+            
+            { title: 'Amul Product Quality', category: 'FMCG', sector: 'fmcg', company: 'Amul', keywords: ['amul', 'milk', 'dairy', 'product', 'quality', 'butter', 'cheese'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality dairy product' },
+            { title: 'Amul Expired Product', category: 'FMCG', sector: 'fmcg', company: 'Amul', keywords: ['amul', 'expired'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Expired dairy product sold' },
+            
+            { title: 'Britannia Product Quality', category: 'FMCG', sector: 'fmcg', company: 'Britannia', keywords: ['britannia', 'biscuit', 'bread', 'quality'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality bakery product' },
+            { title: 'Britannia Expired Product', category: 'FMCG', sector: 'fmcg', company: 'Britannia', keywords: ['britannia', 'expired'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Expired product sold' },
+            
+            { title: 'Dabur Product Quality', category: 'FMCG', sector: 'fmcg', company: 'Dabur', keywords: ['dabur', 'ayurvedic', 'health', 'product'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality or misleading claims' },
+            
+            { title: 'Marico Product Quality', category: 'FMCG', sector: 'fmcg', company: 'Marico', keywords: ['marico', 'parachute', 'oil', 'product'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality product' },
+            
+            { title: 'Mother Dairy Product Quality', category: 'FMCG', sector: 'fmcg', company: 'Mother Dairy', keywords: ['mother dairy', 'milk', 'dairy', 'quality'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality dairy product' },
+            
+            { title: 'General FMCG Quality Issue', category: 'FMCG', sector: 'fmcg', company: 'Various', keywords: ['fmcg', 'food', 'product', 'quality', 'expired', 'packaging'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor quality, expired, or defective FMCG product' },
+            { title: 'FMCG Expired Product', category: 'FMCG', sector: 'fmcg', company: 'Various', keywords: ['expired', 'expiry date', 'date passed'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Product sold after expiry date' },
+            { title: 'FMCG Foreign Object', category: 'FMCG', sector: 'fmcg', company: 'Various', keywords: ['foreign object', 'insect', 'hair', 'plastic'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Foreign object found in product' },
+            { title: 'FMCG Misleading Label', category: 'FMCG', sector: 'fmcg', company: 'Various', keywords: ['misleading', 'label', 'packaging', 'false claim'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Misleading information on packaging' },
+            { title: 'FMCG Price Issue', category: 'FMCG', sector: 'fmcg', company: 'Various', keywords: ['mrp', 'overcharge', 'price', 'extra'], authority: 'Legal Metrology', helpline: '1800-112-225', description: 'Charged more than MRP' },
+            
+            // ===== BANKING =====
+            { title: 'SBI Unauthorized Transaction', category: 'Banking', sector: 'banking', company: 'State Bank of India', keywords: ['sbi', 'state bank', 'fraud', 'unauthorized', 'transaction', 'money deducted'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Unrecognized debit from account' },
+            { title: 'SBI UPI Fraud', category: 'Banking', sector: 'banking', company: 'State Bank of India', keywords: ['sbi', 'upi', 'fraud', 'phonepe', 'google pay'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Fraudulent digital transaction' },
+            { title: 'SBI Loan Delay', category: 'Banking', sector: 'banking', company: 'State Bank of India', keywords: ['sbi', 'loan', 'delay', 'processing'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Loan processing delay' },
+            { title: 'SBI Account Issue', category: 'Banking', sector: 'banking', company: 'State Bank of India', keywords: ['sbi', 'account', 'service', 'delay'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Delay in account services' },
+            { title: 'SBI Complaint Pending', category: 'Banking', sector: 'banking', company: 'State Bank of India', keywords: ['sbi', 'complaint', 'pending', 'unresolved'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Issue unresolved' },
+            
+            { title: 'HDFC Billing Error', category: 'Banking', sector: 'banking', company: 'HDFC Bank', keywords: ['hdfc', 'billing', 'credit card', 'wrong charge', 'incorrect'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Incorrect charges' },
+            { title: 'HDFC High Fees', category: 'Banking', sector: 'banking', company: 'HDFC Bank', keywords: ['hdfc', 'fees', 'high', 'excessive', 'charges'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Excessive charges' },
+            { title: 'HDFC Unauthorized Transaction', category: 'Banking', sector: 'banking', company: 'HDFC Bank', keywords: ['hdfc', 'fraud', 'unauthorized'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Unrecognized transaction' },
+            
+            { title: 'ICICI Loan Delay', category: 'Banking', sector: 'banking', company: 'ICICI Bank', keywords: ['icici', 'loan', 'delay', 'processing', 'disbursement'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Loan processing delay' },
+            { title: 'ICICI Credit Card Issue', category: 'Banking', sector: 'banking', company: 'ICICI Bank', keywords: ['icici', 'credit card', 'billing'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Credit card billing issue' },
+            
+            { title: 'Axis Bank Mis-selling', category: 'Banking', sector: 'banking', company: 'Axis Bank', keywords: ['axis', 'mis-selling', 'wrong product', 'misleading'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Misleading product sales' },
+            { title: 'Axis Bank Fraud', category: 'Banking', sector: 'banking', company: 'Axis Bank', keywords: ['axis', 'fraud', 'transaction'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Fraudulent transaction' },
+            
+            { title: 'Kotak Complaint Pending', category: 'Banking', sector: 'banking', company: 'Kotak Mahindra Bank', keywords: ['kotak', 'complaint', 'pending', 'unresolved'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Issue unresolved' },
+            
+            { title: 'PNB UPI Fraud', category: 'Banking', sector: 'banking', company: 'Punjab National Bank', keywords: ['pnb', 'punjab national', 'upi', 'fraud'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Fraudulent digital transaction' },
+            { title: 'PNB Unauthorized Transaction', category: 'Banking', sector: 'banking', company: 'Punjab National Bank', keywords: ['pnb', 'fraud', 'transaction'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Unrecognized transaction' },
+            
+            { title: 'Bank of Baroda Account Issue', category: 'Banking', sector: 'banking', company: 'Bank of Baroda', keywords: ['bob', 'baroda', 'account', 'service', 'delay'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Delay in account services' },
+            
+            { title: 'IDFC First High Fees', category: 'Banking', sector: 'banking', company: 'IDFC First Bank', keywords: ['idfc', 'first', 'fees', 'high', 'credit card'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Excessive charges' },
+            
+            { title: 'Yes Bank Account Issue', category: 'Banking', sector: 'banking', company: 'Yes Bank', keywords: ['yes bank', 'account', 'service'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Banking service issue' },
+            
+            { title: 'AU Bank Service Issue', category: 'Banking', sector: 'banking', company: 'AU Bank', keywords: ['au bank', 'service'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Banking service issue' },
+            
+            { title: 'General Banking Fraud', category: 'Banking', sector: 'banking', company: 'Various Banks', keywords: ['bank', 'fraud', 'unauthorized', 'transaction', 'money deducted', 'scam'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Unauthorized transaction or fraud' },
+            { title: 'General Credit Card Issue', category: 'Banking', sector: 'banking', company: 'Various Banks', keywords: ['credit card', 'billing', 'charge', 'fee'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Credit card billing or fee issue' },
+            { title: 'General Loan Issue', category: 'Banking', sector: 'banking', company: 'Various Banks', keywords: ['loan', 'processing', 'delay', 'disbursement'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Loan processing delay' },
+            { title: 'General Account Service', category: 'Banking', sector: 'banking', company: 'Various Banks', keywords: ['account', 'service', 'delay', 'update'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Delay in account services' },
+            
+            // ===== TELECOM =====
+            { title: 'Jio Slow Internet', category: 'Telecom', sector: 'telecom', company: 'Reliance Jio', keywords: ['jio', 'reliance', 'internet', 'slow', 'speed'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Poor internet speed' },
+            { title: 'Jio Network Issue', category: 'Telecom', sector: 'telecom', company: 'Reliance Jio', keywords: ['jio', 'network', 'signal', 'coverage'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Network coverage issue' },
+            { title: 'Jio Call Drops', category: 'Telecom', sector: 'telecom', company: 'Reliance Jio', keywords: ['jio', 'call drop', 'disconnect'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Frequent call drops' },
+            { title: 'Jio Billing Issue', category: 'Telecom', sector: 'telecom', company: 'Reliance Jio', keywords: ['jio', 'bill', 'overcharge'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Incorrect billing' },
+            
+            { title: 'Airtel Overcharging', category: 'Telecom', sector: 'telecom', company: 'Bharti Airtel', keywords: ['airtel', 'bharti', 'bill', 'overcharge', 'billing'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Incorrect bill' },
+            { title: 'Airtel Call Drops', category: 'Telecom', sector: 'telecom', company: 'Bharti Airtel', keywords: ['airtel', 'call drop', 'network', 'disconnect'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Frequent call drops' },
+            { title: 'Airtel Slow Internet', category: 'Telecom', sector: 'telecom', company: 'Bharti Airtel', keywords: ['airtel', 'internet', 'slow', 'speed'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Poor internet speed' },
+            { title: 'Airtel Network Issue', category: 'Telecom', sector: 'telecom', company: 'Bharti Airtel', keywords: ['airtel', 'network', 'signal'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Network coverage issue' },
+            
+            { title: 'VI Call Drops', category: 'Telecom', sector: 'telecom', company: 'Vodafone Idea', keywords: ['vi', 'vodafone', 'idea', 'call drop', 'network'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Frequent call drops' },
+            { title: 'VI Network Issue', category: 'Telecom', sector: 'telecom', company: 'Vodafone Idea', keywords: ['vi', 'network', 'signal'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Network issue' },
+            { title: 'VI Billing Issue', category: 'Telecom', sector: 'telecom', company: 'Vodafone Idea', keywords: ['vi', 'bill', 'overcharge'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Billing problem' },
+            
+            { title: 'BSNL Broadband Failure', category: 'Telecom', sector: 'telecom', company: 'BSNL', keywords: ['bsnl', 'broadband', 'internet', 'not working'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Broadband not working' },
+            { title: 'BSNL Network Issue', category: 'Telecom', sector: 'telecom', company: 'BSNL', keywords: ['bsnl', 'network', 'mobile'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Mobile network issue' },
+            
+            { title: 'ACT Fibernet Slow Speed', category: 'Internet', sector: 'internet', company: 'ACT Fibernet', keywords: ['act', 'fibernet', 'broadband', 'slow', 'speed'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Speed below promised' },
+            { title: 'ACT Fibernet Connection Issue', category: 'Internet', sector: 'internet', company: 'ACT Fibernet', keywords: ['act', 'connection', 'disconnect'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Frequent disconnection' },
+            
+            { title: 'Hathway Connectivity Issue', category: 'Internet', sector: 'internet', company: 'Hathway', keywords: ['hathway', 'connectivity', 'internet', 'connection drop'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Frequent connection drops' },
+            { title: 'Hathway Slow Speed', category: 'Internet', sector: 'internet', company: 'Hathway', keywords: ['hathway', 'slow', 'speed'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Slow internet speed' },
+            
+            { title: 'General Telecom Network Issue', category: 'Telecom', sector: 'telecom', company: 'Various', keywords: ['telecom', 'network', 'mobile', 'signal', 'coverage', 'call drop'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Network or call drop issue' },
+            { title: 'General Telecom Billing Issue', category: 'Telecom', sector: 'telecom', company: 'Various', keywords: ['telecom', 'bill', 'overcharge', 'billing', 'charges'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Incorrect billing or overcharging' },
+            { title: 'General Internet Issue', category: 'Internet', sector: 'internet', company: 'Various', keywords: ['internet', 'broadband', 'slow', 'speed', 'connection'], authority: 'TRAI', helpline: '1800-123-7373', description: 'Internet speed or connectivity issue' },
+            
+            // ===== INSURANCE =====
+            { title: 'LIC Claim Rejection', category: 'Insurance', sector: 'insurance', company: 'LIC', keywords: ['lic', 'life insurance', 'claim', 'rejected', 'denied'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim denied' },
+            { title: 'LIC Claim Delay', category: 'Insurance', sector: 'insurance', company: 'LIC', keywords: ['lic', 'claim', 'delay', 'pending'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim settlement delay' },
+            { title: 'LIC Policy Issue', category: 'Insurance', sector: 'insurance', company: 'LIC', keywords: ['lic', 'policy', 'surrender', 'value'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Policy related issue' },
+            
+            { title: 'Star Health Settlement Delay', category: 'Insurance', sector: 'insurance', company: 'Star Health', keywords: ['star health', 'health insurance', 'settlement', 'delay', 'claim'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim settlement pending' },
+            { title: 'Star Health Claim Rejection', category: 'Insurance', sector: 'insurance', company: 'Star Health', keywords: ['star health', 'claim', 'rejected'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Health insurance claim denied' },
+            
+            { title: 'HDFC Life Mis-selling', category: 'Insurance', sector: 'insurance', company: 'HDFC Life', keywords: ['hdfc life', 'policy', 'mis-selling', 'misrepresentation'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Policy benefits misrepresented' },
+            { title: 'HDFC Life Claim Issue', category: 'Insurance', sector: 'insurance', company: 'HDFC Life', keywords: ['hdfc life', 'claim', 'rejection'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim issue' },
+            
+            { title: 'ICICI Lombard Claim Dispute', category: 'Insurance', sector: 'insurance', company: 'ICICI Lombard', keywords: ['icici lombard', 'claim', 'dispute', 'processing'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Dispute in claim processing' },
+            { title: 'ICICI Lombard Claim Delay', category: 'Insurance', sector: 'insurance', company: 'ICICI Lombard', keywords: ['icici lombard', 'claim', 'delay'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim settlement delay' },
+            
+            { title: 'Bajaj Allianz Claim Delay', category: 'Insurance', sector: 'insurance', company: 'Bajaj Allianz', keywords: ['bajaj', 'allianz', 'claim', 'delay', 'settlement'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim settlement delay' },
+            { title: 'Bajaj Allianz Claim Rejection', category: 'Insurance', sector: 'insurance', company: 'Bajaj Allianz', keywords: ['bajaj', 'allianz', 'claim', 'rejected'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim denied' },
+            
+            { title: 'New India Assurance Claim', category: 'Insurance', sector: 'insurance', company: 'New India Assurance', keywords: ['new india', 'assurance', 'claim'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Insurance claim issue' },
+            
+            { title: 'United India Insurance Claim', category: 'Insurance', sector: 'insurance', company: 'United India Insurance', keywords: ['united india', 'claim'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Insurance claim issue' },
+            
+            { title: 'General Insurance Claim Rejection', category: 'Insurance', sector: 'insurance', company: 'Various', keywords: ['insurance', 'claim', 'rejected', 'denied', 'not approved'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim rejected by insurance company' },
+            { title: 'General Insurance Claim Delay', category: 'Insurance', sector: 'insurance', company: 'Various', keywords: ['insurance', 'claim', 'delay', 'pending', 'settlement'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Claim settlement delayed' },
+            { title: 'General Insurance Mis-selling', category: 'Insurance', sector: 'insurance', company: 'Various', keywords: ['insurance', 'mis-selling', 'wrong policy', 'agent', 'misleading'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Policy mis-sold by agent' },
+            { title: 'General Health Insurance Issue', category: 'Insurance', sector: 'insurance', company: 'Various', keywords: ['health insurance', 'medical', 'claim', 'hospital'], authority: 'IRDAI', helpline: '1800-425-4732', description: 'Health insurance claim issue' },
+            
+            // ===== AIRLINES =====
+            { title: 'IndiGo Flight Cancelled', category: 'Airlines', sector: 'airline', company: 'IndiGo', keywords: ['indigo', 'flight', 'cancelled', 'cancellation', 'refund'], authority: 'DGCA', helpline: '011-24622495', description: 'Flight cancelled without refund' },
+            { title: 'IndiGo Flight Delay', category: 'Airlines', sector: 'airline', company: 'IndiGo', keywords: ['indigo', 'delay', 'late'], authority: 'DGCA', helpline: '011-24622495', description: 'Flight delayed' },
+            { title: 'IndiGo Refund Delay', category: 'Airlines', sector: 'airline', company: 'IndiGo', keywords: ['indigo', 'refund', 'delay'], authority: 'DGCA', helpline: '011-24622495', description: 'Refund not processed' },
+            
+            { title: 'Air India Refund Delay', category: 'Airlines', sector: 'airline', company: 'Air India', keywords: ['air india', 'refund', 'delay', 'cancellation'], authority: 'DGCA', helpline: '011-24622495', description: 'Refund not processed' },
+            { title: 'Air India Flight Delay', category: 'Airlines', sector: 'airline', company: 'Air India', keywords: ['air india', 'delay'], authority: 'DGCA', helpline: '011-24622495', description: 'Flight delayed' },
+            { title: 'Air India Cancellation', category: 'Airlines', sector: 'airline', company: 'Air India', keywords: ['air india', 'cancelled'], authority: 'DGCA', helpline: '011-24622495', description: 'Flight cancelled' },
+            
+            { title: 'SpiceJet Overbooking', category: 'Airlines', sector: 'airline', company: 'SpiceJet', keywords: ['spicejet', 'overbooking', 'seat', 'boarding'], authority: 'DGCA', helpline: '011-24622495', description: 'Seat unavailable due to overbooking' },
+            { title: 'SpiceJet Flight Delay', category: 'Airlines', sector: 'airline', company: 'SpiceJet', keywords: ['spicejet', 'delay'], authority: 'DGCA', helpline: '011-24622495', description: 'Flight delayed' },
+            { title: 'SpiceJet Refund Issue', category: 'Airlines', sector: 'airline', company: 'SpiceJet', keywords: ['spicejet', 'refund'], authority: 'DGCA', helpline: '011-24622495', description: 'Refund not processed' },
+            
+            { title: 'Akasa Air Issue', category: 'Airlines', sector: 'airline', company: 'Akasa Air', keywords: ['akasa', 'flight'], authority: 'DGCA', helpline: '011-24622495', description: 'Flight issue' },
+            
+            { title: 'General Flight Cancellation', category: 'Airlines', sector: 'airline', company: 'Various', keywords: ['flight', 'cancelled', 'cancellation', 'airline'], authority: 'DGCA', helpline: '011-24622495', description: 'Flight cancelled' },
+            { title: 'General Flight Delay', category: 'Airlines', sector: 'airline', company: 'Various', keywords: ['flight', 'delay', 'late', 'delayed'], authority: 'DGCA', helpline: '011-24622495', description: 'Flight delayed' },
+            { title: 'General Airline Refund', category: 'Airlines', sector: 'airline', company: 'Various', keywords: ['airline', 'refund', 'money back'], authority: 'DGCA', helpline: '011-24622495', description: 'Refund not processed' },
+            { title: 'General Baggage Issue', category: 'Airlines', sector: 'airline', company: 'Various', keywords: ['baggage', 'luggage', 'lost', 'damaged'], authority: 'DGCA', helpline: '011-24622495', description: 'Lost or damaged baggage' },
+            
+            // ===== TRAVEL =====
+            { title: 'MakeMyTrip Booking Error', category: 'Travel', sector: 'travel', company: 'MakeMyTrip', keywords: ['makemytrip', 'booking', 'error', 'failed'], authority: 'DGCA', helpline: '011-24622495', description: 'System booking error' },
+            { title: 'MakeMyTrip Refund Delay', category: 'Travel', sector: 'travel', company: 'MakeMyTrip', keywords: ['makemytrip', 'refund', 'delay'], authority: 'DGCA', helpline: '011-24622495', description: 'Refund delayed' },
+            { title: 'MakeMyTrip Cancellation', category: 'Travel', sector: 'travel', company: 'MakeMyTrip', keywords: ['makemytrip', 'cancellation'], authority: 'DGCA', helpline: '011-24622495', description: 'Trip cancelled' },
+            
+            { title: 'EaseMyTrip Refund Delay', category: 'Travel', sector: 'travel', company: 'EaseMyTrip', keywords: ['ease my trip', 'refund', 'delay', 'cancellation'], authority: 'DGCA', helpline: '011-24622495', description: 'Refund delayed' },
+            { title: 'EaseMyTrip Booking Error', category: 'Travel', sector: 'travel', company: 'EaseMyTrip', keywords: ['ease my trip', 'booking', 'error'], authority: 'DGCA', helpline: '011-24622495', description: 'Booking error' },
+            
+            { title: 'Goibibo Booking Issue', category: 'Travel', sector: 'travel', company: 'Goibibo', keywords: ['goibibo', 'booking', 'hotel', 'flight'], authority: 'DGCA', helpline: '011-24622495', description: 'Booking issue' },
+            
+            { title: 'Yatra Booking Issue', category: 'Travel', sector: 'travel', company: 'Yatra', keywords: ['yatra', 'booking', 'refund'], authority: 'DGCA', helpline: '011-24622495', description: 'Booking or refund issue' },
+            
+            { title: 'General Travel Booking Issue', category: 'Travel', sector: 'travel', company: 'Various', keywords: ['travel', 'booking', 'hotel', 'flight', 'ticket'], authority: 'DGCA', helpline: '011-24622495', description: 'Booking error or issue' },
+            { title: 'General Travel Refund', category: 'Travel', sector: 'travel', company: 'Various', keywords: ['travel', 'refund', 'cancellation'], authority: 'DGCA', helpline: '011-24622495', description: 'Refund not processed' },
+            
+            // ===== ELECTRONICS =====
+            { title: 'Samsung Defective Product', category: 'Electronics', sector: 'electronics', company: 'Samsung India', keywords: ['samsung', 'tv', 'mobile', 'defective', 'not working'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Device malfunction' },
+            { title: 'Samsung Service Delay', category: 'Electronics', sector: 'electronics', company: 'Samsung India', keywords: ['samsung', 'service', 'repair', 'delay'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Repair delayed' },
+            { title: 'Samsung Warranty Issue', category: 'Electronics', sector: 'electronics', company: 'Samsung India', keywords: ['samsung', 'warranty', 'claim'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Warranty claim issue' },
+            
+            { title: 'LG Service Delay', category: 'Electronics', sector: 'electronics', company: 'LG Electronics', keywords: ['lg', 'service', 'repair', 'delay', 'warranty'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Repair delayed' },
+            { title: 'LG Defective Product', category: 'Electronics', sector: 'electronics', company: 'LG Electronics', keywords: ['lg', 'tv', 'refrigerator', 'defective'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Defective product' },
+            
+            { title: 'Sony Repair Issue', category: 'Electronics', sector: 'electronics', company: 'Sony India', keywords: ['sony', 'repair', 'service center', 'delay'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Service center delay' },
+            { title: 'Sony Defective Product', category: 'Electronics', sector: 'electronics', company: 'Sony India', keywords: ['sony', 'tv', 'camera', 'defective'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Defective product' },
+            
+            { title: 'Reliance Digital Installation Delay', category: 'Electronics', sector: 'electronics', company: 'Reliance Digital', keywords: ['reliance digital', 'installation', 'delay', 'delivery'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Installation delayed' },
+            { title: 'Reliance Digital Defective Product', category: 'Electronics', sector: 'electronics', company: 'Reliance Digital', keywords: ['reliance digital', 'product', 'defective'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Defective product' },
+            
+            { title: 'Croma Late Delivery', category: 'Electronics', sector: 'electronics', company: 'Croma', keywords: ['croma', 'delivery', 'late', 'shipping'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Late shipment' },
+            { title: 'Croma Defective Product', category: 'Electronics', sector: 'electronics', company: 'Croma', keywords: ['croma', 'product', 'defective'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Defective product' },
+            
+            { title: 'Panasonic Service Issue', category: 'Electronics', sector: 'electronics', company: 'Panasonic', keywords: ['panasonic', 'service', 'repair'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Service issue' },
+            
+            { title: 'Apple India Service Issue', category: 'Electronics', sector: 'electronics', company: 'Apple India', keywords: ['apple', 'iphone', 'macbook', 'service'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Service or repair issue' },
+            
+            { title: 'OnePlus Service Issue', category: 'Electronics', sector: 'electronics', company: 'OnePlus', keywords: ['oneplus', 'mobile', 'service'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Mobile service issue' },
+            
+            { title: 'Xiaomi Service Issue', category: 'Electronics', sector: 'electronics', company: 'Xiaomi', keywords: ['xiaomi', 'mi', 'redmi', 'service'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Mobile service issue' },
+            
+            { title: 'General Electronics Defective', category: 'Electronics', sector: 'electronics', company: 'Various', keywords: ['electronics', 'product', 'defective', 'not working', 'faulty'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Defective electronic product' },
+            { title: 'General Electronics Warranty', category: 'Electronics', sector: 'electronics', company: 'Various', keywords: ['warranty', 'service', 'repair', 'delay'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Warranty or service issue' },
+            { title: 'General Electronics Delivery', category: 'Electronics', sector: 'electronics', company: 'Various', keywords: ['delivery', 'installation', 'late'], authority: 'National Consumer Helpline', helpline: '1915', description: 'Delivery or installation issue' },
+            
+            // ===== FOOD DELIVERY =====
+            { title: 'Zomato Wrong Order', category: 'Food Delivery', sector: 'food-delivery', company: 'Zomato', keywords: ['zomato', 'wrong order', 'food', 'incorrect'], authority: 'NCH / FSSAI', helpline: '1915', description: 'Incorrect order delivered' },
+            { title: 'Zomato Missing Item', category: 'Food Delivery', sector: 'food-delivery', company: 'Zomato', keywords: ['zomato', 'missing', 'item'], authority: 'NCH / FSSAI', helpline: '1915', description: 'Missing food items' },
+            { title: 'Zomato Refund Delay', category: 'Food Delivery', sector: 'food-delivery', company: 'Zomato', keywords: ['zomato', 'refund', 'delay'], authority: 'NCH', helpline: '1915', description: 'Refund not processed' },
+            { title: 'Zomato Food Quality', category: 'Food Delivery', sector: 'food-delivery', company: 'Zomato', keywords: ['zomato', 'quality', 'food', 'bad'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Poor food quality' },
+            
+            { title: 'Swiggy Hygiene Issue', category: 'Food Delivery', sector: 'food-delivery', company: 'Swiggy', keywords: ['swiggy', 'hygiene', 'food quality', 'dirty'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Food safety concern' },
+            { title: 'Swiggy Wrong Order', category: 'Food Delivery', sector: 'food-delivery', company: 'Swiggy', keywords: ['swiggy', 'wrong order', 'incorrect'], authority: 'NCH', helpline: '1915', description: 'Incorrect order delivered' },
+            { title: 'Swiggy Missing Item', category: 'Food Delivery', sector: 'food-delivery', company: 'Swiggy', keywords: ['swiggy', 'missing', 'item'], authority: 'NCH', helpline: '1915', description: 'Missing items' },
+            { title: 'Swiggy Refund Delay', category: 'Food Delivery', sector: 'food-delivery', company: 'Swiggy', keywords: ['swiggy', 'refund'], authority: 'NCH', helpline: '1915', description: 'Refund not processed' },
+            
+            { title: 'EatSure Missing Item', category: 'Food Delivery', sector: 'food-delivery', company: 'EatSure', keywords: ['eatsure', 'missing', 'item', 'order'], authority: 'NCH', helpline: '1915', description: 'Missing items' },
+            { title: 'EatSure Wrong Order', category: 'Food Delivery', sector: 'food-delivery', company: 'EatSure', keywords: ['eatsure', 'wrong order'], authority: 'NCH', helpline: '1915', description: 'Wrong order delivered' },
+            
+            { title: 'General Food Delivery Issue', category: 'Food Delivery', sector: 'food-delivery', company: 'Various', keywords: ['food delivery', 'zomato', 'swiggy', 'order', 'delivery'], authority: 'NCH', helpline: '1915', description: 'Food delivery problem' },
+            { title: 'General Food Quality Issue', category: 'Food Delivery', sector: 'food-delivery', company: 'Various', keywords: ['food quality', 'hygiene', 'dirty', 'hair', 'bad'], authority: 'FSSAI', helpline: '1800-112-225', description: 'Food safety or quality issue' },
+            
+            // ===== FINTECH =====
+            { title: 'Paytm Failed Payment', category: 'Fintech', sector: 'fintech', company: 'Paytm', keywords: ['paytm', 'payment', 'failed', 'deducted', 'money'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Payment deducted but failed' },
+            { title: 'Paytm Refund Delay', category: 'Fintech', sector: 'fintech', company: 'Paytm', keywords: ['paytm', 'refund', 'delay'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Refund not received' },
+            { title: 'Paytm Wallet Issue', category: 'Fintech', sector: 'fintech', company: 'Paytm', keywords: ['paytm', 'wallet', 'money'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Wallet balance issue' },
+            
+            { title: 'PhonePe Refund Delay', category: 'Fintech', sector: 'fintech', company: 'PhonePe', keywords: ['phonepe', 'refund', 'delay', 'money'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Refund not received' },
+            { title: 'PhonePe Failed Payment', category: 'Fintech', sector: 'fintech', company: 'PhonePe', keywords: ['phonepe', 'payment', 'failed'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Payment failed' },
+            { title: 'PhonePe Transaction Issue', category: 'Fintech', sector: 'fintech', company: 'PhonePe', keywords: ['phonepe', 'transaction', 'error'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Transaction error' },
+            
+            { title: 'Google Pay Payment Failure', category: 'Fintech', sector: 'fintech', company: 'Google Pay', keywords: ['google pay', 'gpay', 'payment', 'failed'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Payment failed' },
+            { title: 'Google Pay Refund Delay', category: 'Fintech', sector: 'fintech', company: 'Google Pay', keywords: ['google pay', 'refund'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Refund not received' },
+            { title: 'Google Pay Transaction Issue', category: 'Fintech', sector: 'fintech', company: 'Google Pay', keywords: ['google pay', 'transaction', 'error'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Transaction error' },
+            
+            { title: 'Razorpay Settlement Delay', category: 'Fintech', sector: 'fintech', company: 'Razorpay', keywords: ['razorpay', 'merchant', 'settlement', 'delay'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Merchant payment delayed' },
+            { title: 'Razorpay Payment Issue', category: 'Fintech', sector: 'fintech', company: 'Razorpay', keywords: ['razorpay', 'payment', 'gateway'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Payment gateway issue' },
+            
+            { title: 'BharatPe Settlement Delay', category: 'Fintech', sector: 'fintech', company: 'BharatPe', keywords: ['bharatpe', 'settlement', 'delay', 'merchant'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Delay in merchant settlement' },
+            { title: 'BharatPe Transaction Issue', category: 'Fintech', sector: 'fintech', company: 'BharatPe', keywords: ['bharatpe', 'transaction', 'qr'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'QR code transaction issue' },
+            
+            { title: 'Mobikwik Wallet Issue', category: 'Fintech', sector: 'fintech', company: 'Mobikwik', keywords: ['mobikwik', 'wallet', 'money'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Wallet balance issue' },
+            
+            { title: 'Amazon Pay Issue', category: 'Fintech', sector: 'fintech', company: 'Amazon Pay', keywords: ['amazon pay', 'payment'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Payment issue' },
+            
+            { title: 'General Fintech Payment Failed', category: 'Fintech', sector: 'fintech', company: 'Various', keywords: ['payment', 'failed', 'deducted', 'upi', 'transaction'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Payment deducted but failed' },
+            { title: 'General Fintech Refund', category: 'Fintech', sector: 'fintech', company: 'Various', keywords: ['refund', 'money back', 'app', 'wallet'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Refund not received' },
+            { title: 'General Merchant Settlement', category: 'Fintech', sector: 'fintech', company: 'Various', keywords: ['merchant', 'settlement', 'payment', 'business'], authority: 'RBI Ombudsman', helpline: '1800-123-4000', description: 'Merchant payment delayed' },
+            
+            // ===== REAL ESTATE =====
+            { title: 'DLF Possession Delay', category: 'Real Estate', sector: 'realestate', company: 'DLF', keywords: ['dlf', 'possession', 'delay', 'project', 'housing'], authority: 'RERA', helpline: 'Varies by state', description: 'Housing project delayed' },
+            { title: 'DLF Quality Issue', category: 'Real Estate', sector: 'realestate', company: 'DLF', keywords: ['dlf', 'quality', 'construction', 'defects'], authority: 'RERA', helpline: 'Varies by state', description: 'Poor construction quality' },
+            
+            { title: 'Godrej Misleading Ads', category: 'Real Estate', sector: 'realestate', company: 'Godrej Properties', keywords: ['godrej', 'misleading', 'ads', 'false', 'promises'], authority: 'RERA', helpline: 'Varies by state', description: 'False project claims' },
+            { title: 'Godrej Possession Delay', category: 'Real Estate', sector: 'realestate', company: 'Godrej Properties', keywords: ['godrej', 'delay', 'possession'], authority: 'RERA', helpline: 'Varies by state', description: 'Project delay' },
+            
+            { title: 'Prestige Construction Delay', category: 'Real Estate', sector: 'realestate', company: 'Prestige Group', keywords: ['prestige', 'construction', 'delay', 'work'], authority: 'RERA', helpline: 'Varies by state', description: 'Construction delay' },
+            { title: 'Prestige Quality Issue', category: 'Real Estate', sector: 'realestate', company: 'Prestige Group', keywords: ['prestige', 'quality', 'defects'], authority: 'RERA', helpline: 'Varies by state', description: 'Quality defects' },
+            
+            { title: 'Sobha Poor Quality', category: 'Real Estate', sector: 'realestate', company: 'Sobha Limited', keywords: ['sobha', 'quality', 'poor', 'defects', 'construction'], authority: 'RERA', helpline: 'Varies by state', description: 'Quality defects' },
+            { title: 'Sobha Possession Delay', category: 'Real Estate', sector: 'realestate', company: 'Sobha Limited', keywords: ['sobha', 'delay', 'possession'], authority: 'RERA', helpline: 'Varies by state', description: 'Project delay' },
+            
+            { title: 'Tata Housing Project', category: 'Real Estate', sector: 'realestate', company: 'Tata Housing', keywords: ['tata', 'housing', 'project'], authority: 'RERA', helpline: 'Varies by state', description: 'Housing project issue' },
+            
+            { title: 'Brigade Group Issue', category: 'Real Estate', sector: 'realestate', company: 'Brigade Group', keywords: ['brigade', 'property'], authority: 'RERA', helpline: 'Varies by state', description: 'Real estate issue' },
+            
+            { title: 'General Real Estate Delay', category: 'Real Estate', sector: 'realestate', company: 'Various', keywords: ['real estate', 'builder', 'delay', 'possession', 'project'], authority: 'RERA', helpline: 'Varies by state', description: 'Project or possession delay' },
+            { title: 'General Real Estate Quality', category: 'Real Estate', sector: 'realestate', company: 'Various', keywords: ['construction', 'quality', 'defects', 'cracks'], authority: 'RERA', helpline: 'Varies by state', description: 'Poor construction quality' },
+            { title: 'General Real Estate Misleading', category: 'Real Estate', sector: 'realestate', company: 'Various', keywords: ['misleading', 'false', 'promises', 'ads'], authority: 'RERA', helpline: 'Varies by state', description: 'False project claims' },
+            { title: 'General RERA Complaint', category: 'Real Estate', sector: 'realestate', company: 'Various', keywords: ['rera', 'complaint', 'registration'], authority: 'RERA', helpline: 'Varies by state', description: 'RERA related complaint' }
+        ];
 
-        window.setSearch = function(query) {
-            document.getElementById('searchInput').value = query;
-            performSearch();
-        };
+        // Get unique sectors for filters
+        const sectors = [...new Set(searchDatabase.map(item => item.category))];
+        
+        // Populate filters
+        const filtersDiv = document.getElementById('filters');
+        filtersDiv.innerHTML = '<span class="filter-chip active" onclick="filterByCategory(\'all\')">All</span>' +
+            sectors.map(s => `<span class="filter-chip" onclick="filterByCategory('${s}')">${s}</span>`).join('');
 
-        window.filterBySector = function(sector) {
+        let currentFilter = 'all';
+
+        window.filterByCategory = function(category) {
+            currentFilter = category;
+            // Update active state
             document.querySelectorAll('.filter-chip').forEach(chip => {
                 chip.classList.remove('active');
             });
@@ -450,102 +562,67 @@
             performSearch();
         };
 
-        function calculateScore(item, query) {
-            const words = query.toLowerCase().split(' ');
-            let score = 0;
-            
-            words.forEach(word => {
-                if (item.keywords) {
-                    item.keywords.forEach(keyword => {
-                        if (keyword.includes(word)) score += 5;
-                        if (keyword === word) score += 10;
-                    });
-                }
-            });
-            
-            return score;
-        }
-
         window.performSearch = function() {
-            const query = document.getElementById('searchInput').value.trim();
-            const container = document.getElementById('resultsContainer');
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const resultsDiv = document.getElementById('results');
             
             if (!query) {
-                container.innerHTML = '<div class="loading">Enter a search term to begin</div>';
+                resultsDiv.innerHTML = '<div class="loading">Enter a search term to begin</div>';
                 return;
             }
             
-            container.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Searching...</div>';
-            
-            // Simulate slight delay for better UX
-            setTimeout(() => {
-                // Search grievances
-                const grievanceResults = searchData.grievances
-                    .map(item => ({
-                        ...item,
-                        score: calculateScore(item, query),
-                        type: 'grievance'
-                    }))
-                    .filter(item => item.score > 0)
-                    .sort((a, b) => b.score - a.score)
-                    .slice(0, 5);
-                
-                // Search companies
-                const companyResults = searchData.companies
-                    .map(item => ({
-                        ...item,
-                        score: calculateScore(item, query),
-                        type: 'company'
-                    }))
-                    .filter(item => item.score > 0)
-                    .sort((a, b) => b.score - a.score)
-                    .slice(0, 3);
-                
-                displayResults([...grievanceResults, ...companyResults], query);
-            }, 300);
-        };
-
-        function displayResults(results, query) {
-            const container = document.getElementById('resultsContainer');
-            
-            if (results.length === 0) {
-                container.innerHTML = '<div class="error-message">No results found. Try different keywords.</div>';
-                return;
-            }
-            
-            let html = '';
-            results.forEach((item, index) => {
-                if (item.type === 'grievance') {
-                    html += `
-                        <div class="result-card">
-                            <div class="result-title">${item.sector}: ${item.type}</div>
-                            <div class="result-meta">
-                                <span class="meta-item">📋 ${item.category}</span>
-                                <span class="meta-item">⚖️ ${item.authority}</span>
-                            </div>
-                            <div class="result-description">${item.details}</div>
-                            <div class="result-actions">
-                                <a href="complaint.html?sector=${item.sectorId}" class="action-btn primary">File Complaint</a>
-                                <a href="advisor.html?q=${encodeURIComponent(item.type)}" class="action-btn">Ask AI</a>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    html += `
-                        <div class="result-card">
-                            <div class="result-title">${item.name}</div>
-                            <div class="result-meta">
-                                <span class="meta-item">🏢 ${item.sector}</span>
-                            </div>
-                            <div class="result-actions">
-                                <a href="complaint.html?sector=${item.sectorId}&company=${encodeURIComponent(item.name)}" class="action-btn primary">File Complaint</a>
-                            </div>
-                        </div>
-                    `;
+            // Filter results
+            const results = searchDatabase.filter(item => {
+                // Check filter
+                if (currentFilter !== 'all' && item.category !== currentFilter) {
+                    return false;
                 }
+                
+                // Check search query
+                return item.keywords.some(keyword => 
+                    keyword.toLowerCase().includes(query)
+                ) || item.title.toLowerCase().includes(query);
             });
             
-            container.innerHTML = html;
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<div class="no-results">No results found. Try different keywords.</div>';
+                return;
+            }
+            
+            // Display results
+            resultsDiv.innerHTML = results.map(item => `
+                <div class="result-card" onclick="selectResult('${item.sector}')">
+                    <div class="result-title">${item.title}</div>
+                    <div class="result-meta">
+                        <span>📋 ${item.category}</span>
+                        <span>⚖️ ${item.authority}</span>
+                    </div>
+                    <div class="result-description">${item.description}</div>
+                    <div class="result-actions">
+                        <button class="action-btn primary" onclick="event.stopPropagation(); window.location.href='complaint.html?sector=${item.sector}'">File Complaint</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); window.location.href='rights-guide.html'">Learn More</button>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        window.selectResult = function(sector) {
+            window.location.href = `complaint.html?sector=${sector}`;
+        };
+
+        // Handle enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Check for URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryParam = urlParams.get('q');
+        if (queryParam) {
+            document.getElementById('searchInput').value = queryParam;
+            performSearch();
         }
     </script>
 </body>
