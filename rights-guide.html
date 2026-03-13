@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumer Rights Guide – ResolveAI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+        .subhead {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .search-input:focus {
+            border-color: #2563eb;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .category-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-color: #2563eb;
+        }
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .category-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .issue-count {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .issues-list {
+            margin-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+        .issue-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+        .detail-view {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-top: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: #2563eb;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .detail-header .category-icon {
+            font-size: 3rem;
+        }
+        .detail-header h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .authority-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+        .info-section {
+            margin: 30px 0;
+        }
+        .info-section h3 {
+            color: #2563eb;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .info-section ul, .info-section ol {
+            padding-left: 25px;
+        }
+        .info-section li {
+            margin-bottom: 8px;
+        }
+        .script-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 15px 0;
+        }
+        .copy-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .copy-btn:hover {
+            background: #1e293b;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 12px 30px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        .results-grid {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .result-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .result-card:hover {
+            border-color: #2563eb;
+            transform: translateX(4px);
+        }
+        .result-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .result-category {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">← Home</a>
+    
+    <div class="container">
+        <h1>Consumer Rights Guide</h1>
+        <div class="subhead">Your complete reference for consumer rights in India – All Sectors Covered</div>
+        
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search your issue (e.g., flight delay, bank fraud, food quality, expired product)...">
+        </div>
+        
+        <div id="categoriesContainer" class="categories-grid"></div>
+        <div id="detailContainer" class="detail-view hidden"></div>
+    </div>
+
+    <script>
+        // Complete Rights Database covering all sectors
+        const RightsDatabase = {
+            // ===== E-COMMERCE =====
+            ecommerce: {
+                id: 'ecommerce',
+                name: 'E-commerce & Online Shopping',
+                icon: '🛒',
+                color: '#8b5cf6',
+                authorities: [
+                    { name: 'National Consumer Helpline (NCH)', website: 'https://consumerhelpline.gov.in', portal: 'https://consumerhelpline.gov.in', helpline: '1915' }
+                ],
+                laws: ['Consumer Protection Act 2019', 'E-commerce Rules 2020'],
+                issues: [
+                    {
+                        id: 'non-delivery',
+                        title: 'Non-Delivery of Product',
+                        description: 'Product not delivered within promised timeline',
+                        rights: [
+                            'Full refund within 7 days of scheduled delivery',
+                            'Compensation for delay beyond promised timeline'
+                        ],
+                        compensation: 'Full product cost + ₹500 to ₹2,000 compensation',
+                        process: [
+                            'Step 1: Check tracking status and contact seller',
+                            'Step 2: Escalate to platform Grievance Officer (48 hours)',
+                            'Step 3: Call National Consumer Helpline 1915',
+                            'Step 4: File complaint on consumerhelpline.gov.in'
+                        ],
+                        documents: [
+                            'Order confirmation email',
+                            'Payment receipt',
+                            'Tracking details',
+                            'Communication with seller'
+                        ],
+                        sampleScript: `Dear Seller,\n\nMy order #[OrderNumber] placed on [Date] was scheduled for delivery by [Date]. It has still not been delivered. I request an immediate refund of ₹[Amount] and compensation for the delay.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'wrong-item',
+                        title: 'Wrong or Damaged Product',
+                        description: 'Wrong or damaged product delivered',
+                        rights: [
+                            'Full refund or replacement at seller cost',
+                            'Seller must arrange return pickup',
+                            'Compensation for inconvenience'
+                        ],
+                        compensation: 'Full refund + ₹500 to ₹2,000 compensation',
+                        process: [
+                            'Step 1: Take photos/videos of product',
+                            'Step 2: Contact seller for replacement/refund',
+                            'Step 3: Escalate to Grievance Officer',
+                            'Step 4: File NCH complaint if unresolved'
+                        ],
+                        documents: [
+                            'Order confirmation',
+                            'Product photos showing damage',
+                            'Payment receipt',
+                            'Chat logs with seller'
+                        ],
+                        sampleScript: `Dear Seller,\n\nThe product I received for order #[OrderNumber] is damaged/wrong (see photos). I request an immediate refund/replacement as per Consumer Protection Act.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'refund-delay',
+                        title: 'Refund Delay',
+                        description: 'Refund not processed',
+                        rights: [
+                            'Full refund within 7-15 days of return/approval',
+                            'Compensation for delay beyond 30 days'
+                        ],
+                        compensation: 'Full amount + ₹500 to ₹5,000 compensation',
+                        process: [
+                            'Step 1: Check return status',
+                            'Step 2: Contact seller through platform',
+                            'Step 3: Escalate to platform Grievance Officer',
+                            'Step 4: Call National Consumer Helpline 1915'
+                        ],
+                        documents: [
+                            'Order confirmation',
+                            'Payment receipt',
+                            'Return confirmation',
+                            'Bank statement'
+                        ],
+                        sampleScript: `Dear Seller,\n\nMy refund of ₹[Amount] for order #[OrderNumber] has been pending for [X] days. As per Consumer Protection Act, please process immediately with compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'fake-product',
+                        title: 'Fake / Counterfeit Product',
+                        description: 'Suspected counterfeit product',
+                        rights: [
+                            'Full refund + compensation up to ₹25,000',
+                            'File police complaint for cheating',
+                            'Platform liable for allowing fake sellers'
+                        ],
+                        compensation: 'Full amount + up to ₹25,000 compensation',
+                        process: [
+                            'Step 1: Collect evidence of authenticity',
+                            'Step 2: File complaint with platform',
+                            'Step 3: File NCH complaint',
+                            'Step 4: File police complaint/FIR for large amounts'
+                        ],
+                        documents: [
+                            'Order confirmation',
+                            'Product photos',
+                            'Authentication certificate (if available)',
+                            'Payment receipt'
+                        ],
+                        sampleScript: `Dear Platform,\n\nThe product received for order #[OrderNumber] appears to be counterfeit/fake. I have attached evidence. I demand full refund and compensation as per Consumer Protection Act.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== BANKING =====
+            banking: {
+                id: 'banking',
+                name: 'Banking & Finance',
+                icon: '🏦',
+                color: '#10b981',
+                authorities: [
+                    { name: 'RBI Ombudsman', website: 'https://rbi.org.in', portal: 'https://cms.rbi.org.in', helpline: '1800-123-4000' }
+                ],
+                laws: ['RBI Circular on Limiting Liability of Customers (2017)', 'Banking Ombudsman Scheme 2021'],
+                issues: [
+                    {
+                        id: 'unauthorized-transaction',
+                        title: 'Unauthorized Transaction',
+                        description: 'Unrecognized debit from account',
+                        rights: [
+                            '⚠️ Report within 3 days for ZERO liability',
+                            'Report within 3 days: Bank must reverse full amount',
+                            'Report after 3 days: Limited liability up to ₹25,000',
+                            'Bank negligence: Full refund + compensation'
+                        ],
+                        compensation: 'Full amount + interest + ₹5,000 to ₹25,000',
+                        process: [
+                            'URGENT: Call 1930 - National Cyber Crime Helpline',
+                            'File report at cybercrime.gov.in',
+                            'Report to bank immediately, get complaint reference',
+                            'Get FIR for amounts above ₹50,000',
+                            'Escalate to RBI Ombudsman if unresolved in 30 days'
+                        ],
+                        documents: [
+                            'Bank statement showing transaction',
+                            'SMS alert screenshot',
+                            'Complaint reference number',
+                            'Cyber crime report',
+                            'FIR (if applicable)'
+                        ],
+                        sampleScript: `Dear Bank,\n\nAn unauthorized transaction of ₹[Amount] occurred on [Date] from my account. I reported this on [Date]. As per RBI guidelines, please reverse the amount immediately.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'upi-fraud',
+                        title: 'UPI Fraud',
+                        description: 'Fraudulent digital transaction',
+                        rights: [
+                            'Zero liability if reported within 3 days',
+                            'Limited liability up to ₹25,000 after 3 days'
+                        ],
+                        compensation: 'Full amount + up to ₹25,000',
+                        process: [
+                            'Call 1930 immediately',
+                            'File report at cybercrime.gov.in',
+                            'Report to your bank',
+                            'Freeze your UPI ID/linked accounts'
+                        ],
+                        documents: [
+                            'UPI transaction ID',
+                            'Bank statement',
+                            'SMS alert',
+                            'Cyber crime report'
+                        ],
+                        sampleScript: `Dear Bank,\n\nA fraudulent UPI transaction of ₹[Amount] occurred from my account on [Date]. I have reported this to cybercrime (Ref: [Number]). Please reverse this amount.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'billing-error',
+                        title: 'Billing Error / Wrong Charges',
+                        description: 'Incorrect charges on account',
+                        rights: [
+                            'Full refund of wrong amount with interest',
+                            'Compensation for harassment'
+                        ],
+                        compensation: 'Wrong amount + interest + up to ₹10,000',
+                        process: [
+                            'Contact bank customer care',
+                            'Send email to grievance officer',
+                            'Escalate to Nodal Officer',
+                            'Approach RBI Ombudsman'
+                        ],
+                        documents: [
+                            'Bank statement',
+                            'Previous statements',
+                            'Communication with bank'
+                        ],
+                        sampleScript: `Dear Bank,\n\nMy account was wrongly charged ₹[Amount] on [Date]. Please reverse this with interest and compensate for the inconvenience.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'loan-delay',
+                        title: 'Loan Processing Delay',
+                        description: 'Loan processing delay',
+                        rights: [
+                            'Loan to be processed within published timeline',
+                            'Compensation for unreasonable delay'
+                        ],
+                        compensation: 'Interest compensation for delay period',
+                        process: [
+                            'Contact loan officer',
+                            'Escalate to branch manager',
+                            'File complaint with Nodal Officer',
+                            'Approach RBI Ombudsman'
+                        ],
+                        documents: [
+                            'Loan application form',
+                            'Acknowledgment receipt',
+                            'Communication with bank'
+                        ],
+                        sampleScript: `Dear Bank,\n\nMy loan application #[Ref] submitted on [Date] is still pending. Please process immediately and compensate for the delay.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== TELECOM =====
+            telecom: {
+                id: 'telecom',
+                name: 'Telecom & Mobile',
+                icon: '📱',
+                color: '#ef4444',
+                authorities: [
+                    { name: 'TRAI', website: 'https://trai.gov.in', portal: 'https://trai.gov.in', helpline: '1800-123-7373' }
+                ],
+                laws: ['TRAI Standards of Quality of Service', 'Telecom Consumer Protection Regulations'],
+                issues: [
+                    {
+                        id: 'call-drops',
+                        title: 'Call Drops',
+                        description: 'Frequent call drops',
+                        rights: [
+                            'Compensation ₹1 per dropped call',
+                            'Monthly claim with call logs'
+                        ],
+                        compensation: '₹1 per dropped call + proportionate refund',
+                        process: [
+                            'Note complaint ticket number',
+                            'Escalate to Nodal Officer (15 days)',
+                            'File on TRAI portal'
+                        ],
+                        documents: [
+                            'Call logs',
+                            'Bill copy',
+                            'Service request number'
+                        ],
+                        sampleScript: `Dear Provider,\n\nI am experiencing frequent call drops. As per TRAI standards, I request compensation of ₹[Amount] for [X] dropped calls.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'slow-internet',
+                        title: 'Slow Internet Speed',
+                        description: 'Poor internet speed',
+                        rights: [
+                            'Proportionate refund for speed below promised',
+                            'Example: 50% speed = 50% refund'
+                        ],
+                        compensation: 'Proportionate refund of monthly bill',
+                        process: [
+                            'Take speed test screenshots',
+                            'File complaint with customer care',
+                            'Escalate to Nodal Officer',
+                            'File TRAI complaint'
+                        ],
+                        documents: [
+                            'Speed test screenshots',
+                            'Bill copy',
+                            'Plan details',
+                            'Complaint number'
+                        ],
+                        sampleScript: `Dear Provider,\n\nMy internet speed is consistently below the promised [Speed]. I request proportionate refund of ₹[Amount] for this month.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'billing-error',
+                        title: 'Billing Error',
+                        description: 'Incorrect bill or overcharging',
+                        rights: [
+                            'Full refund of wrong charges with interest',
+                            'Compensation for harassment'
+                        ],
+                        compensation: 'Wrong amount + interest + up to ₹5,000',
+                        process: [
+                            'Contact customer care',
+                            'Escalate to Nodal Officer',
+                            'Approach TRAI'
+                        ],
+                        documents: [
+                            'Bill copy',
+                            'Previous bills',
+                            'Usage details'
+                        ],
+                        sampleScript: `Dear Provider,\n\nMy bill for [Month] shows incorrect charges of ₹[Amount]. Please correct this and refund the excess.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== INTERNET =====
+            internet: {
+                id: 'internet',
+                name: 'Internet & Broadband',
+                icon: '🌐',
+                color: '#3b82f6',
+                authorities: [
+                    { name: 'TRAI', website: 'https://trai.gov.in', portal: 'https://trai.gov.in', helpline: '1800-123-7373' }
+                ],
+                laws: ['TRAI Standards of Quality of Service'],
+                issues: [
+                    {
+                        id: 'slow-broadband',
+                        title: 'Slow Broadband Speed',
+                        description: 'Speed below promised',
+                        rights: [
+                            'Proportionate refund for speed below 80% of promised',
+                            'Right to downgrade plan without penalty'
+                        ],
+                        compensation: 'Proportionate refund of monthly bill',
+                        process: [
+                            'Take speed tests at different times',
+                            'File complaint with provider',
+                            'Escalate to Nodal Officer',
+                            'File TRAI complaint'
+                        ],
+                        documents: [
+                            'Speed test screenshots',
+                            'Bill copy',
+                            'Plan details',
+                            'Complaint number'
+                        ],
+                        sampleScript: `Dear Provider,\n\nMy broadband speed is consistently [Speed] against promised [Promised Speed]. I request proportionate refund of ₹[Amount].\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'connectivity-issue',
+                        title: 'Frequent Connection Drops',
+                        description: 'Frequent connection drops',
+                        rights: [
+                            'Daily compensation for outage >24 hours',
+                            'Right to terminate contract without penalty'
+                        ],
+                        compensation: 'Proportionate refund for downtime',
+                        process: [
+                            'Log outage times',
+                            'File complaint',
+                            'Escalate to Nodal Officer',
+                            'Approach TRAI'
+                        ],
+                        documents: [
+                            'Outage logs',
+                            'Complaint numbers',
+                            'Bill copy'
+                        ],
+                        sampleScript: `Dear Provider,\n\nMy connection has been dropping frequently. Total downtime this month is [X] hours. I request compensation of ₹[Amount].\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== INSURANCE =====
+            insurance: {
+                id: 'insurance',
+                name: 'Insurance',
+                icon: '🛡️',
+                color: '#14b8a6',
+                authorities: [
+                    { name: 'IRDAI (Bima Bharosa)', website: 'https://irdai.gov.in', portal: 'https://bimabharosa.irdai.gov.in', helpline: '1800-425-4732' }
+                ],
+                laws: ['IRDAI Protection of Policyholders\' Interests Regulations', 'Insurance Act 1938'],
+                issues: [
+                    {
+                        id: 'claim-rejection',
+                        title: 'Claim Rejection',
+                        description: 'Insurance claim denied',
+                        rights: [
+                            'Wrongful rejection: Full claim amount + compensation',
+                            'Compensation up to 25% of claim amount or ₹1 lakh'
+                        ],
+                        compensation: 'Full claim amount + up to ₹1,00,000',
+                        process: [
+                            'Get rejection letter with reason',
+                            'Send appeal to grievance officer',
+                            'File with IRDAI Bima Bharosa',
+                            'Approach consumer court'
+                        ],
+                        documents: [
+                            'Policy document',
+                            'Claim form',
+                            'Rejection letter',
+                            'Medical records',
+                            'Premium receipts'
+                        ],
+                        sampleScript: `Dear Insurer,\n\nMy claim #[ClaimNumber] for ₹[Amount] was rejected citing [Reason]. This rejection is wrongful. I demand immediate settlement with compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'claim-delay',
+                        title: 'Claim Delay',
+                        description: 'Claim settlement pending',
+                        rights: [
+                            'Settlement within 30 days of documents',
+                            'After 30 days: Interest at bank rate + 2%',
+                            'Compensation for mental harassment'
+                        ],
+                        compensation: 'Claim amount + interest + up to ₹50,000',
+                        process: [
+                            'Follow up with insurer',
+                            'Send reminder to grievance officer',
+                            'File IRDAI complaint',
+                            'Approach consumer court'
+                        ],
+                        documents: [
+                            'Claim acknowledgment',
+                            'Follow-up emails',
+                            'Policy document'
+                        ],
+                        sampleScript: `Dear Insurer,\n\nMy claim #[ClaimNumber] filed on [Date] is pending beyond 30 days. I demand immediate settlement with interest as per IRDAI guidelines.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'mis-selling',
+                        title: 'Policy Mis-selling',
+                        description: 'Policy benefits misrepresented',
+                        rights: [
+                            'Full refund of all premiums paid',
+                            'Interest at 10% on premiums',
+                            'Compensation up to ₹50,000'
+                        ],
+                        compensation: 'All premiums + interest + up to ₹50,000',
+                        process: [
+                            'Gather evidence of misrepresentation',
+                            'File complaint with insurer',
+                            'Escalate to IRDAI',
+                            'Approach consumer court'
+                        ],
+                        documents: [
+                            'Policy document',
+                            'Brochures/advertisements',
+                            'Agent communication',
+                            'Premium receipts'
+                        ],
+                        sampleScript: `Dear Insurer,\n\nThe policy [PolicyNumber] was mis-sold to me. Benefits promised were [Promises] but actual policy terms are different. I demand refund of all premiums with interest.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== AIRLINES =====
+            airlines: {
+                id: 'airlines',
+                name: 'Airlines & Air Travel',
+                icon: '✈️',
+                color: '#3b82f6',
+                authorities: [
+                    { name: 'DGCA', website: 'https://dgca.gov.in', portal: 'https://airsewa.gov.in', helpline: '011-24622495' }
+                ],
+                laws: ['DGCA Civil Aviation Requirements (CAR)', 'Consumer Protection Act 2019'],
+                issues: [
+                    {
+                        id: 'flight-delay',
+                        title: 'Flight Delay',
+                        description: 'Flight delayed',
+                        rights: [
+                            'Delay 2-6 hours: Free meals, refreshments',
+                            'Delay >6 hours: Full refund OR alternative flight',
+                            'Delay >24 hours: Compensation up to ₹10,000'
+                        ],
+                        compensation: '₹5,000 to ₹10,000 depending on delay',
+                        process: [
+                            'Get delay certificate from airline',
+                            'File complaint with airline',
+                            'File on AirSewa portal',
+                            'Escalate to DGCA'
+                        ],
+                        documents: [
+                            'Ticket/PNR copy',
+                            'Boarding pass',
+                            'Delay certificate',
+                            'Payment receipt'
+                        ],
+                        sampleScript: `Dear Airline,\n\nMy flight [FlightNo] on [Date] was delayed by [X] hours. I am entitled to compensation of ₹[Amount] as per DGCA rules.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'flight-cancellation',
+                        title: 'Flight Cancellation',
+                        description: 'Flight cancelled',
+                        rights: [
+                            'Full refund of ticket cost',
+                            'Compensation up to ₹10,000 if no notice',
+                            'Alternative flight at no extra cost'
+                        ],
+                        compensation: 'Full refund + up to ₹10,000',
+                        process: [
+                            'Ask airline for compensation in writing',
+                            'File on AirSewa portal',
+                            'Approach consumer court'
+                        ],
+                        documents: [
+                            'Ticket copy',
+                            'Cancellation email/SMS',
+                            'Payment receipt'
+                        ],
+                        sampleScript: `Dear Airline,\n\nMy flight [FlightNo] on [Date] was cancelled without proper notice. I demand full refund of ₹[Amount] plus compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'baggage-loss',
+                        title: 'Lost/Damaged Baggage',
+                        description: 'Baggage lost or damaged',
+                        rights: [
+                            'Interim relief for essentials',
+                            'Compensation up to ₹20,000 for lost baggage',
+                            'Compensation for damaged baggage'
+                        ],
+                        compensation: 'Up to ₹20,000 + actual value',
+                        process: [
+                            'File Property Irregularity Report (PIR)',
+                            'Submit claim with documents',
+                            'Escalate to DGCA'
+                        ],
+                        documents: [
+                            'Baggage tag',
+                            'PIR report',
+                            'Purchase receipts for items',
+                            'Ticket copy'
+                        ],
+                        sampleScript: `Dear Airline,\n\nMy checked baggage for flight [FlightNo] on [Date] was lost/damaged. I claim compensation of ₹[Amount] as per DGCA rules.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== TRAVEL =====
+            travel: {
+                id: 'travel',
+                name: 'Travel & Tourism',
+                icon: '🧳',
+                color: '#f59e0b',
+                authorities: [
+                    { name: 'DGCA', website: 'https://dgca.gov.in', portal: 'https://airsewa.gov.in', helpline: '011-24622495' },
+                    { name: 'National Consumer Helpline', website: 'https://consumerhelpline.gov.in', helpline: '1915' }
+                ],
+                laws: ['Consumer Protection Act 2019'],
+                issues: [
+                    {
+                        id: 'booking-error',
+                        title: 'Booking Error',
+                        description: 'System booking error',
+                        rights: [
+                            'Full refund within 7 days',
+                            'Compensation for inconvenience'
+                        ],
+                        compensation: 'Full amount + ₹500 to ₹2,000',
+                        process: [
+                            'Contact customer support',
+                            'Escalate to grievance officer',
+                            'File NCH complaint'
+                        ],
+                        documents: [
+                            'Booking confirmation',
+                            'Payment receipt',
+                            'Error screenshots',
+                            'Communication with support'
+                        ],
+                        sampleScript: `Dear [Platform],\n\nMy booking #[BookingNo] failed but amount ₹[Amount] was deducted. Please refund immediately with compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'cancellation-refund',
+                        title: 'Cancellation Refund Delay',
+                        description: 'Refund delayed after cancellation',
+                        rights: [
+                            'Refund within 7 days of cancellation',
+                            'Interest for delay beyond 7 days'
+                        ],
+                        compensation: 'Full amount + interest + up to ₹2,000',
+                        process: [
+                            'Check cancellation policy',
+                            'Contact customer support',
+                            'Escalate to grievance officer',
+                            'File NCH complaint'
+                        ],
+                        documents: [
+                            'Booking confirmation',
+                            'Cancellation confirmation',
+                            'Payment receipt',
+                            'Bank statement'
+                        ],
+                        sampleScript: `Dear [Platform],\n\nI cancelled booking #[BookingNo] on [Date]. Refund of ₹[Amount] is still pending. Please process immediately.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== ELECTRONICS =====
+            electronics: {
+                id: 'electronics',
+                name: 'Electronics & Durables',
+                icon: '📺',
+                color: '#8b5cf6',
+                authorities: [
+                    { name: 'National Consumer Helpline', website: 'https://consumerhelpline.gov.in', helpline: '1915' }
+                ],
+                laws: ['Consumer Protection Act 2019', 'Legal Metrology Act'],
+                issues: [
+                    {
+                        id: 'defective-product',
+                        title: 'Defective Product',
+                        description: 'Device malfunction',
+                        rights: [
+                            'Full refund within 30 days',
+                            'Replacement at seller cost',
+                            'Free repair during warranty'
+                        ],
+                        compensation: 'Full refund or replacement',
+                        process: [
+                            'Contact customer service',
+                            'Get service report',
+                            'Escalate to grievance officer',
+                            'File NCH complaint'
+                        ],
+                        documents: [
+                            'Purchase receipt',
+                            'Product photos/videos',
+                            'Warranty card',
+                            'Service report'
+                        ],
+                        sampleScript: `Dear [Company],\n\nThe [Product] purchased on [Date] is defective (issue). I request replacement/refund under warranty.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'service-delay',
+                        title: 'Service/Repair Delay',
+                        description: 'Repair delayed beyond promised time',
+                        rights: [
+                            'Repair within reasonable time',
+                            'Compensation for delay',
+                            'Replacement if delay >30 days'
+                        ],
+                        compensation: 'Compensation for delay + free repair',
+                        process: [
+                            'Get service request number',
+                            'Follow up regularly',
+                            'Escalate to customer care',
+                            'File NCH complaint'
+                        ],
+                        documents: [
+                            'Purchase receipt',
+                            'Service request number',
+                            'Communication logs',
+                            'Warranty document'
+                        ],
+                        sampleScript: `Dear [Company],\n\nMy product [Product] was submitted for repair on [Date] (SR: [Number]). Repair is delayed beyond promised time. Please expedite.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== FOOD DELIVERY =====
+            foodDelivery: {
+                id: 'foodDelivery',
+                name: 'Food Delivery',
+                icon: '🍔',
+                color: '#f97316',
+                authorities: [
+                    { name: 'FSSAI', website: 'https://fssai.gov.in', helpline: '1800-112-225' },
+                    { name: 'National Consumer Helpline', website: 'https://consumerhelpline.gov.in', helpline: '1915' }
+                ],
+                laws: ['FSSAI Act 2006', 'Consumer Protection Act 2019'],
+                issues: [
+                    {
+                        id: 'wrong-order',
+                        title: 'Wrong Order',
+                        description: 'Incorrect order delivered',
+                        rights: [
+                            'Full refund or correct order',
+                            'Compensation for inconvenience'
+                        ],
+                        compensation: 'Full refund + up to ₹500',
+                        process: [
+                            'Report to platform immediately',
+                            'Take photos of delivered items',
+                            'Escalate to customer support',
+                            'File NCH complaint'
+                        ],
+                        documents: [
+                            'Order confirmation',
+                            'Photos of food',
+                            'Chat logs',
+                            'Payment receipt'
+                        ],
+                        sampleScript: `Dear [Platform],\n\nMy order #[OrderNo] delivered wrong items. I demand refund/redelivery with compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'hygiene-issue',
+                        title: 'Hygiene Issue',
+                        description: 'Food safety concern',
+                        rights: [
+                            'Full refund + compensation',
+                            'Report to FSSAI for action'
+                        ],
+                        compensation: 'Full refund + up to ₹5,000',
+                        process: [
+                            'Take photos/videos',
+                            'Report to platform',
+                            'File complaint with FSSAI',
+                            'Escalate to NCH'
+                        ],
+                        documents: [
+                            'Order confirmation',
+                            'Photos of issue',
+                            'Medical report (if applicable)',
+                            'Payment receipt'
+                        ],
+                        sampleScript: `Dear [Platform],\n\nFood delivered had serious hygiene issues (see photos). I demand full refund and compensation.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== FINTECH =====
+            fintech: {
+                id: 'fintech',
+                name: 'Fintech & Digital Payments',
+                icon: '💳',
+                color: '#14b8a6',
+                authorities: [
+                    { name: 'RBI Ombudsman', website: 'https://rbi.org.in', portal: 'https://cms.rbi.org.in', helpline: '1800-123-4000' }
+                ],
+                laws: ['RBI Payment and Settlement Systems Act', 'Consumer Protection Act 2019'],
+                issues: [
+                    {
+                        id: 'failed-payment',
+                        title: 'Failed Payment',
+                        description: 'Payment deducted but failed',
+                        rights: [
+                            'Immediate reversal within 5 days',
+                            'Interest for delay beyond 5 days'
+                        ],
+                        compensation: 'Full amount + interest',
+                        process: [
+                            'Check transaction status',
+                            'Contact customer support',
+                            'Escalate to grievance officer',
+                            'Approach RBI Ombudsman'
+                        ],
+                        documents: [
+                            'Transaction screenshot',
+                            'Bank statement',
+                            'Payment receipt',
+                            'Communication logs'
+                        ],
+                        sampleScript: `Dear [Platform],\n\nPayment of ₹[Amount] failed but amount was deducted (Ref: [Ref]). Please refund immediately.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'wallet-issue',
+                        title: 'Wallet Balance Issue',
+                        description: 'Wallet balance incorrect',
+                        rights: [
+                            'Correct balance restoration',
+                            'Compensation for error'
+                        ],
+                        compensation: 'Correct amount + up to ₹1,000',
+                        process: [
+                            'Check transaction history',
+                            'Contact support',
+                            'Escalate to grievance officer',
+                            'Approach RBI Ombudsman'
+                        ],
+                        documents: [
+                            'Transaction history',
+                            'Bank statements',
+                            'Communication logs'
+                        ],
+                        sampleScript: `Dear [Platform],\n\nMy wallet balance is incorrect. Expected ₹[Expected] but showing ₹[Actual]. Please rectify with compensation.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== REAL ESTATE =====
+            realEstate: {
+                id: 'realEstate',
+                name: 'Real Estate',
+                icon: '🏗️',
+                color: '#f59e0b',
+                authorities: [
+                    { name: 'RERA', website: 'https://rera.delhi.gov.in', helpline: 'Varies by state' }
+                ],
+                laws: ['RERA Act 2016', 'Consumer Protection Act 2019'],
+                issues: [
+                    {
+                        id: 'possession-delay',
+                        title: 'Possession Delay',
+                        description: 'Housing project delayed',
+                        rights: [
+                            'Interest for every month of delay (SBI MCLR + 2%)',
+                            'Current rate: ~10-11% per year',
+                            'If delay >1 year: Full refund + interest'
+                        ],
+                        compensation: 'Interest at 10-11% per year on amount paid',
+                        process: [
+                            'Send legal notice to builder',
+                            'File complaint with State RERA',
+                            'Approach consumer court'
+                        ],
+                        documents: [
+                            'Agreement for Sale',
+                            'Payment receipts',
+                            'Possession timeline',
+                            'Correspondence with builder',
+                            'RERA registration number'
+                        ],
+                        sampleScript: `Dear Builder,\n\nPossession of my unit in [Project] was due on [Date] but is delayed by [X] months. I claim interest of ₹[Amount] as per RERA.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'poor-quality',
+                        title: 'Poor Construction Quality',
+                        description: 'Quality defects',
+                        rights: [
+                            'Rectification of defects',
+                            'Compensation for poor quality'
+                        ],
+                        compensation: 'Cost of repairs + up to ₹1,00,000',
+                        process: [
+                            'Get expert inspection report',
+                            'Send notice to builder',
+                            'File RERA complaint',
+                            'Approach consumer court'
+                        ],
+                        documents: [
+                            'Agreement for Sale',
+                            'Photos of defects',
+                            'Expert report',
+                            'Correspondence with builder'
+                        ],
+                        sampleScript: `Dear Builder,\n\nMy unit in [Project] has serious construction defects (see attached report). I demand rectification and compensation.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== FMCG (Fast Moving Consumer Goods) =====
+            fmcg: {
+                id: 'fmcg',
+                name: 'FMCG & Food Products',
+                icon: '🥫',
+                color: '#f97316',
+                authorities: [
+                    { name: 'FSSAI', website: 'https://fssai.gov.in', helpline: '1800-112-225' },
+                    { name: 'Legal Metrology', website: 'https://consumeraffairs.nic.in', helpline: '1800-11-4000' }
+                ],
+                laws: ['FSSAI Act 2006', 'Legal Metrology Act 2009', 'Consumer Protection Act 2019'],
+                issues: [
+                    {
+                        id: 'expired-product',
+                        title: 'Expired Product',
+                        description: 'Product sold after expiry date',
+                        rights: [
+                            'Full refund of purchase price',
+                            'Compensation up to ₹5,000',
+                            'Penalty on seller up to ₹25,000'
+                        ],
+                        compensation: 'Full refund + ₹1,000 to ₹5,000',
+                        process: [
+                            'Take photos of product and expiry date',
+                            'Keep bill/receipt',
+                            'Complain to seller/manufacturer',
+                            'File complaint with FSSAI',
+                            'Escalate to Consumer Helpline 1915'
+                        ],
+                        documents: [
+                            'Product photos showing expiry',
+                            'Purchase receipt',
+                            'Product packaging',
+                            'Bill/invoice'
+                        ],
+                        sampleScript: `Dear [Company],\n\nI purchased [Product] (Batch: [Batch]) on [Date] which is expired as on [ExpiryDate]. I demand full refund of ₹[Amount] and compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'foreign-object',
+                        title: 'Foreign Object in Product',
+                        description: 'Insect/plastic/foreign matter found',
+                        rights: [
+                            'Full refund + compensation',
+                            'Report to FSSAI for action',
+                            'Medical compensation if consumed'
+                        ],
+                        compensation: 'Full refund + ₹5,000 to ₹25,000',
+                        process: [
+                            'Preserve product and object',
+                            'Take clear photos/videos',
+                            'File complaint with manufacturer',
+                            'Complain to FSSAI',
+                            'Consumer court for serious cases'
+                        ],
+                        documents: [
+                            'Product with foreign object',
+                            'Purchase receipt',
+                            'Photos/videos',
+                            'Medical report (if consumed)'
+                        ],
+                        sampleScript: `Dear [Company],\n\nI found [Object] in your product [Product] purchased on [Date]. This is a serious health hazard. I demand compensation of ₹[Amount].\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'misleading-label',
+                        title: 'Misleading Label/Advertisement',
+                        description: 'False claims on packaging',
+                        rights: [
+                            'Full refund',
+                            'Compensation for misleading claims'
+                        ],
+                        compensation: 'Full refund + up to ₹5,000',
+                        process: [
+                            'Take photos of packaging',
+                            'Complain to manufacturer',
+                            'File with Legal Metrology',
+                            'Complain to ASCI',
+                            'Consumer court'
+                        ],
+                        documents: [
+                            'Product packaging',
+                            'Purchase receipt',
+                            'Advertisements (if any)',
+                            'Photos of misleading claims'
+                        ],
+                        sampleScript: `Dear [Company],\n\nYour product [Product] makes misleading claim "[Claim]" which is false. I demand refund of ₹[Amount] and compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'poor-quality',
+                        title: 'Poor Quality / Spolit Product',
+                        description: 'Product spoiled or poor quality',
+                        rights: [
+                            'Full refund',
+                            'Replacement with fresh product',
+                            'Compensation'
+                        ],
+                        compensation: 'Full refund + ₹500 to ₹2,000',
+                        process: [
+                            'Take photos/videos',
+                            'Complain to retailer/manufacturer',
+                            'Escalate to FSSAI',
+                            'File NCH complaint'
+                        ],
+                        documents: [
+                            'Product photos',
+                            'Purchase receipt',
+                            'Packaging',
+                            'Batch number'
+                        ],
+                        sampleScript: `Dear [Company],\n\nThe [Product] purchased on [Date] is spoiled/poor quality. I demand refund of ₹[Amount] and compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'overcharging',
+                        title: 'Overcharging above MRP',
+                        description: 'Charged more than MRP',
+                        rights: [
+                            'Refund of excess amount',
+                            'Compensation up to ₹5,000',
+                            'Penalty on seller'
+                        ],
+                        compensation: 'Excess amount + ₹1,000 to ₹5,000',
+                        process: [
+                            'Take photo of MRP and bill',
+                            'Complain to shop owner',
+                            'File with Legal Metrology',
+                            'Consumer court'
+                        ],
+                        documents: [
+                            'Product with MRP',
+                            'Bill showing higher price',
+                            'Payment receipt'
+                        ],
+                        sampleScript: `Dear [Shop/Seller],\n\nYou charged ₹[Charged] for [Product] whose MRP is ₹[MRP]. This is illegal. I demand refund of excess ₹[Excess] with compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'weight-shortage',
+                        title: 'Short Weight/Quantity',
+                        description: 'Less quantity than declared',
+                        rights: [
+                            'Refund for shortage',
+                            'Compensation',
+                            'Legal action'
+                        ],
+                        compensation: 'Proportionate refund + up to ₹2,000',
+                        process: [
+                            'Get product weighed',
+                            'Take photo of weighing scale',
+                            'Complain to seller',
+                            'File with Legal Metrology'
+                        ],
+                        documents: [
+                            'Product',
+                            'Weighing scale photo',
+                            'Purchase receipt',
+                            'Packaging showing declared weight'
+                        ],
+                        sampleScript: `Dear [Company],\n\n[Product] declares [X]g but actual weight is [Y]g. I demand refund for the shortage with compensation.\n\nThank you,\n[Your Name]`
+                    },
+                    {
+                        id: 'allergic-reaction',
+                        title: 'Allergic Reaction',
+                        description: 'Health issue after consumption',
+                        rights: [
+                            'Medical expenses reimbursement',
+                            'Compensation for suffering'
+                        ],
+                        compensation: 'Medical costs + ₹10,000 to ₹50,000',
+                        process: [
+                            'Seek immediate medical help',
+                            'Preserve product sample',
+                            'Get medical reports',
+                            'Complain to FSSAI',
+                            'File consumer court case'
+                        ],
+                        documents: [
+                            'Medical reports',
+                            'Hospital bills',
+                            'Product sample',
+                            'Purchase receipt'
+                        ],
+                        sampleScript: `Dear [Company],\n\nAfter consuming your product [Product] on [Date], I suffered severe allergic reaction requiring hospitalization (bills attached). I claim compensation of ₹[Amount].\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            },
+
+            // ===== GENERAL CONSUMER RIGHTS =====
+            general: {
+                id: 'general',
+                name: 'General Consumer Rights',
+                icon: '⚖️',
+                color: '#64748b',
+                authorities: [
+                    { name: 'National Consumer Helpline', website: 'https://consumerhelpline.gov.in', helpline: '1915' },
+                    { name: 'Consumer Court', website: 'https://edaakhil.nic.in', helpline: '1915' }
+                ],
+                laws: ['Consumer Protection Act 2019'],
+                issues: [
+                    {
+                        id: 'consumer-court',
+                        title: 'How to File in Consumer Court',
+                        description: 'Filing a consumer case',
+                        rights: [
+                            'File for claims up to ₹1 crore',
+                            'No lawyer needed up to ₹50 lakh',
+                            'E-filing through E-Daakhil'
+                        ],
+                        compensation: 'As per claim',
+                        process: [
+                            'Step 1: Send legal notice (15 days)',
+                            'Step 2: File on E-Daakhil portal',
+                            'Step 3: Pay nominal fees',
+                            'Step 4: Attend hearings online',
+                            'Step 5: Get order within 90 days'
+                        ],
+                        documents: [
+                            'All evidence',
+                            'Legal notice copy',
+                            'ID proof',
+                            'Address proof'
+                        ],
+                        sampleScript: 'Please visit edaakhil.nic.in to file your consumer complaint online.'
+                    },
+                    {
+                        id: 'legal-notice',
+                        title: 'How to Send Legal Notice',
+                        description: 'Sending legal notice before court',
+                        rights: [
+                            'Mandatory before consumer court',
+                            '15 days response time'
+                        ],
+                        compensation: 'As per claim',
+                        process: [
+                            'Draft notice with facts',
+                            'Send via registered post',
+                            'Keep acknowledgment',
+                            'Wait 15 days for response'
+                        ],
+                        documents: [
+                            'All evidence',
+                            'Draft notice',
+                            'Postal receipt',
+                            'Acknowledgment card'
+                        ],
+                        sampleScript: `Dear [Opponent],\n\nTake notice that I intend to file a consumer complaint against you for [Issue]. Please settle the matter within 15 days failing which I shall proceed with legal action.\n\nThank you,\n[Your Name]`
+                    }
+                ]
+            }
+        };
+
+        // Rights Display Handler
+        const display = {
+            getCategories() {
+                return Object.values(RightsDatabase).map(cat => ({
+                    id: cat.id,
+                    name: cat.name,
+                    icon: cat.icon,
+                    color: cat.color,
+                    issueCount: cat.issues.length
+                }));
+            },
+
+            getCategory(categoryId) {
+                return RightsDatabase[categoryId];
+            },
+
+            getIssue(categoryId, issueId) {
+                const category = RightsDatabase[categoryId];
+                return category?.issues.find(i => i.id === issueId);
+            },
+
+            search(query) {
+                if (!query) return [];
+                const q = query.toLowerCase();
+                const results = [];
+
+                Object.values(RightsDatabase).forEach(category => {
+                    category.issues.forEach(issue => {
+                        const matches = 
+                            issue.title.toLowerCase().includes(q) ||
+                            issue.description.toLowerCase().includes(q) ||
+                            issue.rights.some(r => r.toLowerCase().includes(q)) ||
+                            category.name.toLowerCase().includes(q) ||
+                            (issue.documents && issue.documents.some(d => d.toLowerCase().includes(q)));
+
+                        if (matches) {
+                            results.push({
+                                categoryId: category.id,
+                                categoryName: category.name,
+                                categoryIcon: category.icon,
+                                issue: issue
+                            });
+                        }
+                    });
+                });
+
+                return results.slice(0, 10);
+            },
+
+            formatRights(issue, category) {
+                return `
+                    <div class="rights-detail">
+                        <div class="detail-header">
+                            <span class="category-icon">${category.icon}</span>
+                            <h2>${issue.title}</h2>
+                        </div>
+                        
+                        <div class="authority-box">
+                            <strong>⚖️ Regulatory Authority:</strong> ${category.authorities[0].name}<br>
+                            <strong>📞 Helpline:</strong> ${category.authorities[0].helpline}<br>
+                            <strong>🌐 Portal:</strong> <a href="${category.authorities[0].portal}" target="_blank">${category.authorities[0].portal}</a>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>📋 Your Rights</h3>
+                            <ul>${issue.rights.map(r => `<li>${r}</li>`).join('')}</ul>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>💰 Compensation</h3>
+                            <p>${issue.compensation}</p>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>📝 Process</h3>
+                            <ol>${issue.process.map(p => `<li>${p}</li>`).join('')}</ol>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>📎 Documents Needed</h3>
+                            <ul>${issue.documents.map(d => `<li>${d}</li>`).join('')}</ul>
+                        </div>
+
+                        <div class="info-section">
+                            <h3>📄 Sample Complaint Script</h3>
+                            <div class="script-box">${issue.sampleScript.replace(/\n/g, '<br>')}</div>
+                            <button class="copy-btn" onclick="copyScript(this)">Copy Script</button>
+                        </div>
+
+                        <div class="action-buttons">
+                            <a href="complaint.html?category=${category.id}&issue=${issue.id}" class="btn-primary">File Complaint</a>
+                            <button class="btn-secondary" onclick="window.print()">Print Guide</button>
+                        </div>
+                    </div>
+                `;
+            }
+        };
+
+        // UI Functions
+        function showCategories() {
+            const container = document.getElementById('categoriesContainer');
+            const categories = display.getCategories();
+            
+            container.innerHTML = categories.map(cat => {
+                const category = display.getCategory(cat.id);
+                return `
+                    <div class="category-card" onclick="showCategory('${cat.id}')">
+                        <div class="category-icon">${cat.icon}</div>
+                        <div class="category-name">${cat.name}</div>
+                        <div class="issue-count">${cat.issueCount} common issues</div>
+                        <div class="issues-list">
+                            ${category.issues.slice(0, 3).map(issue => 
+                                `<div class="issue-item">• ${issue.title}</div>`
+                            ).join('')}
+                            ${category.issues.length > 3 ? '<div class="issue-item">• And more...</div>' : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.showCategory = function(categoryId) {
+            const category = display.getCategory(categoryId);
+            const container = document.getElementById('categoriesContainer');
+            const detailContainer = document.getElementById('detailContainer');
+            
+            let issuesHtml = '';
+            category.issues.forEach(issue => {
+                issuesHtml += `
+                    <div class="result-card" onclick="showIssue('${categoryId}', '${issue.id}')">
+                        <div class="result-title">${issue.title}</div>
+                        <div class="result-category">${issue.description}</div>
+                    </div>
+                `;
+            });
+            
+            detailContainer.innerHTML = `
+                <button class="back-button" onclick="hideDetail()">← Back to categories</button>
+                <div class="detail-header">
+                    <span class="category-icon">${category.icon}</span>
+                    <h2>${category.name}</h2>
+                </div>
+                <div class="authority-box">
+                    <strong>⚖️ Regulatory Authority:</strong> ${category.authorities[0].name}<br>
+                    <strong>📞 Helpline:</strong> ${category.authorities[0].helpline}<br>
+                    <strong>🌐 Portal:</strong> <a href="${category.authorities[0].portal}" target="_blank">${category.authorities[0].portal}</a>
+                </div>
+                <h3>Select an issue:</h3>
+                <div class="results-grid">${issuesHtml}</div>
+            `;
+            
+            container.classList.add('hidden');
+            detailContainer.classList.remove('hidden');
+        };
+
+        window.showIssue = function(categoryId, issueId) {
+            const category = display.getCategory(categoryId);
+            const issue = display.getIssue(categoryId, issueId);
+            const detailContainer = document.getElementById('detailContainer');
+            
+            detailContainer.innerHTML = `
+                <button class="back-button" onclick="showCategory('${categoryId}')">← Back to ${category.name}</button>
+                ${display.formatRights(issue, category)}
+            `;
+        };
+
+        window.hideDetail = function() {
+            document.getElementById('categoriesContainer').classList.remove('hidden');
+            document.getElementById('detailContainer').classList.add('hidden');
+        };
+
+        window.copyScript = function(btn) {
+            const script = btn.previousElementSibling.innerText;
+            navigator.clipboard.writeText(script).then(() => {
+                alert('Script copied to clipboard!');
+            });
+        };
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value;
+            const container = document.getElementById('categoriesContainer');
+            const detailContainer = document.getElementById('detailContainer');
+            
+            if (query.length < 2) {
+                showCategories();
+                detailContainer.classList.add('hidden');
+                return;
+            }
+            
+            const results = display.search(query);
+            
+            if (results.length > 0) {
+                container.innerHTML = results.map(r => `
+                    <div class="result-card" onclick="showIssue('${r.categoryId}', '${r.issue.id}')">
+                        <div class="result-title">${r.categoryIcon} ${r.issue.title}</div>
+                        <div class="result-category">${r.categoryName}</div>
+                    </div>
+                `).join('');
+                detailContainer.classList.add('hidden');
+            } else {
+                container.innerHTML = '<p style="text-align: center; color: #64748b;">No results found. Try different keywords.</p>';
+            }
+        });
+
+        // Initialize
+        showCategories();
+    </script>
+</body>
+</html>
