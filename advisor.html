@@ -186,6 +186,81 @@
             font-size: 0.8rem;
             margin: 40px 0;
         }
+    
+        .ai-message {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 20px 20px 20px 4px;
+            margin-bottom: 16px;
+            border-left: 4px solid #2563eb;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .ai-message p {
+            margin-bottom: 12px;
+        }
+        .ai-message strong {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .ai-message ul, .ai-message ol {
+            margin-left: 24px;
+            margin-bottom: 12px;
+        }
+        .ai-message li {
+            margin-bottom: 4px;
+        }
+        .ai-message h1, .ai-message h2, .ai-message h3 {
+            color: #0f172a;
+            margin: 16px 0 8px;
+        }
+        .ai-message h3 {
+            font-size: 1.1rem;
+        }
+    
+        .ai-message {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 20px 20px 20px 4px;
+            margin-bottom: 16px;
+            border-left: 4px solid #2563eb;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .ai-message p {
+            margin-bottom: 12px;
+        }
+        .ai-message strong {
+            color: #2563eb;
+            font-weight: 600;
+            display: block;
+            margin: 16px 0 8px;
+        }
+        .ai-message ul, .ai-message ol {
+            margin-left: 24px;
+            margin-bottom: 12px;
+        }
+        .ai-message li {
+            margin-bottom: 4px;
+        }
+        .ai-message h3 {
+            color: #0f172a;
+            margin: 16px 0 8px;
+            font-size: 1.1rem;
+        }
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 16px 20px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 16px;
+        }
     </style>
 
     <script type="module" src="/js/openai-service.js"></script>
@@ -222,6 +297,8 @@
             if (indicator) indicator.remove();
         }
 
+        
+        
         async function sendMessage() {
             const input = document.getElementById('userInput');
             const question = input.value.trim();
@@ -235,8 +312,24 @@
             try {
                 const result = await aiService.getAdvice(question, 'general');
                 removeTypingIndicator();
-                addMessage('ai', result.advice, true);
+                
+                // Format the response with proper HTML
+                let formatted = result.advice
+                    .replace(/\n\n/g, '</p><p>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/•/g, '<br>•');
+                
+                addMessage('ai', '<p>' + formatted + '</p>', true);
             } catch (error) {
+                removeTypingIndicator();
+                addMessage('ai', '<p>Sorry, I encountered an error. Please try again.</p>', true);
+            }
+        } catch (error) {
+                removeTypingIndicator();
+                addMessage('ai', 'Sorry, I encountered an error. Please try again.', false);
+            }
+        } catch (error) {
                 removeTypingIndicator();
                 addMessage('ai', 'Sorry, I encountered an error. Please try again.', false);
             }

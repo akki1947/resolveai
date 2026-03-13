@@ -240,18 +240,39 @@
         </div>
     </div>
 
-    <script>
-        function addMessage(sender, text) {
-            const chat = document.getElementById('chatArea');
+    
+
+    <script type="module">
+        import { aiService } from '/js/openai-service.js';
+
+        function addMessage(sender, text, isHTML = false) {
+            const history = document.getElementById('chatHistory');
             const msgDiv = document.createElement('div');
             msgDiv.className = sender === 'user' ? 'user-message' : 'ai-message';
-            if (sender === 'ai') {
+            
+            if (isHTML) {
                 msgDiv.innerHTML = text;
             } else {
                 msgDiv.textContent = text;
             }
-            chat.appendChild(msgDiv);
-            chat.scrollTop = chat.scrollHeight;
+            
+            history.appendChild(msgDiv);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const history = document.getElementById('chatHistory');
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'typingIndicator';
+            indicator.innerHTML = '<span></span><span></span><span></span>';
+            history.appendChild(indicator);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
         }
 
         async function sendMessage() {
@@ -262,33 +283,22 @@
             addMessage('user', query);
             input.value = '';
 
-            addMessage('ai', '🤔 Thinking...');
+            showTypingIndicator();
 
             try {
-                const response = await fetch('/api/negotiate', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query })
-                });
-                const data = await response.json();
-
-                const chat = document.getElementById('chatArea');
-                chat.removeChild(chat.lastChild);
-
-                if (response.ok) {
-                    const advice = `
-                        <p><strong>💡 Suggested Compensation:</strong> ${data.compensation}</p>
-                        <p><strong>⚖️ Legal Basis:</strong> ${data.legal}</p>
-                        <p><strong>📋 Next Steps:</strong> ${data.nextSteps}</p>
-                    `;
-                    addMessage('ai', advice);
-                } else {
-                    addMessage('ai', `❌ Error: ${data.error || 'Something went wrong.'}`);
-                }
+                const result = await aiService.getAdvice(query, 'negotiation');
+                removeTypingIndicator();
+                
+                // Format the response nicely
+                let formatted = result.advice
+                    .replace(/\n\n/g, '</p><p>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                addMessage('ai', '<p>' + formatted + '</p>', true);
             } catch (error) {
-                const chat = document.getElementById('chatArea');
-                chat.removeChild(chat.lastChild);
-                addMessage('ai', '❌ Sorry, I encountered an error. Please try again.');
+                removeTypingIndicator();
+                addMessage('ai', '<p>Sorry, I encountered an error. Please try again.</p>', true);
             }
         }
 
@@ -296,6 +306,9 @@
             document.getElementById('userInput').value = text;
             sendMessage();
         }
+
+        window.sendMessage = sendMessage;
+        window.setExample = setExample;
     </script>
 </body>
 </html>
