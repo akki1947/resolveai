@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Consumer Rights Advisor – ResolveAI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .home-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+        .subhead {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        .chat-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .chat-history {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .user-message {
+            background: #2563eb;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 20px 20px 4px 20px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        .ai-message {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 20px 20px 20px 4px;
+            margin-bottom: 16px;
+            border-left: 4px solid #2563eb;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            color: #1e293b;
+        }
+        .ai-message strong {
+            color: #2563eb;
+            display: block;
+            margin: 16px 0 8px;
+            font-size: 1.1rem;
+        }
+        .ai-message ul, .ai-message ol {
+            margin-left: 24px;
+            margin-bottom: 12px;
+        }
+        .ai-message li {
+            margin-bottom: 4px;
+        }
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .input-area input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        .input-area button {
+            padding: 14px 28px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .input-area button:hover {
+            background: #1d4ed8;
+        }
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .example {
+            background: #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .example:hover {
+            background: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 16px 20px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            width: fit-content;
+            margin-bottom: 16px;
+        }
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #94a3b8;
+            border-radius: 50%;
+            animation: typing 1s infinite ease-in-out;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+    </style>
+        <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <a href="index.html" class="home-link">← Back to Home</a>
+    
+    <div class="container">
+        <h1>AI Consumer Rights Advisor</h1>
+        <div class="subhead">Know your rights before you fight – 100% Free</div>
+        
+        <div class="chat-box">
+            <div class="chat-history" id="chatHistory">
+                <div class="ai-message">
+                    <strong>👋 Welcome to Consumer Rights Advisor!</strong>
+                    <p>I can help you with:</p>
+                    <ul>
+                        <li><strong>✈️ Flight issues</strong> - Cancellations, delays, refunds</li>
+                        <li><strong>🏦 Banking</strong> - Fraud, unauthorized transactions</li>
+                        <li><strong>🛒 E-commerce</strong> - Refunds, returns, defective products</li>
+                        <li><strong>🏗️ Real Estate</strong> - Builder delays, RERA complaints</li>
+                        <li><strong>📱 Telecom</strong> - Network issues, billing problems</li>
+                        <li><strong>🛡️ Insurance</strong> - Claim rejections, delays</li>
+                        <li><strong>🔥 LPG/Gas</strong> - Delivery issues, overcharging</li>
+                    </ul>
+                    <p><strong>Just type your question below!</strong></p>
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="e.g., Can airline deny refund?">
+                <button onclick="sendMessage()">Ask Advisor</button>
+            </div>
+            
+            <div class="examples">
+                <span class="example" onclick="setExample('Can airline deny refund for cancelled flight?')">✈️ Airline refund</span>
+                <span class="example" onclick="setExample('Bank fraud transaction of ₹50,000, what to do?')">🏦 Bank fraud</span>
+                <span class="example" onclick="setExample('Amazon not refunding ₹10,000 for 30 days')">🛒 Amazon refund</span>
+                <span class="example" onclick="setExample('Builder possession delayed by 2 years')">🏗️ Builder delay</span>
+                <span class="example" onclick="setExample('Airtel network problem for 3 days')">📱 Telecom</span>
+                <span class="example" onclick="setExample('LPG cylinder not delivered for 5 days')">🔥 LPG issue</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>⚡ 100% Free • No API keys • Your data stays private</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { aiService } from '/js/zero-ai-service.js';
+
+        function addMessage(sender, text) {
+            const history = document.getElementById('chatHistory');
+            const div = document.createElement('div');
+            div.className = sender === 'user' ? 'user-message' : 'ai-message';
+            
+            // Convert markdown-style bold to HTML
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // Convert newlines to <br>
+            formattedText = formattedText.replace(/\n/g, '<br>');
+            
+            div.innerHTML = formattedText;
+            history.appendChild(div);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        function showTyping() {
+            const history = document.getElementById('chatHistory');
+            const div = document.createElement('div');
+            div.className = 'typing-indicator';
+            div.id = 'typingIndicator';
+            div.innerHTML = '<span></span><span></span><span></span>';
+            history.appendChild(div);
+            history.scrollTop = history.scrollHeight;
+        }
+
+        function removeTyping() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        window.sendMessage = function() {
+            const input = document.getElementById('userInput');
+            const question = input.value.trim();
+            if (!question) {
+                alert('Please enter a question');
+                return;
+            }
+
+            addMessage('user', question);
+            input.value = '';
+
+            showTyping();
+
+            setTimeout(() => {
+                removeTyping();
+                const result = aiService.getAdvice(question);
+                addMessage('ai', result.advice);
+            }, 800);
+        };
+
+        window.setExample = function(text) {
+            document.getElementById('userInput').value = text;
+            sendMessage();
+        };
+    </script>
+</body>
+</html>

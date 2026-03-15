@@ -3,51 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Consumer Rights Advisor – ResolveAI</title>
+    <title>AI Advisor – ResolveAI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/components.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: #f8fafc;
-            padding: 20px;
+            color: #1e293b;
             min-height: 100vh;
         }
         .home-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #2563eb;
-            text-decoration: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 40px;
             font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #2563eb;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            z-index: 100;
         }
         .home-link:hover {
-            text-decoration: underline;
+            background: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            margin-bottom: 24px;
+        }
+        .header-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #0f172a;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #2563eb;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .nav-links a {
+            color: #475569;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
         }
         .container {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
+            padding: 20px;
         }
-        h1 {
+        .advisor-header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 32px;
+        }
+        .advisor-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
             color: #0f172a;
         }
-        .subhead {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 30px;
+        .advisor-header h1 span {
+            color: #2563eb;
+        }
+        .advisor-header .tagline {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-top: 8px;
         }
         .chat-box {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 24px;
         }
         .chat-history {
             height: 400px;
             overflow-y: auto;
             padding: 20px;
             background: #f8fafc;
-            border-radius: 8px;
+            border-radius: 24px;
             margin-bottom: 20px;
         }
         .user-message {
@@ -58,58 +128,48 @@
             max-width: 80%;
             margin-left: auto;
             margin-bottom: 16px;
-            line-height: 1.5;
         }
         .ai-message {
             background: #f1f5f9;
-            padding: 20px;
+            color: #1e293b;
+            padding: 16px 20px;
             border-radius: 20px 20px 20px 4px;
             margin-bottom: 16px;
             border-left: 4px solid #2563eb;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            color: #1e293b;
         }
-        .ai-message strong {
-            color: #2563eb;
-            display: block;
-            margin: 16px 0 8px;
-            font-size: 1.1rem;
+        .ai-message p {
+            margin-bottom: 8px;
         }
-        .ai-message ul, .ai-message ol {
-            margin-left: 24px;
-            margin-bottom: 12px;
-        }
-        .ai-message li {
-            margin-bottom: 4px;
+        .ai-message ul {
+            margin-left: 20px;
+            margin-bottom: 8px;
         }
         .input-area {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 12px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
         }
         .input-area input {
             flex: 1;
-            padding: 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 14px 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 40px;
+            font-size: 1rem;
             outline: none;
-            transition: border 0.2s;
         }
         .input-area input:focus {
             border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
         }
         .input-area button {
-            padding: 14px 28px;
             background: #2563eb;
             color: white;
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
+            padding: 14px 28px;
+            border-radius: 40px;
             font-weight: 600;
+            cursor: pointer;
             transition: background 0.2s;
         }
         .input-area button:hover {
@@ -118,29 +178,35 @@
         .examples {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 16px;
+            justify-content: center;
         }
-        .example {
+        .examples span {
             background: #e2e8f0;
+            color: #334155;
             padding: 8px 16px;
             border-radius: 40px;
+            font-size: 0.9rem;
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
+            transition: background 0.2s;
         }
-        .example:hover {
+        .examples span:hover {
             background: #cbd5e1;
-            transform: translateY(-2px);
+        }
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin: 40px 0;
         }
         .typing-indicator {
             display: flex;
             gap: 4px;
-            padding: 16px 20px;
+            padding: 12px 16px;
             background: #f1f5f9;
             border-radius: 20px;
             width: fit-content;
-            margin-bottom: 16px;
         }
         .typing-indicator span {
             width: 8px;
@@ -155,117 +221,179 @@
             0%, 60%, 100% { transform: translateY(0); }
             30% { transform: translateY(-10px); }
         }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
     </style>
-        <link rel="stylesheet" href="css/components.css">
 </head>
 <body>
     <a href="index.html" class="home-link">← Back to Home</a>
-    
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">Resolve<span>AI</span></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="advisor.html">AI Advisor</a>
+                <a href="negotiation.html">AI Negotiator</a>
+                <a href="knowledge.html">Guide</a>
+                <a href="emergency.html">Emergency</a>
+                <a href="rights-guide.html">📚 Rights Guide</a>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
-        <h1>AI Consumer Rights Advisor</h1>
-        <div class="subhead">Know your rights before you fight – 100% Free</div>
-        
+        <div class="advisor-header">
+            <h1>AI Consumer <span>Rights Advisor</span></h1>
+            <div class="tagline">Know your rights before you fight.</div>
+        </div>
+
         <div class="chat-box">
             <div class="chat-history" id="chatHistory">
                 <div class="ai-message">
-                    <strong>👋 Welcome to Consumer Rights Advisor!</strong>
-                    <p>I can help you with:</p>
+                    <p>👋 Hi! I'm your AI Rights Advisor. Ask me anything about consumer rights, for example:</p>
                     <ul>
-                        <li><strong>✈️ Flight issues</strong> - Cancellations, delays, refunds</li>
-                        <li><strong>🏦 Banking</strong> - Fraud, unauthorized transactions</li>
-                        <li><strong>🛒 E-commerce</strong> - Refunds, returns, defective products</li>
-                        <li><strong>🏗️ Real Estate</strong> - Builder delays, RERA complaints</li>
-                        <li><strong>📱 Telecom</strong> - Network issues, billing problems</li>
-                        <li><strong>🛡️ Insurance</strong> - Claim rejections, delays</li>
-                        <li><strong>🔥 LPG/Gas</strong> - Delivery issues, overcharging</li>
+                        <li>Can airline deny refund?</li>
+                        <li>Bank charged wrong amount</li>
+                        <li>Amazon not refunding</li>
+                        <li>Builder possession delayed</li>
                     </ul>
-                    <p><strong>Just type your question below!</strong></p>
                 </div>
             </div>
-            
+
             <div class="input-area">
-                <input type="text" id="userInput" placeholder="e.g., Can airline deny refund?">
-                <button onclick="sendMessage()">Ask Advisor</button>
+                <input type="text" id="userInput" placeholder="Type your question..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()">Ask</button>
             </div>
-            
+
             <div class="examples">
-                <span class="example" onclick="setExample('Can airline deny refund for cancelled flight?')">✈️ Airline refund</span>
-                <span class="example" onclick="setExample('Bank fraud transaction of ₹50,000, what to do?')">🏦 Bank fraud</span>
-                <span class="example" onclick="setExample('Amazon not refunding ₹10,000 for 30 days')">🛒 Amazon refund</span>
-                <span class="example" onclick="setExample('Builder possession delayed by 2 years')">🏗️ Builder delay</span>
-                <span class="example" onclick="setExample('Airtel network problem for 3 days')">📱 Telecom</span>
-                <span class="example" onclick="setExample('LPG cylinder not delivered for 5 days')">🔥 LPG issue</span>
+                <span onclick="setExample('Can airline deny refund?')">✈️ Airline refund</span>
+                <span onclick="setExample('Bank fraud')">🏦 Bank fraud</span>
+                <span onclick="setExample('Amazon not refunding')">🛒 Amazon refund</span>
+                <span onclick="setExample('Builder possession delay')">🏗️ Builder delay</span>
             </div>
         </div>
-        
+
         <div class="footer">
-            <p>⚡ 100% Free • No API keys • Your data stays private</p>
+            <p>This is an AI advisory tool. Responses are for guidance only.</p>
         </div>
     </div>
 
-    <script type="module">
-        import { aiService } from '/js/zero-ai-service.js';
-
-        function addMessage(sender, text) {
+    <script>
+        function addMessage(sender, text, isHTML = false) {
             const history = document.getElementById('chatHistory');
-            const div = document.createElement('div');
-            div.className = sender === 'user' ? 'user-message' : 'ai-message';
-            
-            // Convert markdown-style bold to HTML
-            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            // Convert newlines to <br>
-            formattedText = formattedText.replace(/\n/g, '<br>');
-            
-            div.innerHTML = formattedText;
-            history.appendChild(div);
+            const msgDiv = document.createElement('div');
+            msgDiv.className = sender === 'user' ? 'user-message' : 'ai-message';
+            if (isHTML) {
+                msgDiv.innerHTML = text;
+            } else {
+                msgDiv.textContent = text;
+            }
+            history.appendChild(msgDiv);
             history.scrollTop = history.scrollHeight;
         }
 
-        function showTyping() {
+        function showTypingIndicator() {
             const history = document.getElementById('chatHistory');
-            const div = document.createElement('div');
-            div.className = 'typing-indicator';
-            div.id = 'typingIndicator';
-            div.innerHTML = '<span></span><span></span><span></span>';
-            history.appendChild(div);
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'typingIndicator';
+            indicator.innerHTML = '<span></span><span></span><span></span>';
+            history.appendChild(indicator);
             history.scrollTop = history.scrollHeight;
         }
 
-        function removeTyping() {
+        function removeTypingIndicator() {
             const indicator = document.getElementById('typingIndicator');
             if (indicator) indicator.remove();
         }
 
-        window.sendMessage = function() {
+        function sendMessage() {
             const input = document.getElementById('userInput');
             const question = input.value.trim();
-            if (!question) {
-                alert('Please enter a question');
-                return;
-            }
+            if (!question) return;
 
             addMessage('user', question);
             input.value = '';
 
-            showTyping();
+            showTypingIndicator();
 
             setTimeout(() => {
-                removeTyping();
-                const result = aiService.getAdvice(question);
-                addMessage('ai', result.advice);
-            }, 800);
-        };
+                removeTypingIndicator();
+                const answer = getAIResponse(question);
+                addMessage('ai', answer, true);
+            }, 1000);
+        }
 
-        window.setExample = function(text) {
+        function setExample(text) {
             document.getElementById('userInput').value = text;
             sendMessage();
-        };
+        }
+
+        function getAIResponse(question) {
+            const q = question.toLowerCase();
+
+            if (q.includes('airline') || q.includes('flight') || q.includes('dgca') || q.includes('cancellation') || q.includes('delay')) {
+                return `
+                    <p><strong>✈️ Flight Cancellation / Delay</strong></p>
+                    <p><strong>Consumer Law:</strong> DGCA Civil Aviation Requirements (CAR) Section 3, Series M, Part IV</p>
+                    <p><strong>Compensation Rules:</strong></p>
+                    <ul>
+                        <li>Flight delay > 2 hours: meals/refreshments</li>
+                        <li>Delay > 6 hours: refund or alternative flight</li>
+                        <li>Cancellation without notice: compensation up to ₹10,000 depending on delay</li>
+                    </ul>
+                    <p><strong>Next Action:</strong> First file a complaint with the airline. If not resolved in 15 days, escalate to DGCA via <a href="https://airsewa.gov.in" target="_blank">AirSewa</a>.</p>
+                `;
+            }
+
+            if (q.includes('bank') || q.includes('fraud') || q.includes('sbi') || q.includes('hdfc') || q.includes('transaction')) {
+                return `
+                    <p><strong>🏦 Banking / Fraud</strong></p>
+                    <p><strong>Consumer Law:</strong> RBI’s Circular on Limiting Liability of Customers in Unauthorised Transactions (2017)</p>
+                    <p><strong>Compensation Rules:</strong> If fraud reported within 3 days, zero liability. After 3 days, limited liability up to ₹25,000 (subject to terms).</p>
+                    <p><strong>Next Action:</strong> Immediately report to bank's customer care. If not resolved within 30 days, file complaint with <a href="https://cms.rbi.org.in" target="_blank">RBI Ombudsman</a>. Also file cyber complaint at <a href="https://cybercrime.gov.in" target="_blank">cybercrime.gov.in</a> if fraud.</p>
+                `;
+            }
+
+            if (q.includes('amazon') || q.includes('flipkart') || q.includes('refund') || q.includes('order') || q.includes('delivery') || q.includes('return')) {
+                return `
+                    <p><strong>🛒 E‑Commerce / Refund</strong></p>
+                    <p><strong>Consumer Law:</strong> Consumer Protection Act 2019, Section 2(9) – unfair trade practice; Right to seek redressal.</p>
+                    <p><strong>Compensation Rules:</strong> You are entitled to a full refund if the product is defective, not delivered, or not as described. Sellers must refund within 30 days of return.</p>
+                    <p><strong>Next Action:</strong> Escalate to the platform's Grievance Officer (details in their legal section). If no response in 7 days, file on <a href="https://consumerhelpline.gov.in" target="_blank">National Consumer Helpline</a> (1915) or approach Consumer Court.</p>
+                `;
+            }
+
+            if (q.includes('builder') || q.includes('rera') || q.includes('possession') || q.includes('flat') || q.includes('apartment')) {
+                return `
+                    <p><strong>🏗️ Real Estate / Builder Delay</strong></p>
+                    <p><strong>Consumer Law:</strong> RERA Act 2016 – builder must pay monthly interest for delay (same as EMI interest).</p>
+                    <p><strong>Compensation Rules:</strong> You are entitled to interest for every month of delay. If delay > 1 year, you can withdraw from project and get full refund with interest.</p>
+                    <p><strong>Next Action:</strong> File a complaint with the state RERA authority (e.g., <a href="https://rera.delhi.gov.in" target="_blank">Delhi RERA</a>). You can also file in Consumer Court.</p>
+                `;
+            }
+
+            if (q.includes('airtel') || q.includes('jio') || q.includes('vi') || q.includes('network') || q.includes('mobile') || q.includes('telecom')) {
+                return `
+                    <p><strong>📱 Telecom / Network</strong></p>
+                    <p><strong>Consumer Law:</strong> TRAI’s Standards of Quality of Service (2009).</p>
+                    <p><strong>Compensation Rules:</strong> For call drops, you can claim compensation per dropped call (varies by plan). For billing errors, full refund with interest.</p>
+                    <p><strong>Next Action:</strong> First contact customer care. If not resolved in 15 days, escalate to the Nodal Officer. Then file on <a href="https://www.tccms.trai.gov.in" target="_blank">TRAI portal</a>.</p>
+                `;
+            }
+
+            return `
+                <p><strong>🤖 I'm not sure about that specific issue.</strong></p>
+                <p>Try asking about:</p>
+                <ul>
+                    <li>Flight delay / cancellation</li>
+                    <li>Bank fraud / wrong deduction</li>
+                    <li>Amazon / Flipkart refund</li>
+                    <li>Builder / RERA delay</li>
+                    <li>Airtel / Jio network issues</li>
+                </ul>
+                <p>Or use our <a href="search.html">Search</a> to find the right authority.</p>
+            `;
+        }
     </script>
 </body>
 </html>
