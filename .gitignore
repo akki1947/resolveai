@@ -1,0 +1,29 @@
+# Check if .gitignore exists, add environment rules
+if (Test-Path .gitignore) {
+    Add-Content -Path .gitignore -Value "`n# Environment variables`n.env`n.env.local`n.env.development`n.env.production"
+} else {
+    @'
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.next/
+.vercel
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+'@ | Set-Content -Path .gitignore -Encoding UTF8
+}
+
+Write-Host "✅ Created/Updated .gitignore" -ForegroundColor Green
